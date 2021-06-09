@@ -5,6 +5,8 @@
  */
 package buffetgo;
 
+import LoginView.FormLogin;
+
 /**
  *
  * @author DangT
@@ -16,6 +18,7 @@ public class BuffetGO {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new FormLogin().setVisible(true);
     }
     
 }
