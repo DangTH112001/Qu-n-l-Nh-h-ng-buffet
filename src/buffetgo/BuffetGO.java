@@ -17,8 +17,8 @@ public class BuffetGO {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        new FormLogin().setVisible(true);
+        FormLogin form = new FormLogin();
+        form.setVisible(true);
     }
     
 }
