@@ -259,7 +259,13 @@ public class Home extends javax.swing.JFrame {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
-            Table_Info.setModel(new DefaultTableModel(data, ColumnName));
+            Table_Info.setModel(new DefaultTableModel(data, ColumnName) { 
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            });
+            
         }
     }//GEN-LAST:event_Label_ComboMouseClicked
 
