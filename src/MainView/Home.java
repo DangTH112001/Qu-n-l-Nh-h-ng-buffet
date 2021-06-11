@@ -5,17 +5,47 @@
  */
 package MainView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Phan Hau
  */
 public class Home extends javax.swing.JFrame {
 
+    private Connection connection;
+    private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
+    private String UserName = "BuffetGO";
+    private String Password = "123";
+    private int Tag = 0;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        switchState(false);
+        getConn();
+    }
+    
+    private void getConn() {
+        try {
+            connection = DriverManager.getConnection(URL, UserName, Password);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void switchState(boolean state) {
+        ScrollPane_Info.setVisible(state);
+        Panel_Function.setVisible(state);
     }
 
     /**
@@ -84,6 +114,11 @@ public class Home extends javax.swing.JFrame {
         Label_Combo.setForeground(new java.awt.Color(255, 255, 255));
         Label_Combo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Label_Combo.setText("Combo Manager");
+        Label_Combo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_ComboMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
@@ -154,7 +189,6 @@ public class Home extends javax.swing.JFrame {
 
         Button_Update.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         Button_Update.setText("Update");
-        Button_Update.setActionCommand("Update");
         Button_Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_UpdateActionPerformed(evt);
@@ -196,6 +230,57 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Button_RemoveActionPerformed
 
+    private void Label_ComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ComboMouseClicked
+        Tag = 2;
+        switchState(true);
+        String query = "select * from COMBO";
+        String ColumnName[] = {"Ma combo", "Ten combo", "Gia", "So luong"};
+        
+        int Col = ColumnName.length;
+        int Row = getSize("COMBO");
+        
+        Object[][] data = new Object[Row][Col];
+        
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            int i = 0;
+            while (rs.next()) {
+                String ID = rs.getString("MACB");
+                String Name = rs.getString("TENCB");
+                String Price = rs.getString("GIA");
+                int Quant = rs.getInt("SONGUOI");
+                
+                data[i++] = new Object[] {ID, Name, Price, Quant};
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            Table_Info.setModel(new DefaultTableModel(data, ColumnName));
+        }
+    }//GEN-LAST:event_Label_ComboMouseClicked
+
+    private int getSize(String Table) {
+        int size = 0;
+        String query = "select count(*) from " + Table;
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            while (rs.next()) {
+                size = rs.getInt(1);
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        
+        return size;
+    }
     /**
      * @param args the command line arguments
      */
@@ -230,6 +315,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_Add;
