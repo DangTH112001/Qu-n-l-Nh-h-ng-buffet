@@ -5,6 +5,8 @@
  */
 package MainView;
 
+import addForm.*;
+import java.awt.Component;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +15,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -25,7 +34,9 @@ public class Home extends javax.swing.JFrame {
     private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
     private String UserName = "BuffetGO";
     private String Password = "123";
-    private int Tag = 0;
+    private int TagID = 0;
+    private String[] Table = {"", "", "KHACHHANG", "COMBO", "MONKHAC", "CA", "GIAMGIA"};
+    private String[] Ma = {"", "", "MAKH", "MACB", "MAMK", "MACA", "MAGIAMGIA"};
     /**
      * Creates new form Home
      */
@@ -46,6 +57,9 @@ public class Home extends javax.swing.JFrame {
     private void switchState(boolean state) {
         ScrollPane_Info.setVisible(state);
         Panel_Function.setVisible(state);
+        Icon_Search.setVisible(state);
+        TextField_SearchContent.setText("");
+        TextField_SearchContent.setVisible(state);
     }
 
     /**
@@ -65,12 +79,16 @@ public class Home extends javax.swing.JFrame {
         Label_Shift = new javax.swing.JLabel();
         Label_Food = new javax.swing.JLabel();
         Label_Combo = new javax.swing.JLabel();
+        Label_Gift = new javax.swing.JLabel();
+        Label_Customer = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
         Button_Add = new javax.swing.JButton();
         Button_Remove = new javax.swing.JButton();
         Button_Update = new javax.swing.JButton();
+        Icon_Search = new javax.swing.JLabel();
+        TextField_SearchContent = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -88,7 +106,12 @@ public class Home extends javax.swing.JFrame {
         Label_Discount.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Discount.setForeground(new java.awt.Color(255, 255, 255));
         Label_Discount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Discount.setText("Discount Manager");
+        Label_Discount.setText("Customer Manager");
+        Label_Discount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_DiscountMouseClicked(evt);
+            }
+        });
 
         Label_Total.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Total.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,6 +127,11 @@ public class Home extends javax.swing.JFrame {
         Label_Shift.setForeground(new java.awt.Color(255, 255, 255));
         Label_Shift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Label_Shift.setText("Shift Manager");
+        Label_Shift.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_ShiftMouseClicked(evt);
+            }
+        });
 
         Label_Food.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Food.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,6 +145,26 @@ public class Home extends javax.swing.JFrame {
         Label_Combo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_ComboMouseClicked(evt);
+            }
+        });
+
+        Label_Gift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Gift.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Gift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Gift.setText("Discount Manager");
+        Label_Gift.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_GiftMouseClicked(evt);
+            }
+        });
+
+        Label_Customer.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Customer.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Customer.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Customer.setText("Gift Manager");
+        Label_Customer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_CustomerMouseClicked(evt);
             }
         });
 
@@ -136,7 +184,9 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                        .addComponent(Label_Discount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Label_Discount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_TabsLayout.setVerticalGroup(
@@ -154,9 +204,13 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(Label_Food, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(417, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
 
         getContentPane().add(Panel_Tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 770));
@@ -174,13 +228,23 @@ public class Home extends javax.swing.JFrame {
         ));
         ScrollPane_Info.setViewportView(Table_Info);
 
-        getContentPane().add(ScrollPane_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 1050, 720));
+        getContentPane().add(ScrollPane_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 1050, 670));
 
         Button_Add.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         Button_Add.setText("Add");
+        Button_Add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_AddMouseClicked(evt);
+            }
+        });
 
         Button_Remove.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         Button_Remove.setText("Remove");
+        Button_Remove.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_RemoveMouseClicked(evt);
+            }
+        });
         Button_Remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_RemoveActionPerformed(evt);
@@ -214,10 +278,30 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(Button_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Button_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(Panel_Function, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 20, 190, 720));
+
+        Icon_Search.setBackground(new java.awt.Color(255, 255, 255));
+        Icon_Search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Icon_Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_search_32px.png"))); // NOI18N
+        Icon_Search.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(Icon_Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 50, 32));
+
+        TextField_SearchContent.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        TextField_SearchContent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        TextField_SearchContent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextField_SearchContentActionPerformed(evt);
+            }
+        });
+        TextField_SearchContent.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TextField_SearchContentKeyTyped(evt);
+            }
+        });
+        getContentPane().add(TextField_SearchContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1000, 32));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -227,14 +311,14 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_UpdateActionPerformed
 
     private void Button_RemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_RemoveActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_Button_RemoveActionPerformed
 
     private void Label_ComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ComboMouseClicked
-        Tag = 2;
+        TagID = 3;
         switchState(true);
         String query = "select * from COMBO";
-        String ColumnName[] = {"Ma combo", "Ten combo", "Gia", "So luong"};
+        String ColumnName[] = {"Mã combo", "Tên combo", "Giá", "Số lượng"};
         
         int Col = ColumnName.length;
         int Row = getSize("COMBO");
@@ -264,10 +348,170 @@ public class Home extends javax.swing.JFrame {
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
+                
             });
             
         }
     }//GEN-LAST:event_Label_ComboMouseClicked
+
+    private void Button_RemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_RemoveMouseClicked
+        int RowID = Table_Info.getSelectedRow();
+        
+        if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (RowID >= 0) {
+                    String ID = (String) Table_Info.getValueAt(RowID, 0);
+                    String query = "delete from " + Table[TagID] + " where " + Ma[TagID] + "= ?";
+
+                    try {
+                        PreparedStatement p_statement = connection.prepareStatement(query);
+                        p_statement.setString(1, ID);
+
+                        p_statement.executeUpdate();
+                        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+                        model.removeRow(RowID);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }    
+                }
+            }    
+    }//GEN-LAST:event_Button_RemoveMouseClicked
+
+    private void TextField_SearchContentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_SearchContentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextField_SearchContentActionPerformed
+
+    private void TextField_SearchContentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextField_SearchContentKeyTyped
+        Table_Info.setAutoCreateRowSorter(true);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(Table_Info.getModel());
+        Table_Info.setRowSorter(sorter);
+        
+        TextField_SearchContent.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                String text = TextField_SearchContent.getText();
+
+                if (text.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                String text = TextField_SearchContent.getText();
+
+                if (text.trim().length() == 0) {
+                    sorter.setRowFilter(null);
+                } else {
+                    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); 
+            }
+        });
+        
+    }//GEN-LAST:event_TextField_SearchContentKeyTyped
+
+    private void Label_DiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_DiscountMouseClicked
+        TagID = 6;
+        switchState(true);
+        String query = "select * from GIAMGIA";
+        String ColumnName[] = {"Mã giảm giá", "Tên giảm giá", "Phần trăm", "Loại khách hàng"};
+        
+        int Col = ColumnName.length;
+        int Row = getSize("GIAMGIA");
+        
+        Object[][] data = new Object[Row][Col];
+        
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            int i = 0;
+            while (rs.next()) {
+                String ID = rs.getString("MAGIAMGIA");
+                String Name = rs.getString("TENGIAMGIA");
+                String Percent = rs.getString("PHANTRAM");
+                int Type = rs.getInt("LOAIKH");
+                
+                data[i++] = new Object[] {ID, Name, Percent, Type};
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            Table_Info.setModel(new DefaultTableModel(data, ColumnName) { 
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+                
+            });
+            
+        }
+    }//GEN-LAST:event_Label_DiscountMouseClicked
+
+    private void Label_ShiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ShiftMouseClicked
+        TagID = 4;
+        switchState(true);
+        String query = "select * from CA";
+        String ColumnName[] = {"Mã ca", "Thời gian bắt đầu", "Thời gian kết thúc", "Loại ca"};
+        
+        int Col = ColumnName.length;
+        int Row = getSize("CA");
+        
+        Object[][] data = new Object[Row][Col];
+        
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            int i = 0;
+            while (rs.next()) {
+                String ID = rs.getString("MACA");
+                String timestart = rs.getString("TGBATDAU");
+                String timefinish = rs.getString("TGKETTHUC");
+                String type = rs.getString("LOAICA");
+                
+                data[i++] = new Object[] {ID, timestart, timefinish, type};
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            Table_Info.setModel(new DefaultTableModel(data, ColumnName) { 
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+                
+            });
+        }
+    }//GEN-LAST:event_Label_ShiftMouseClicked
+
+    private void Button_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_AddMouseClicked
+        switch (TagID) {
+            case 2: {addEmployee add = new addEmployee(); add.setVisible(true); break;}
+            case 3: {addCombo add = new addCombo(); add.setVisible(true); break;}
+            case 4: {addFood add = new addFood(); add.setVisible(true); break;}
+            case 5: {addShift add = new addShift(); add.setVisible(true); break;}
+        }
+    }//GEN-LAST:event_Button_AddMouseClicked
+
+    private void Label_GiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_GiftMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Label_GiftMouseClicked
+
+    private void Label_CustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CustomerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Label_CustomerMouseClicked
 
     private int getSize(String Table) {
         int size = 0;
@@ -327,10 +571,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton Button_Add;
     private javax.swing.JButton Button_Remove;
     private javax.swing.JButton Button_Update;
+    private javax.swing.JLabel Icon_Search;
     private javax.swing.JLabel Label_Combo;
+    private javax.swing.JLabel Label_Customer;
     private javax.swing.JLabel Label_Discount;
     private javax.swing.JLabel Label_Employee;
     private javax.swing.JLabel Label_Food;
+    private javax.swing.JLabel Label_Gift;
     private javax.swing.JLabel Label_Shift;
     private javax.swing.JLabel Label_Total;
     private javax.swing.JLabel Label_Total1;
@@ -338,5 +585,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Tabs;
     private javax.swing.JScrollPane ScrollPane_Info;
     private javax.swing.JTable Table_Info;
+    private javax.swing.JTextField TextField_SearchContent;
     // End of variables declaration//GEN-END:variables
 }
