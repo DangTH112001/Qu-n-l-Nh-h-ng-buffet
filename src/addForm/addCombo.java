@@ -28,21 +28,28 @@ public class addCombo extends javax.swing.JFrame {
     private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
     private String UserName = "BuffetGO";
     private String Password = "123";
+    private int TAG;
+    private String ID;
+    private int RowID;
     /**
      * Creates new form addCombo
      */
     public addCombo() {
+        TAG = 1;
         initComponents();
         getConn();
     }
     
-    public addCombo(String Name, String price, String NoP) {       
+    public addCombo(Object[] data, int TAG, int RowID) {     
+        this.TAG = TAG;
+        this.RowID = RowID;
         initComponents();
         getConn();
         
-        tf_Combo.setText(Name);
-        tf_Price.setText(price);
-        tf_No_People.setText(NoP);
+        ID = (String) data[0];
+        tf_Combo.setText((String) data[1]);
+        tf_Price.setText((String) data[2]);
+        tf_No_People.setText((String) data[3]);
     }
     
     private void getConn() {
@@ -208,11 +215,51 @@ public class addCombo extends javax.swing.JFrame {
 
     
     private void btnConfirm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseClicked
+        if (TAG == 1) {
+            add(evt);
+        } 
+        else if (TAG == 2) {
+            update(evt);
+        }
+        else {
+            
+        }
+    }//GEN-LAST:event_btnConfirm1MouseClicked
+    private void update(java.awt.event.MouseEvent evt) {
+        String Combo = tf_Combo.getText();
+        String Price = tf_Price.getText();
+        String NoP = tf_No_People.getText();
+        String query = "update COMBO "
+                        + "set TENCB = ?, GIA = ?, SONGUOI = ?"
+                        + "where MACB = ?";
+        try {
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, Combo);
+            p_statement.setString(2, Price);
+            p_statement.setString(3, NoP);
+            p_statement.setString(4, ID);
+
+            p_statement.executeUpdate();
+            System.out.println("SUCCESS");
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            Object[] data = {ID, Combo, Price, NoP};
+            Home.update(data, RowID);
+            dispose();
+        } 
+        
+                
+    }
+    
+    private void add(java.awt.event.MouseEvent evt) {
         String Combo = tf_Combo.getText();
         String Price = tf_Price.getText();
         String NoP = tf_No_People.getText();
         String ID = getComboID();
-        
+
         String query = "insert into COMBO values (?, ?, ?, ?)";
         try {
             PreparedStatement p_statement = connection.prepareStatement(query);
@@ -220,21 +267,18 @@ public class addCombo extends javax.swing.JFrame {
             p_statement.setString(2, Combo);
             p_statement.setString(3, Price);
             p_statement.setString(4, NoP);
-            
+
             p_statement.executeUpdate();
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(addCombo.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         finally {
             Object[] data = {ID, Combo, Price, NoP};
             Home.update(data);
-            JComponent comp = (JComponent) evt.getSource();
-            Window win = SwingUtilities.getWindowAncestor(comp);
-            win.dispose();
-        }  
-    }//GEN-LAST:event_btnConfirm1MouseClicked
-
+            dispose();
+        } 
+    }
     private String getComboID() {
         String res = "CB";
         try {

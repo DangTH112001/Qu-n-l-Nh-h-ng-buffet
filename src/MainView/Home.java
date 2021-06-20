@@ -68,6 +68,13 @@ public class Home extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
         model.addRow(data);
     }
+    
+    public static void update(Object[] data, int rowid) {
+        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+        for (int i = 1; i <= data.length; i++) {
+            model.setValueAt(data[i - 1], rowid, i - 1);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -599,11 +606,11 @@ public class Home extends javax.swing.JFrame {
         int RowID = Table_Info.getSelectedRow();
         Object[] result = new String[10];
         
-        for (int j = 1; j <= 3; j++) {
+        for (int j = 0; j <= 3; j++) {
             result[j] = (Table_Info.getValueAt(RowID, j)).toString();
         }
         
-        addCombo form = new addCombo(result[1].toString(), result[2].toString(), result[3].toString());
+        addCombo form = new addCombo(result, 2, RowID);
         form.setVisible(true);
         
     }//GEN-LAST:event_Button_UpdateMouseClicked
