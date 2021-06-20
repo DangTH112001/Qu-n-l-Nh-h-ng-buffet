@@ -5,7 +5,17 @@
  */
 package addForm;
 
+import MainView.Home;
 import java.awt.Window;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
@@ -14,12 +24,24 @@ import javax.swing.SwingUtilities;
  * @author Phan Hau
  */
 public class addShift extends javax.swing.JFrame {
-
+    private Connection connection;
+    private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
+    private String UserName = "BuffetGO";
+    private String Password = "123";
     /**
      * Creates new form addShift
      */
     public addShift() {
         initComponents();
+        getConn();
+    }
+    
+    private void getConn() {
+        try {
+            connection = DriverManager.getConnection(URL, UserName, Password);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -38,44 +60,45 @@ public class addShift extends javax.swing.JFrame {
         lbName3 = new javax.swing.JLabel();
         btnConfirm1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        cb_s_Gio = new javax.swing.JComboBox<>();
-        cb_s_Phut = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        cb_e_Gio = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        cb_e_Phut = new javax.swing.JComboBox<>();
-        cb_type = new javax.swing.JComboBox<>();
+        jTextField_Start = new javax.swing.JTextField();
+        jTextField_End = new javax.swing.JTextField();
+        jTextField_Type = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        lbCreateCustomerAccount1.setText("ADD SHIFT");
         lbCreateCustomerAccount1.setBackground(new java.awt.Color(255, 255, 255));
         lbCreateCustomerAccount1.setFont(new java.awt.Font("Liberation Sans", 1, 22)); // NOI18N
         lbCreateCustomerAccount1.setForeground(new java.awt.Color(120, 168, 252));
-        lbCreateCustomerAccount1.setText("ADD SHIFT");
 
+        lbName.setText("START TIME:");
         lbName.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName.setForeground(new java.awt.Color(120, 168, 252));
-        lbName.setText("START TIME:");
 
+        lbName1.setText("END TIME:");
         lbName1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName1.setForeground(new java.awt.Color(120, 168, 252));
-        lbName1.setText("END TIME:");
 
+        lbName3.setText("SHIFT TYPE:");
         lbName3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName3.setForeground(new java.awt.Color(120, 168, 252));
-        lbName3.setText("SHIFT TYPE:");
 
+        btnConfirm1.setText("CONFIRM");
         btnConfirm1.setBackground(new java.awt.Color(120, 168, 252));
         btnConfirm1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConfirm1.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm1.setText("CONFIRM");
+        btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseClicked(evt);
+            }
+        });
 
+        btnExit.setText("CANCEL");
         btnExit.setBackground(new java.awt.Color(129, 0, 0));
         btnExit.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
-        btnExit.setText("CANCEL");
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExitMouseClicked(evt);
@@ -87,19 +110,16 @@ public class addShift extends javax.swing.JFrame {
             }
         });
 
-        cb_s_Gio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", " " }));
+        jTextField_Start.setText("jTextField1");
+        jTextField_Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_StartActionPerformed(evt);
+            }
+        });
 
-        cb_s_Phut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", " " }));
+        jTextField_End.setText("jTextField2");
 
-        jLabel1.setText(":");
-
-        cb_e_Gio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", " " }));
-
-        jLabel2.setText(":");
-
-        cb_e_Phut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", " " }));
-
-        cb_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ca thuong", "Tang ca" }));
+        jTextField_Type.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -112,24 +132,16 @@ public class addShift extends javax.swing.JFrame {
                     .addComponent(lbName)
                     .addComponent(lbName3))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cb_s_Gio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_s_Phut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cb_e_Gio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cb_e_Phut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbCreateCustomerAccount1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnConfirm1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cb_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(btnExit)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbCreateCustomerAccount1)
+                            .addComponent(btnConfirm1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExit))
+                    .addComponent(jTextField_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,23 +150,17 @@ public class addShift extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbCreateCustomerAccount1)
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cb_s_Gio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cb_s_Phut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cb_e_Gio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cb_e_Phut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)))
-                .addGap(34, 34, 34)
+                    .addComponent(jTextField_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName3)
-                    .addComponent(cb_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +191,34 @@ public class addShift extends javax.swing.JFrame {
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnExitActionPerformed
+
+    private void btnConfirm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseClicked
+        String ID = "CATEST";
+        String Type = jTextField_Type.getText();
+        String sStart = jTextField_Start.getText();
+        String sFinish = jTextField_End.getText();
+        String query = "insert into CA values (?, ?, ?, ?)";
+        
+        try {
+            Date Start = new SimpleDateFormat("hh:mm:ss").parse(sStart);
+            Date Finish = new SimpleDateFormat("hh:mm:ss").parse(sFinish);
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, ID);    
+            p_statement.setDate(2, new java.sql.Date(Start.getTime()));
+            p_statement.setDate(3, new java.sql.Date(Finish.getTime()));
+            p_statement.setString(4, Type);
+            
+            p_statement.executeUpdate();
+            System.out.println("INSERT SUCCESS");
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnConfirm1MouseClicked
+
+    private void jTextField_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_StartActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_StartActionPerformed
 
     /**
      * @param args the command line arguments
@@ -225,14 +259,10 @@ public class addShift extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnExit;
-    private javax.swing.JComboBox<String> cb_e_Gio;
-    private javax.swing.JComboBox<String> cb_e_Phut;
-    private javax.swing.JComboBox<String> cb_s_Gio;
-    private javax.swing.JComboBox<String> cb_s_Phut;
-    private javax.swing.JComboBox<String> cb_type;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField_End;
+    private javax.swing.JTextField jTextField_Start;
+    private javax.swing.JTextField jTextField_Type;
     private javax.swing.JLabel lbCreateCustomerAccount1;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbName1;

@@ -5,7 +5,16 @@
  */
 package addForm;
 
+import MainView.Home;
 import java.awt.Window;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -15,12 +24,33 @@ import javax.swing.SwingUtilities;
  * @author Phan Hau
  */
 public class addCombo extends javax.swing.JFrame {
-
+    private Connection connection;
+    private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
+    private String UserName = "BuffetGO";
+    private String Password = "123";
     /**
      * Creates new form addCombo
      */
     public addCombo() {
         initComponents();
+        getConn();
+    }
+    
+    public addCombo(String Name, String price, String NoP) {       
+        initComponents();
+        getConn();
+        
+        tf_Combo.setText(Name);
+        tf_Price.setText(price);
+        tf_No_People.setText(NoP);
+    }
+    
+    private void getConn() {
+        try {
+            connection = DriverManager.getConnection(URL, UserName, Password);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -35,11 +65,11 @@ public class addCombo extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbCreateCustomerAccount1 = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
-        tfPhoneNumber = new javax.swing.JTextField();
+        tf_Combo = new javax.swing.JTextField();
         lbName1 = new javax.swing.JLabel();
-        tfPhoneNumber1 = new javax.swing.JTextField();
+        tf_Price = new javax.swing.JTextField();
         lbName2 = new javax.swing.JLabel();
-        tfPhoneNumber2 = new javax.swing.JTextField();
+        tf_No_People = new javax.swing.JTextField();
         btnConfirm1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
 
@@ -59,33 +89,38 @@ public class addCombo extends javax.swing.JFrame {
         lbName.setForeground(new java.awt.Color(120, 168, 252));
         lbName.setText("COMBO NAME:");
 
-        tfPhoneNumber.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tfPhoneNumber.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_Combo.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Combo.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Combo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_Combo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbName1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName1.setForeground(new java.awt.Color(120, 168, 252));
         lbName1.setText("PRICE:");
 
-        tfPhoneNumber1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber1.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tfPhoneNumber1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_Price.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Price.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Price.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_Price.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbName2.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName2.setForeground(new java.awt.Color(120, 168, 252));
         lbName2.setText("PEOPLE:");
 
-        tfPhoneNumber2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber2.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        tfPhoneNumber2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_No_People.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_No_People.setForeground(new java.awt.Color(120, 168, 252));
+        tf_No_People.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_No_People.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         btnConfirm1.setBackground(new java.awt.Color(120, 168, 252));
         btnConfirm1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConfirm1.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm1.setText("CONFIRM");
+        btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseClicked(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(129, 0, 0));
         btnExit.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -109,9 +144,9 @@ public class addCombo extends javax.swing.JFrame {
                     .addComponent(lbName2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                    .addComponent(tfPhoneNumber1)
-                    .addComponent(tfPhoneNumber2))
+                    .addComponent(tf_Combo, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                    .addComponent(tf_Price)
+                    .addComponent(tf_No_People))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 376, Short.MAX_VALUE)
@@ -132,14 +167,14 @@ public class addCombo extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_Price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_No_People, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbName2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -171,6 +206,51 @@ public class addCombo extends javax.swing.JFrame {
         win.dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
+    
+    private void btnConfirm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseClicked
+        String Combo = tf_Combo.getText();
+        String Price = tf_Price.getText();
+        String NoP = tf_No_People.getText();
+        String ID = getComboID();
+        
+        String query = "insert into COMBO values (?, ?, ?, ?)";
+        try {
+            PreparedStatement p_statement = connection.prepareStatement(query);
+            p_statement.setString(1, ID);
+            p_statement.setString(2, Combo);
+            p_statement.setString(3, Price);
+            p_statement.setString(4, NoP);
+            
+            p_statement.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(addCombo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            Object[] data = {ID, Combo, Price, NoP};
+            Home.update(data);
+            JComponent comp = (JComponent) evt.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        }  
+    }//GEN-LAST:event_btnConfirm1MouseClicked
+
+    private String getComboID() {
+        String res = "CB";
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT SEQ_COMBO.NEXTVAL FROM dual");  
+            while (rs.next()) {
+                res += rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(addCombo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            return res;
+        }
+       
+    }
     /**
      * @param args the command line arguments
      */
@@ -215,8 +295,8 @@ public class addCombo extends javax.swing.JFrame {
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbName1;
     private javax.swing.JLabel lbName2;
-    private javax.swing.JTextField tfPhoneNumber;
-    private javax.swing.JTextField tfPhoneNumber1;
-    private javax.swing.JTextField tfPhoneNumber2;
+    private javax.swing.JTextField tf_Combo;
+    private javax.swing.JTextField tf_No_People;
+    private javax.swing.JTextField tf_Price;
     // End of variables declaration//GEN-END:variables
 }

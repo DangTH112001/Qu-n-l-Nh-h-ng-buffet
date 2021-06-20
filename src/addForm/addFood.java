@@ -31,6 +31,7 @@ public class addFood extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         lbCreateCustomerAccount1 = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
@@ -39,6 +40,8 @@ public class addFood extends javax.swing.JFrame {
         tfPhoneNumber1 = new javax.swing.JTextField();
         btnConfirm1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+
+        jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -212,6 +215,7 @@ public class addFood extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnExit;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lbCreateCustomerAccount1;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbName1;

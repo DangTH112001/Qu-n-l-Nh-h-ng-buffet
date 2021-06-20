@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -61,6 +63,11 @@ public class Home extends javax.swing.JFrame {
         TextField_SearchContent.setText("");
         TextField_SearchContent.setVisible(state);
     }
+    
+    public static void update(Object[] data) {
+        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+        model.addRow(data);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,15 +79,16 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel_Tabs = new javax.swing.JPanel();
-        Label_Total1 = new javax.swing.JLabel();
+        Label_Home = new javax.swing.JLabel();
         Label_Discount = new javax.swing.JLabel();
         Label_Total = new javax.swing.JLabel();
         Label_Employee = new javax.swing.JLabel();
-        Label_Shift = new javax.swing.JLabel();
         Label_Food = new javax.swing.JLabel();
         Label_Combo = new javax.swing.JLabel();
         Label_Gift = new javax.swing.JLabel();
         Label_Customer = new javax.swing.JLabel();
+        Label_Ticket = new javax.swing.JLabel();
+        Label_Shift = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
@@ -97,16 +105,16 @@ public class Home extends javax.swing.JFrame {
 
         Panel_Tabs.setBackground(new java.awt.Color(23, 35, 51));
 
-        Label_Total1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Total1.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Total1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Total1.setText("Home");
-        Label_Total1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Label_Home.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Home.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Home.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Home.setText("Home");
+        Label_Home.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Label_Discount.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Discount.setForeground(new java.awt.Color(255, 255, 255));
         Label_Discount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Discount.setText("Customer Manager");
+        Label_Discount.setText("Discount Manager");
         Label_Discount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_DiscountMouseClicked(evt);
@@ -122,14 +130,9 @@ public class Home extends javax.swing.JFrame {
         Label_Employee.setForeground(new java.awt.Color(255, 255, 255));
         Label_Employee.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Label_Employee.setText("Employee Manager");
-
-        Label_Shift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Shift.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Shift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Shift.setText("Shift Manager");
-        Label_Shift.addMouseListener(new java.awt.event.MouseAdapter() {
+        Label_Employee.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_ShiftMouseClicked(evt);
+                Label_EmployeeMouseClicked(evt);
             }
         });
 
@@ -151,7 +154,7 @@ public class Home extends javax.swing.JFrame {
         Label_Gift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Gift.setForeground(new java.awt.Color(255, 255, 255));
         Label_Gift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Gift.setText("Discount Manager");
+        Label_Gift.setText("Gift Manager");
         Label_Gift.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_GiftMouseClicked(evt);
@@ -161,10 +164,30 @@ public class Home extends javax.swing.JFrame {
         Label_Customer.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Customer.setForeground(new java.awt.Color(255, 255, 255));
         Label_Customer.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Customer.setText("Gift Manager");
+        Label_Customer.setText("Customer Manager");
         Label_Customer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_CustomerMouseClicked(evt);
+            }
+        });
+
+        Label_Ticket.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Ticket.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Ticket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Ticket.setText("Ticket Manager");
+        Label_Ticket.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_TicketMouseClicked(evt);
+            }
+        });
+
+        Label_Shift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Shift.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Shift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Shift.setText("Shift Manager");
+        Label_Shift.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_ShiftMouseClicked(evt);
             }
         });
 
@@ -175,42 +198,46 @@ public class Home extends javax.swing.JFrame {
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Label_Total1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_TabsLayout.createSequentialGroup()
                         .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(Label_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                        .addComponent(Label_Discount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                     .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Label_Ticket, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(Label_Customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_TabsLayout.setVerticalGroup(
             Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Label_Total1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Label_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Label_Combo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Label_Food, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Ticket, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(196, Short.MAX_VALUE))
         );
 
         getContentPane().add(Panel_Tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 770));
@@ -253,6 +280,11 @@ public class Home extends javax.swing.JFrame {
 
         Button_Update.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         Button_Update.setText("Update");
+        Button_Update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_UpdateMouseClicked(evt);
+            }
+        });
         Button_Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_UpdateActionPerformed(evt);
@@ -435,7 +467,7 @@ public class Home extends javax.swing.JFrame {
             
             int i = 0;
             while (rs.next()) {
-                String ID = rs.getString("MAGIAMGIA");
+                String ID = rs.getString("MAGG");
                 String Name = rs.getString("TENGIAMGIA");
                 String Percent = rs.getString("PHANTRAM");
                 int Type = rs.getInt("LOAIKH");
@@ -476,8 +508,8 @@ public class Home extends javax.swing.JFrame {
             int i = 0;
             while (rs.next()) {
                 String ID = rs.getString("MACA");
-                String timestart = rs.getString("TGBATDAU");
-                String timefinish = rs.getString("TGKETTHUC");
+                String timestart = rs.getString("TGBD");
+                String timefinish = rs.getString("TGKT");
                 String type = rs.getString("LOAICA");
                 
                 data[i++] = new Object[] {ID, timestart, timefinish, type};
@@ -512,6 +544,69 @@ public class Home extends javax.swing.JFrame {
     private void Label_CustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CustomerMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_Label_CustomerMouseClicked
+
+    private void Label_TicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_TicketMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Label_TicketMouseClicked
+
+    private void Label_EmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_EmployeeMouseClicked
+        TagID = 1;
+        switchState(true);
+        String query = "select * from NHANVIEN";
+        String ColumnName[] = {"Mã NV", "Họ tên","Giới tính", "Ngày vào làm","Địa chỉ","Chức vụ","SĐT","Lương","Ngày sinh","Tài khoản","Mật khẩu"};
+        int Col = ColumnName.length;
+        int Row = getSize("NHANVIEN");
+        
+        Object[][] data = new Object[Row][Col];
+        
+        
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            int i = 0;
+            while (rs.next()) {
+                String Emp_ID = rs.getString("MANV");
+                String Emp_Name = rs.getString("HOTEN");
+                String Emp_Sex = rs.getString("GIOITINH");
+                String Start = rs.getString("NGVL");
+                String Emp_Address = rs.getString("DIACHI");
+                String Emp_Position = rs.getString("CHUCVU");
+                String Emp_PhoneNumber = rs.getString("SDT");
+                int Emp_Salary = rs.getInt("LUONG");
+                String Emp_Birth = rs.getString("NGSINH");
+                String Emp_UserName = rs.getString("TAIKHOAN");
+                String Emp_Password = rs.getString("MATKHAU");
+                
+                data[i++] = new Object[] {Emp_ID, Emp_Name, Emp_Sex, Start, Emp_Address,Emp_Position, Emp_PhoneNumber,Emp_Salary,Emp_Birth, Emp_UserName,  Emp_Password};
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            
+           Table_Info.setModel(new DefaultTableModel(data, ColumnName) { 
+                @Override
+               public boolean isCellEditable(int row, int column) {                    
+                   return false;
+                }
+            });
+            
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_Label_EmployeeMouseClicked
+
+    private void Button_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_UpdateMouseClicked
+        int RowID = Table_Info.getSelectedRow();
+        Object[] result = new String[10];
+        
+        for (int j = 1; j <= 3; j++) {
+            result[j] = (Table_Info.getValueAt(RowID, j)).toString();
+        }
+        
+        addCombo form = new addCombo(result[1].toString(), result[2].toString(), result[3].toString());
+        form.setVisible(true);
+        
+    }//GEN-LAST:event_Button_UpdateMouseClicked
 
     private int getSize(String Table) {
         int size = 0;
@@ -578,13 +673,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Employee;
     private javax.swing.JLabel Label_Food;
     private javax.swing.JLabel Label_Gift;
+    private javax.swing.JLabel Label_Home;
     private javax.swing.JLabel Label_Shift;
+    private javax.swing.JLabel Label_Ticket;
     private javax.swing.JLabel Label_Total;
-    private javax.swing.JLabel Label_Total1;
     private javax.swing.JPanel Panel_Function;
     private javax.swing.JPanel Panel_Tabs;
-    private javax.swing.JScrollPane ScrollPane_Info;
-    private javax.swing.JTable Table_Info;
+    private static javax.swing.JScrollPane ScrollPane_Info;
+    private static javax.swing.JTable Table_Info;
     private javax.swing.JTextField TextField_SearchContent;
     // End of variables declaration//GEN-END:variables
 }

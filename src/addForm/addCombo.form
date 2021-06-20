@@ -62,9 +62,9 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="tfPhoneNumber" alignment="0" pref="325" max="32767" attributes="0"/>
-                      <Component id="tfPhoneNumber1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="tfPhoneNumber2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tf_Combo" alignment="0" pref="325" max="32767" attributes="0"/>
+                      <Component id="tf_Price" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tf_No_People" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -90,16 +90,16 @@
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lbName" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="tfPhoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_Combo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tfPhoneNumber1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_Price" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbName1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tfPhoneNumber2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tf_No_People" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbName2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="42" max="32767" attributes="0"/>
@@ -138,7 +138,7 @@
             <Property name="text" type="java.lang.String" value="COMBO NAME:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber">
+        <Component class="javax.swing.JTextField" name="tf_Combo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -167,7 +167,7 @@
             <Property name="text" type="java.lang.String" value="PRICE:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber1">
+        <Component class="javax.swing.JTextField" name="tf_Price">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -196,7 +196,7 @@
             <Property name="text" type="java.lang.String" value="PEOPLE:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber2">
+        <Component class="javax.swing.JTextField" name="tf_No_People">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -227,6 +227,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CONFIRM"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnConfirm1MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExit">
           <Properties>
