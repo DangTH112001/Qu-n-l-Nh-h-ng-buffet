@@ -5,6 +5,7 @@
  */
 package addForm;
 
+import Controller.SQLTable;
 import MainView.Home;
 import java.awt.Window;
 import java.sql.Connection;
@@ -24,10 +25,6 @@ import javax.swing.SwingUtilities;
  * @author Phan Hau
  */
 public class addCombo extends javax.swing.JFrame {
-    private Connection connection;
-    private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
-    private String UserName = "BuffetGO";
-    private String Password = "123";
     private int TAG;
     private String ID;
     private int RowID;
@@ -37,29 +34,18 @@ public class addCombo extends javax.swing.JFrame {
     public addCombo() {
         TAG = 1;
         initComponents();
-        getConn();
     }
     
     public addCombo(Object[] data, int TAG, int RowID) {     
         this.TAG = TAG;
         this.RowID = RowID;
         initComponents();
-        getConn();
         
         ID = (String) data[0];
         tf_Combo.setText((String) data[1]);
         tf_Price.setText((String) data[2]);
         tf_No_People.setText((String) data[3]);
     }
-    
-    private void getConn() {
-        try {
-            connection = DriverManager.getConnection(URL, UserName, Password);
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -208,9 +194,7 @@ public class addCombo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+        dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
     
@@ -221,9 +205,6 @@ public class addCombo extends javax.swing.JFrame {
         else if (TAG == 2) {
             update(evt);
         }
-        else {
-            
-        }
     }//GEN-LAST:event_btnConfirm1MouseClicked
     private void update(java.awt.event.MouseEvent evt) {
         String Combo = tf_Combo.getText();
@@ -233,7 +214,7 @@ public class addCombo extends javax.swing.JFrame {
                         + "set TENCB = ?, GIA = ?, SONGUOI = ?"
                         + "where MACB = ?";
         try {
-            PreparedStatement p_statement = connection.prepareStatement(query);
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, Combo);
             p_statement.setString(2, Price);
             p_statement.setString(3, NoP);
@@ -258,11 +239,11 @@ public class addCombo extends javax.swing.JFrame {
         String Combo = tf_Combo.getText();
         String Price = tf_Price.getText();
         String NoP = tf_No_People.getText();
-        String ID = getComboID();
+        String ID = Home.getTableID();
 
         String query = "insert into COMBO values (?, ?, ?, ?)";
         try {
-            PreparedStatement p_statement = connection.prepareStatement(query);
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, ID);
             p_statement.setString(2, Combo);
             p_statement.setString(3, Price);
@@ -279,22 +260,8 @@ public class addCombo extends javax.swing.JFrame {
             dispose();
         } 
     }
-    private String getComboID() {
-        String res = "CB";
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT SEQ_COMBO.NEXTVAL FROM dual");  
-            while (rs.next()) {
-                res += rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(addCombo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
-            return res;
-        }
-       
-    }
+    
+    
     /**
      * @param args the command line arguments
      */

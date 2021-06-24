@@ -70,71 +70,63 @@
                               <Component id="lbName5" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="tfPhoneNumber4" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="lbName9" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="tfPhoneNumber3" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="lbAccount1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfPhoneNumber2" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="lbName6" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfPhoneNumber1" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                                          <Component id="lbName7" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="tfPhoneNumber5" min="-2" pref="213" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="lbAccount2" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                                          <Component id="btnConfirm1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="43" max="32767" attributes="0"/>
-                                          <Component id="btnExit" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="tfAccount" min="-2" pref="213" max="-2" attributes="0"/>
-                                                      <Component id="tfAccount1" min="-2" pref="213" max="-2" attributes="0"/>
-                                                      <Component id="pfPassword" min="-2" pref="213" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jDateChooser1" pref="225" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="jDateChooser2" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="tf_ManagerID" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lbName3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="tfPhoneNumber" min="-2" pref="213" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
-                                  <Component id="lbName3" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="cbGender" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tf_Position" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lbAccount2" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="tf_Account" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lbAccount1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="tf_Address" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lbName6" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="tf_Fullname" min="-2" pref="213" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
+                                  <Component id="lbName7" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="tf_Salary" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                                  <Component id="btnConfirm1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                                  <Component id="btnExit" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                          <Component id="tf_Phone" min="-2" pref="213" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cbGender" min="-2" max="-2" attributes="0"/>
+                                              <Component id="DC_Birth" min="-2" pref="225" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tf_Password" min="-2" pref="213" max="-2" attributes="0"/>
+                                              <Component id="DC_Start" min="-2" pref="225" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -157,50 +149,46 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbName1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="tfPhoneNumber" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="tf_ManagerID" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="lbName3" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="cbGender" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lbName2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="tfPhoneNumber1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="tf_Fullname" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="lbName7" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jDateChooser2" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="DC_Birth" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfPhoneNumber2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="lbName6" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="tfAccount1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbName4" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfPhoneNumber3" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="lbAccount" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="lbAccount1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="pfPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="tfPhoneNumber4" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="lbName8" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="tfAccount" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbName9" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbAccount2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="tfPhoneNumber5" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="lbName5" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_Address" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbName6" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="tf_Phone" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbName4" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_Account" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbAccount" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbAccount1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="tf_Password" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="tf_Position" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="lbName8" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="lbAccount2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jDateChooser1" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="DC_Start" min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tf_Salary" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbName5" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -235,10 +223,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="FULL NAME:"/>
+            <Property name="text" type="java.lang.String" value="MANAGER ID:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber">
+        <Component class="javax.swing.JTextField" name="tf_ManagerID">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -255,9 +243,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumberActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName2">
           <Properties>
@@ -267,10 +252,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="AGE:"/>
+            <Property name="text" type="java.lang.String" value="FULL NAME:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber1">
+        <Component class="javax.swing.JTextField" name="tf_Fullname">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -287,9 +272,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumber1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName3">
           <Properties>
@@ -299,7 +281,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SEX:"/>
+            <Property name="text" type="java.lang.String" value="GENDER:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbGender">
@@ -310,19 +292,17 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
+            <Property name="maximumRowCount" type="int" value="2"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
                 <StringItem index="0" value="Nam"/>
-                <StringItem index="1" value="Nu"/>
+                <StringItem index="1" value="N&#x1eef;"/>
               </StringArray>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbGenderActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -346,7 +326,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="POSITION:"/>
+            <Property name="text" type="java.lang.String" value="SALARY: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName6">
@@ -371,7 +351,7 @@
             <Property name="text" type="java.lang.String" value="BIRTHDAY:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber2">
+        <Component class="javax.swing.JTextField" name="tf_Address">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -388,9 +368,6 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumber2ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName8">
           <Properties>
@@ -400,7 +377,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="SALARY:"/>
+            <Property name="text" type="java.lang.String" value="POSITION: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbAccount">
@@ -414,27 +391,6 @@
             <Property name="text" type="java.lang.String" value="ACCOUNT:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfAccount">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Liberation Sans" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="a8" red="78" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                <MatteColorBorder bottom="1" left="0" right="0" top="0">
-                  <Color PropertyName="color" blue="fc" green="a8" red="78" type="rgb"/>
-                </MatteColorBorder>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfAccountActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="lbAccount1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -446,49 +402,7 @@
             <Property name="text" type="java.lang.String" value="PASSWORD:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="pfPassword">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Liberation Sans" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="a8" red="78" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                <MatteColorBorder bottom="1" left="0" right="0" top="0">
-                  <Color PropertyName="color" blue="fc" green="a8" red="78" type="rgb"/>
-                </MatteColorBorder>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pfPasswordActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber3">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Liberation Sans" size="18" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="a8" red="78" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
-                <MatteColorBorder bottom="1" left="0" right="0" top="0">
-                  <Color PropertyName="color" blue="fc" green="a8" red="78" type="rgb"/>
-                </MatteColorBorder>
-              </Border>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumber3ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfAccount1">
+        <Component class="javax.swing.JTextField" name="tf_Account">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -506,18 +420,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbName9">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Liberation Sans" size="18" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="fc" green="a8" red="78" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="BONUS:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber4">
+        <Component class="javax.swing.JTextField" name="tf_Phone">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -534,11 +437,8 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumber4ActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfPhoneNumber5">
+        <Component class="javax.swing.JTextField" name="tf_Position">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="0"/>
@@ -555,9 +455,24 @@
               </Border>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfPhoneNumber5ActionPerformed"/>
-          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_Salary">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Liberation Sans" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fc" green="a8" red="78" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="1" left="0" right="0" top="0">
+                  <Color PropertyName="color" blue="fc" green="a8" red="78" type="rgb"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbAccount2">
           <Properties>
@@ -583,6 +498,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CONFIRM"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnConfirm1MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExit">
           <Properties>
@@ -599,12 +517,32 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnExitMouseClicked"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExitActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="DC_Start">
+          <Properties>
+            <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
+          </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+        <Component class="com.toedter.calendar.JDateChooser" name="DC_Birth">
+        </Component>
+        <Component class="javax.swing.JTextField" name="tf_Password">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Liberation Sans" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="fc" green="a8" red="78" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.MatteColorBorderInfo">
+                <MatteColorBorder bottom="1" left="0" right="0" top="0">
+                  <Color PropertyName="color" blue="fc" green="a8" red="78" type="rgb"/>
+                </MatteColorBorder>
+              </Border>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

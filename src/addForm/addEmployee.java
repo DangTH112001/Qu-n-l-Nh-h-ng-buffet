@@ -5,21 +5,57 @@
  */
 package addForm;
 
-import java.awt.Window;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
+import Controller.Employee;
+import Controller.SQLTable;
+import MainView.Home;
+import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Phan Hau
  */
 public class addEmployee extends javax.swing.JFrame {
-
+    private int TAG;
+    private String ID;
+    private int RowID;
     /**
      * Creates new form addEmployee
      */
     public addEmployee() {
+        TAG = 1;
         initComponents();
+    }
+    
+    public addEmployee(Object[] data, int TAG, int RowID) {     
+        this.TAG = TAG;
+        this.RowID = RowID;
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        initComponents();
+        
+        ID = (String) data[0];
+        tf_ManagerID.setText((String) data[1]);
+        tf_Fullname.setText((String) data[2]);
+        tf_Address.setText((String) data[5]);
+        tf_Account.setText((String) data[10]);
+        tf_Position.setText((String) data[6]);
+        tf_Salary.setText((String) data[8]);
+        cbGender.setSelectedItem((String) data[3]);
+        try {
+            DC_Birth.setDate(format.parse((String) data[9]));
+            DC_Start.setDate(format.parse((String) data[4]));
+        } catch (ParseException ex) {
+            Logger.getLogger(addEmployee.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tf_Phone.setText((String) data[7]);
+        tf_Password.setText((String) data[11]);
+        
+        DC_Start.enable(false);
     }
 
     /**
@@ -35,31 +71,29 @@ public class addEmployee extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lbCreateCustomerAccount1 = new javax.swing.JLabel();
         lbName1 = new javax.swing.JLabel();
-        tfPhoneNumber = new javax.swing.JTextField();
+        tf_ManagerID = new javax.swing.JTextField();
         lbName2 = new javax.swing.JLabel();
-        tfPhoneNumber1 = new javax.swing.JTextField();
+        tf_Fullname = new javax.swing.JTextField();
         lbName3 = new javax.swing.JLabel();
         cbGender = new javax.swing.JComboBox<>();
         lbName4 = new javax.swing.JLabel();
         lbName5 = new javax.swing.JLabel();
         lbName6 = new javax.swing.JLabel();
         lbName7 = new javax.swing.JLabel();
-        tfPhoneNumber2 = new javax.swing.JTextField();
+        tf_Address = new javax.swing.JTextField();
         lbName8 = new javax.swing.JLabel();
         lbAccount = new javax.swing.JLabel();
-        tfAccount = new javax.swing.JTextField();
         lbAccount1 = new javax.swing.JLabel();
-        pfPassword = new javax.swing.JPasswordField();
-        tfPhoneNumber3 = new javax.swing.JTextField();
-        tfAccount1 = new javax.swing.JTextField();
-        lbName9 = new javax.swing.JLabel();
-        tfPhoneNumber4 = new javax.swing.JTextField();
-        tfPhoneNumber5 = new javax.swing.JTextField();
+        tf_Account = new javax.swing.JTextField();
+        tf_Phone = new javax.swing.JTextField();
+        tf_Position = new javax.swing.JTextField();
+        tf_Salary = new javax.swing.JTextField();
         lbAccount2 = new javax.swing.JLabel();
         btnConfirm1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        DC_Start = new com.toedter.calendar.JDateChooser();
+        DC_Birth = new com.toedter.calendar.JDateChooser();
+        tf_Password = new javax.swing.JTextField();
 
         lbName.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName.setForeground(new java.awt.Color(120, 168, 252));
@@ -77,45 +111,31 @@ public class addEmployee extends javax.swing.JFrame {
 
         lbName1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName1.setForeground(new java.awt.Color(120, 168, 252));
-        lbName1.setText("FULL NAME:");
+        lbName1.setText("MANAGER ID:");
 
-        tfPhoneNumber.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumberActionPerformed(evt);
-            }
-        });
+        tf_ManagerID.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_ManagerID.setForeground(new java.awt.Color(120, 168, 252));
+        tf_ManagerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_ManagerID.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbName2.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName2.setForeground(new java.awt.Color(120, 168, 252));
-        lbName2.setText("AGE:");
+        lbName2.setText("FULL NAME:");
 
-        tfPhoneNumber1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber1.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumber1ActionPerformed(evt);
-            }
-        });
+        tf_Fullname.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Fullname.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Fullname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Fullname.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbName3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName3.setForeground(new java.awt.Color(120, 168, 252));
-        lbName3.setText("SEX:");
+        lbName3.setText("GENDER:");
 
         cbGender.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         cbGender.setForeground(new java.awt.Color(120, 168, 252));
-        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nu" }));
+        cbGender.setMaximumRowCount(2);
+        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         cbGender.setBorder(null);
-        cbGender.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbGenderActionPerformed(evt);
-            }
-        });
 
         lbName4.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName4.setForeground(new java.awt.Color(120, 168, 252));
@@ -123,7 +143,7 @@ public class addEmployee extends javax.swing.JFrame {
 
         lbName5.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName5.setForeground(new java.awt.Color(120, 168, 252));
-        lbName5.setText("POSITION:");
+        lbName5.setText("SALARY: ");
 
         lbName6.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName6.setForeground(new java.awt.Color(120, 168, 252));
@@ -133,86 +153,42 @@ public class addEmployee extends javax.swing.JFrame {
         lbName7.setForeground(new java.awt.Color(120, 168, 252));
         lbName7.setText("BIRTHDAY:");
 
-        tfPhoneNumber2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber2.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumber2ActionPerformed(evt);
-            }
-        });
+        tf_Address.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Address.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Address.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Address.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbName8.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName8.setForeground(new java.awt.Color(120, 168, 252));
-        lbName8.setText("SALARY:");
+        lbName8.setText("POSITION: ");
 
         lbAccount.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbAccount.setForeground(new java.awt.Color(120, 168, 252));
         lbAccount.setText("ACCOUNT:");
 
-        tfAccount.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfAccount.setForeground(new java.awt.Color(120, 168, 252));
-        tfAccount.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfAccount.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfAccount.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfAccountActionPerformed(evt);
-            }
-        });
-
         lbAccount1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbAccount1.setForeground(new java.awt.Color(120, 168, 252));
         lbAccount1.setText("PASSWORD:");
 
-        pfPassword.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        pfPassword.setForeground(new java.awt.Color(120, 168, 252));
-        pfPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pfPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        pfPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pfPasswordActionPerformed(evt);
-            }
-        });
+        tf_Account.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Account.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Account.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Account.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
-        tfPhoneNumber3.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber3.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumber3ActionPerformed(evt);
-            }
-        });
+        tf_Phone.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Phone.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Phone.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Phone.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
-        tfAccount1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfAccount1.setForeground(new java.awt.Color(120, 168, 252));
-        tfAccount1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfAccount1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_Position.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Position.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Position.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Position.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
-        lbName9.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbName9.setForeground(new java.awt.Color(120, 168, 252));
-        lbName9.setText("BONUS:");
-
-        tfPhoneNumber4.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber4.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumber4ActionPerformed(evt);
-            }
-        });
-
-        tfPhoneNumber5.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tfPhoneNumber5.setForeground(new java.awt.Color(120, 168, 252));
-        tfPhoneNumber5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tfPhoneNumber5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
-        tfPhoneNumber5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPhoneNumber5ActionPerformed(evt);
-            }
-        });
+        tf_Salary.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Salary.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Salary.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Salary.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         lbAccount2.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbAccount2.setForeground(new java.awt.Color(120, 168, 252));
@@ -222,6 +198,11 @@ public class addEmployee extends javax.swing.JFrame {
         btnConfirm1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConfirm1.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm1.setText("CONFIRM");
+        btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfirm1MouseClicked(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(129, 0, 0));
         btnExit.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -232,11 +213,13 @@ public class addEmployee extends javax.swing.JFrame {
                 btnExitMouseClicked(evt);
             }
         });
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
+
+        DC_Start.setDateFormatString("dd/MM/yyyy");
+
+        tf_Password.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Password.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tf_Password.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,56 +237,50 @@ public class addEmployee extends javax.swing.JFrame {
                             .addComponent(lbName4)
                             .addComponent(lbName5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_ManagerID, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbName3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_Position, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbAccount2))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_Account, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbAccount1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbName6))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(tf_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(136, 136, 136)
+                                .addComponent(lbName7))
+                            .addComponent(tf_Salary, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneNumber4, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbName9))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbAccount1))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbName6))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(136, 136, 136)
-                                        .addComponent(lbName7))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(tfPhoneNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbAccount2)))
+                                .addGap(76, 76, 76)
+                                .addComponent(btnConfirm1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                                .addComponent(btnExit))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(76, 76, 76)
-                                        .addComponent(btnConfirm1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                                        .addComponent(btnExit))
+                                        .addGap(17, 17, 17)
+                                        .addComponent(tf_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(17, 17, 17)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(tfAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(tfAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(18, 18, 18)
-                                                .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tfPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(183, 183, 183)
-                                .addComponent(lbName3)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(DC_Birth, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tf_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(DC_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(386, 386, 386)
                         .addComponent(lbCreateCustomerAccount1)))
@@ -319,41 +296,38 @@ public class addEmployee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_ManagerID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbName3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(48, 48, 48)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbName2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPhoneNumber1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbName7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DC_Birth, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPhoneNumber2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbName6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbName4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPhoneNumber3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfPhoneNumber4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbName8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbName9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(46, 46, 46)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbAccount2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfPhoneNumber5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbName5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbName6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbName4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_Account, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbAccount1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_Password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_Position, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbName8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbAccount2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(DC_Start, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_Salary, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbName5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,52 +349,107 @@ public class addEmployee extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumberActionPerformed
-
-    private void tfPhoneNumber1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumber1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumber1ActionPerformed
-
-    private void tfPhoneNumber2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumber2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumber2ActionPerformed
-
-    private void tfPhoneNumber3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumber3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumber3ActionPerformed
-
-    private void pfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pfPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pfPasswordActionPerformed
-
-    private void tfAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAccountActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfAccountActionPerformed
-
-    private void tfPhoneNumber4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumber4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumber4ActionPerformed
-
-    private void tfPhoneNumber5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPhoneNumber5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPhoneNumber5ActionPerformed
-
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+        dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
-    private void cbGenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbGenderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbGenderActionPerformed
+    private void btnConfirm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseClicked
+        if (TAG == 1) {
+            add(evt);
+        } 
+        else if (TAG == 2) {
+            update(evt);
+        }
+    }//GEN-LAST:event_btnConfirm1MouseClicked
+    
+    private void update(java.awt.event.MouseEvent evt) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String ManagerID = tf_ManagerID.getText();
+        String FullName = tf_Fullname.getText();
+        String Address = tf_Address.getText();
+        String Account = tf_Account.getText();
+        String Position = tf_Position.getText();
+        int Salary = Integer.parseInt(tf_Salary.getText());
+        String Gender = (String) cbGender.getSelectedItem();
+        String Birth = format.format(DC_Birth.getDate());
+        String Phone = tf_Phone.getText();
+        String Password = tf_Password.getText();
+        String query = "update NHANVIEN "
+                        + "set MAQUANLY = ?, HOTEN = ?, GIOITINH = ?, DIACHI = ?, CHUCVU = ?, SDT = ?, LUONG = ?, NGSINH = ?, TAIKHOAN = ?, MATKHAU = ?"
+                        + "where MANV = ?";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, ManagerID);
+            p_statement.setString(2, FullName);
+            p_statement.setString(3, Gender);
+            p_statement.setString(4, Address);
+            p_statement.setString(5, Position);
+            p_statement.setString(6, Phone);
+            p_statement.setInt(7, Salary);
+            p_statement.setDate(8, new java.sql.Date(DC_Birth.getDate().getTime()));
+            p_statement.setString(9, Account);
+            p_statement.setString(10, Password);
+            p_statement.setString(11, ID);
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExitActionPerformed
+            p_statement.executeUpdate();
+            System.out.println("SUCCESS");
 
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            Object[] data = (new Employee(ID, ManagerID, FullName, Gender, format.format(DC_Start.getDate()), Address, Position, Phone, Salary, Birth, Account, Password)).get_Properties();
+            Home.update(data, RowID);
+            DC_Start.enable(true);
+            dispose();
+        } 
+        
+                
+    }
+    
+    private void add(java.awt.event.MouseEvent evt) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String ManagerID = tf_ManagerID.getText();
+        String FullName = tf_Fullname.getText();
+        String Address = tf_Address.getText();
+        String Account = tf_Account.getText();
+        String Position = tf_Position.getText();
+        int Salary = Integer.parseInt(tf_Salary.getText());
+        String Gender = (String) cbGender.getSelectedItem();
+        String Birth = format.format(DC_Birth.getDate());
+        String Start = format.format(DC_Start.getDate());
+        String Phone = tf_Phone.getText();
+        String Password = tf_Password.getText();
+        String ID = Home.getTableID();
+
+        String query = "insert into NHANVIEN values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, ID);
+            p_statement.setString(2, ManagerID);
+            p_statement.setString(3, FullName);
+            p_statement.setString(4, Gender);
+            p_statement.setDate(5, new java.sql.Date(DC_Start.getDate().getTime()));
+            p_statement.setString(6, Address);
+            p_statement.setString(7, Position);
+            p_statement.setString(8, Phone);
+            p_statement.setInt(9, Salary);
+            p_statement.setDate(10, new java.sql.Date(DC_Birth.getDate().getTime()));
+            p_statement.setString(11, Account);
+            p_statement.setString(12, Password);
+
+            p_statement.executeUpdate();
+            System.out.println("INSERT SUCCESS");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            Object[] data = (new Employee(ID, ManagerID, FullName, Gender, format.format(DC_Start.getDate()), Address, Position, Phone, Salary, Birth, Account, Password)).get_Properties();
+            Home.update(data);
+            dispose();
+        } 
+    }
     /**
      * @param args the command line arguments
      */
@@ -458,11 +487,11 @@ public class addEmployee extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.toedter.calendar.JDateChooser DC_Birth;
+    private com.toedter.calendar.JDateChooser DC_Start;
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnExit;
     private javax.swing.JComboBox<String> cbGender;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbAccount;
     private javax.swing.JLabel lbAccount1;
@@ -477,15 +506,13 @@ public class addEmployee extends javax.swing.JFrame {
     private javax.swing.JLabel lbName6;
     private javax.swing.JLabel lbName7;
     private javax.swing.JLabel lbName8;
-    private javax.swing.JLabel lbName9;
-    private javax.swing.JPasswordField pfPassword;
-    private javax.swing.JTextField tfAccount;
-    private javax.swing.JTextField tfAccount1;
-    private javax.swing.JTextField tfPhoneNumber;
-    private javax.swing.JTextField tfPhoneNumber1;
-    private javax.swing.JTextField tfPhoneNumber2;
-    private javax.swing.JTextField tfPhoneNumber3;
-    private javax.swing.JTextField tfPhoneNumber4;
-    private javax.swing.JTextField tfPhoneNumber5;
+    private javax.swing.JTextField tf_Account;
+    private javax.swing.JTextField tf_Address;
+    private javax.swing.JTextField tf_Fullname;
+    private javax.swing.JTextField tf_ManagerID;
+    private javax.swing.JTextField tf_Password;
+    private javax.swing.JTextField tf_Phone;
+    private javax.swing.JTextField tf_Position;
+    private javax.swing.JTextField tf_Salary;
     // End of variables declaration//GEN-END:variables
 }
