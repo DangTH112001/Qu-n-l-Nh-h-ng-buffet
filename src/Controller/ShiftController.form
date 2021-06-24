@@ -101,7 +101,6 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbCreateCustomerAccount1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ADD SHIFT"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
@@ -111,44 +110,44 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="ADD SHIFT"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName">
           <Properties>
-            <Property name="text" type="java.lang.String" value="START TIME:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="START TIME:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="END TIME:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="END TIME:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbName3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SHIFT TYPE:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="SHIFT TYPE:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnConfirm1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CONFIRM"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="fc" green="a8" red="78" type="rgb"/>
             </Property>
@@ -158,6 +157,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="CONFIRM"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnConfirm1MouseClicked"/>
@@ -165,7 +165,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnExit">
           <Properties>
-            <Property name="text" type="java.lang.String" value="CANCEL"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="81" type="rgb"/>
             </Property>
@@ -175,6 +174,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="CANCEL"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnExitMouseClicked"/>

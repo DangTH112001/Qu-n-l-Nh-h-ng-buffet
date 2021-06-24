@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package addForm;
+package Controller;
 
-import Controller.Employee;
-import Controller.SQLTable;
+import DBObject.Employee;
+import DBObject.SQLTable;
 import MainView.Home;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;
@@ -20,20 +20,20 @@ import java.util.logging.Logger;
  *
  * @author Phan Hau
  */
-public class addEmployee extends javax.swing.JFrame {
+public class EmployeeController extends javax.swing.JFrame {
     private int TAG;
     private String ID;
     private int RowID;
     /**
      * Creates new form addEmployee
      */
-    public addEmployee() {
+    public EmployeeController() {
         TAG = 1;
         initComponents();
     }
     
-    public addEmployee(Object[] data, int TAG, int RowID) {     
-        this.TAG = TAG;
+    public EmployeeController(Object[] data, int RowID) {     
+        TAG = 2;
         this.RowID = RowID;
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         initComponents();
@@ -50,7 +50,7 @@ public class addEmployee extends javax.swing.JFrame {
             DC_Birth.setDate(format.parse((String) data[9]));
             DC_Start.setDate(format.parse((String) data[4]));
         } catch (ParseException ex) {
-            Logger.getLogger(addEmployee.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         tf_Phone.setText((String) data[7]);
         tf_Password.setText((String) data[11]);
@@ -467,21 +467,22 @@ public class addEmployee extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addEmployee.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EmployeeController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addEmployee().setVisible(true);
-                new addEmployee().setResizable(false);
+                new EmployeeController().setVisible(true);
+                new EmployeeController().setResizable(false);
             }
         });
     }

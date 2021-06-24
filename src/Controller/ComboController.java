@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package addForm;
+package Controller;
 
-import Controller.SQLTable;
+import DBObject.SQLTable;
 import MainView.Home;
 import java.awt.Window;
 import java.sql.Connection;
@@ -24,20 +24,20 @@ import javax.swing.SwingUtilities;
  *
  * @author Phan Hau
  */
-public class addCombo extends javax.swing.JFrame {
+public class ComboController extends javax.swing.JFrame {
     private int TAG;
     private String ID;
     private int RowID;
     /**
      * Creates new form addCombo
      */
-    public addCombo() {
+    public ComboController() {
         TAG = 1;
         initComponents();
     }
     
-    public addCombo(Object[] data, int TAG, int RowID) {     
-        this.TAG = TAG;
+    public ComboController(Object[] data, int RowID) {     
+        TAG = 2;
         this.RowID = RowID;
         initComponents();
         
@@ -279,21 +279,22 @@ public class addCombo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addCombo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComboController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addCombo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComboController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addCombo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComboController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addCombo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ComboController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addCombo().setVisible(true);
-                new addCombo().setResizable(false);
+                new ComboController().setVisible(true);
+                new ComboController().setResizable(false);
             }
         });
     }

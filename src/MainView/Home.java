@@ -5,20 +5,12 @@
  */
 package MainView;
 
-import Controller.Combo;
-import Controller.SQLTable;
-import addForm.*;
-import java.awt.Component;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import Controller.*;
+import DBObject.SQLTable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,7 +18,6 @@ import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -428,7 +419,7 @@ public class Home extends javax.swing.JFrame {
                 res += rs.getInt(1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(addCombo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComboController.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             return res;
@@ -449,10 +440,12 @@ public class Home extends javax.swing.JFrame {
 
     private void Button_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_AddMouseClicked
         switch (TagID) {
-            case 1: {addEmployee add = new addEmployee(); add.setVisible(true); break;}
-            case 2: {addCombo add = new addCombo(); add.setVisible(true); break;}
-            case 3: {addFood add = new addFood(); add.setVisible(true); break;}
-            case 8: {addShift add = new addShift(); add.setVisible(true); break;}
+            case 1: {EmployeeController add = new EmployeeController(); add.setVisible(true); break;}
+            case 2: {ComboController add = new ComboController(); add.setVisible(true); break;}
+            case 3: {FoodController add = new FoodController(); add.setVisible(true); break;}
+            case 4: {GiftController add = new GiftController(); add.setVisible(true); break;}
+            case 5: {TicketController add = new TicketController(); add.setVisible(true); break;}
+            case 8: {ShiftController add = new ShiftController(); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_AddMouseClicked
 
@@ -485,7 +478,6 @@ public class Home extends javax.swing.JFrame {
         int RowID = Table_Info.getSelectedRow();
         Object[] result = new String[20];
         
-        System.out.println(SQLTable.getLength(Table[TagID]));
         for (int j = 0; j < SQLTable.getLength(Table[TagID]); j++) {
             if (Table_Info.getValueAt(RowID, j) != null)
                 result[j] = (Table_Info.getValueAt(RowID, j)).toString();
@@ -494,10 +486,12 @@ public class Home extends javax.swing.JFrame {
         }
         
         switch (TagID) {
-            case 1: {addEmployee add = new addEmployee(result, 2, RowID); add.setVisible(true); break;}
-            case 2: {addCombo add = new addCombo(result, 2, RowID); add.setVisible(true); break;}
-            case 3: {addFood add = new addFood(); add.setVisible(true); break;}
-            case 4: {addShift add = new addShift(); add.setVisible(true); break;}
+            case 1: {EmployeeController add = new EmployeeController(result, RowID); add.setVisible(true); break;}
+            case 2: {ComboController add = new ComboController(result, RowID); add.setVisible(true); break;}
+            case 3: {FoodController add = new FoodController(result, RowID); add.setVisible(true); break;}
+            case 4: {GiftController add = new GiftController(result, RowID); add.setVisible(true); break;}
+            case 5: {TicketController add = new TicketController(result, RowID); add.setVisible(true); break;}
+            case 8: {ShiftController add = new ShiftController(); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
 

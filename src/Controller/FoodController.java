@@ -3,45 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package addForm;
+package Controller;
 
+import DBObject.SQLTable;
 import MainView.Home;
-import java.awt.Window;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Phan Hau
  */
-public class addShift extends javax.swing.JFrame {
-    private Connection connection;
-    private String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
-    private String UserName = "BuffetGO";
-    private String Password = "123";
+public class FoodController extends javax.swing.JFrame {
+    private int TAG;
+    private String ID;
+    private int RowID;
     /**
-     * Creates new form addShift
+     * Creates new form addFood
      */
-    public addShift() {
+    public FoodController() {
+        TAG = 1;
         initComponents();
-        getConn();
     }
     
-    private void getConn() {
-        try {
-            connection = DriverManager.getConnection(URL, UserName, Password);
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public FoodController(Object[] data, int RowID) {     
+        TAG = 2;
+        this.RowID = RowID;
+        initComponents();
+        
+        ID = (String) data[0];
+        tf_FoodName.setText((String) data[1]);
+        tf_Price.setText((String) data[2]);
     }
 
     /**
@@ -53,119 +44,106 @@ public class addShift extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         jPanel1 = new javax.swing.JPanel();
         lbCreateCustomerAccount1 = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
+        tf_FoodName = new javax.swing.JTextField();
         lbName1 = new javax.swing.JLabel();
-        lbName3 = new javax.swing.JLabel();
+        tf_Price = new javax.swing.JTextField();
         btnConfirm1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        jTextField_Start = new javax.swing.JTextField();
-        jTextField_End = new javax.swing.JTextField();
-        jTextField_Type = new javax.swing.JTextField();
+
+        jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        lbCreateCustomerAccount1.setText("ADD SHIFT");
         lbCreateCustomerAccount1.setBackground(new java.awt.Color(255, 255, 255));
         lbCreateCustomerAccount1.setFont(new java.awt.Font("Liberation Sans", 1, 22)); // NOI18N
         lbCreateCustomerAccount1.setForeground(new java.awt.Color(120, 168, 252));
+        lbCreateCustomerAccount1.setText("ADD FOOD");
 
-        lbName.setText("START TIME:");
         lbName.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName.setForeground(new java.awt.Color(120, 168, 252));
+        lbName.setText("FOOD NAME:");
 
-        lbName1.setText("END TIME:");
+        tf_FoodName.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_FoodName.setForeground(new java.awt.Color(120, 168, 252));
+        tf_FoodName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_FoodName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+
         lbName1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName1.setForeground(new java.awt.Color(120, 168, 252));
+        lbName1.setText("PRICE:");
 
-        lbName3.setText("SHIFT TYPE:");
-        lbName3.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        lbName3.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Price.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_Price.setForeground(new java.awt.Color(120, 168, 252));
+        tf_Price.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        tf_Price.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
 
-        btnConfirm1.setText("CONFIRM");
         btnConfirm1.setBackground(new java.awt.Color(120, 168, 252));
         btnConfirm1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConfirm1.setForeground(new java.awt.Color(255, 255, 255));
+        btnConfirm1.setText("CONFIRM");
         btnConfirm1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfirm1MouseClicked(evt);
             }
         });
 
-        btnExit.setText("CANCEL");
         btnExit.setBackground(new java.awt.Color(129, 0, 0));
         btnExit.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
+        btnExit.setText("CANCEL");
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExitMouseClicked(evt);
             }
         });
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
-            }
-        });
-
-        jTextField_Start.setText("jTextField1");
-        jTextField_Start.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_StartActionPerformed(evt);
-            }
-        });
-
-        jTextField_End.setText("jTextField2");
-
-        jTextField_Type.setText("jTextField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbName1)
-                    .addComponent(lbName)
-                    .addComponent(lbName3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbCreateCustomerAccount1)
-                            .addComponent(btnConfirm1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExit))
-                    .addComponent(jTextField_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addComponent(btnConfirm1)
+                    .addComponent(lbCreateCustomerAccount1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(lbName)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_FoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addComponent(lbName1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(41, 41, 41)
+                .addComponent(btnExit)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbCreateCustomerAccount1)
-                .addGap(34, 34, 34)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_Start, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tf_FoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbName1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_End, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbName3)
-                    .addComponent(jTextField_Type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(tf_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(58, 58, 58))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -176,50 +154,72 @@ public class addShift extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+        dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnExitActionPerformed
-
     private void btnConfirm1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm1MouseClicked
-        String ID = "CATEST";
-        String Type = jTextField_Type.getText();
-        String sStart = jTextField_Start.getText();
-        String sFinish = jTextField_End.getText();
-        String query = "insert into CA values (?, ?, ?, ?)";
-        
-        try {
-            Date Start = new SimpleDateFormat("hh:mm:ss").parse(sStart);
-            Date Finish = new SimpleDateFormat("hh:mm:ss").parse(sFinish);
-            PreparedStatement p_statement = connection.prepareStatement(query);
-            p_statement.setString(1, ID);    
-            p_statement.setDate(2, new java.sql.Date(Start.getTime()));
-            p_statement.setDate(3, new java.sql.Date(Finish.getTime()));
-            p_statement.setString(4, Type);
-            
-            p_statement.executeUpdate();
-            System.out.println("INSERT SUCCESS");
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        if (TAG == 1) {
+            add(evt);
+        } 
+        else if (TAG == 2) {
+            update(evt);
         }
     }//GEN-LAST:event_btnConfirm1MouseClicked
+    
+    private void update(java.awt.event.MouseEvent evt) {
+        String Name = tf_FoodName.getText();
+        String Price = tf_Price.getText();
+        String query = "update MONKHAC "
+                        + "set TENMK = ?, GIA = ?"
+                        + "where MAMK = ?";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, Name);
+            p_statement.setString(2, Price);
+            p_statement.setString(3, ID);
 
-    private void jTextField_StartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_StartActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_StartActionPerformed
+            p_statement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            Object[] data = {ID, Name, Price};
+            Home.update(data, RowID);
+            dispose();
+        } 
+        
+                
+    }
+    
+    private void add(java.awt.event.MouseEvent evt) {
+        String Name = tf_FoodName.getText();
+        String Price = tf_Price.getText();
+        String ID = Home.getTableID();
 
+        String query = "insert into MONKHAC values (?, ?, ?)";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, ID);
+            p_statement.setString(2, Name);
+            p_statement.setString(3, Price);
+
+            p_statement.executeUpdate();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            Object[] data = {ID, Name, Price};
+            Home.update(data);
+            dispose();
+        } 
+    }
     /**
      * @param args the command line arguments
      */
@@ -237,21 +237,22 @@ public class addShift extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FoodController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FoodController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FoodController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FoodController.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addShift().setVisible(true);
-                new addShift().setResizable(false);
+                new FoodController().setVisible(true);
+                new FoodController().setResizable(false);
             }
         });
     }
@@ -260,12 +261,11 @@ public class addShift extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm1;
     private javax.swing.JButton btnExit;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField_End;
-    private javax.swing.JTextField jTextField_Start;
-    private javax.swing.JTextField jTextField_Type;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lbCreateCustomerAccount1;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbName1;
-    private javax.swing.JLabel lbName3;
+    private javax.swing.JTextField tf_FoodName;
+    private javax.swing.JTextField tf_Price;
     // End of variables declaration//GEN-END:variables
 }
