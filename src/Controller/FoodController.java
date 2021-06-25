@@ -63,7 +63,7 @@ public class FoodController extends javax.swing.JFrame {
         lbCreateCustomerAccount1.setBackground(new java.awt.Color(255, 255, 255));
         lbCreateCustomerAccount1.setFont(new java.awt.Font("Liberation Sans", 1, 22)); // NOI18N
         lbCreateCustomerAccount1.setForeground(new java.awt.Color(120, 168, 252));
-        lbCreateCustomerAccount1.setText("ADD FOOD");
+        lbCreateCustomerAccount1.setText("FOOD INFO");
 
         lbName.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lbName.setForeground(new java.awt.Color(120, 168, 252));
@@ -108,21 +108,25 @@ public class FoodController extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnConfirm1)
-                    .addComponent(lbCreateCustomerAccount1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(36, 36, 36)
-                            .addComponent(lbName)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tf_FoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addComponent(lbName1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(tf_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbCreateCustomerAccount1)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(36, 36, 36)
+                                    .addComponent(lbName)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(tf_FoodName, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(42, 42, 42)
+                                    .addComponent(lbName1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(tf_Price, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(41, 41, 41))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnConfirm1)
+                        .addGap(18, 18, 18)))
                 .addComponent(btnExit)
                 .addContainerGap(52, Short.MAX_VALUE))
         );
@@ -186,12 +190,12 @@ public class FoodController extends javax.swing.JFrame {
             p_statement.setString(3, ID);
 
             p_statement.executeUpdate();
+            Object[] data = {ID, Name, Price};
+            Home.update(data, RowID);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        finally {
-            Object[] data = {ID, Name, Price};
-            Home.update(data, RowID);
+        finally {    
             dispose();
         } 
         
@@ -211,12 +215,12 @@ public class FoodController extends javax.swing.JFrame {
             p_statement.setString(3, Price);
 
             p_statement.executeUpdate();
+            Object[] data = {ID, Name, Price};
+            Home.update(data);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         finally {
-            Object[] data = {ID, Name, Price};
-            Home.update(data);
             dispose();
         } 
     }

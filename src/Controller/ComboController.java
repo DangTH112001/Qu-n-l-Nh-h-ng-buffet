@@ -221,14 +221,13 @@ public class ComboController extends javax.swing.JFrame {
             p_statement.setString(4, ID);
 
             p_statement.executeUpdate();
-            System.out.println("SUCCESS");
+            Object[] data = {ID, Combo, Price, NoP};
+            Home.update(data, RowID);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         finally {
-            Object[] data = {ID, Combo, Price, NoP};
-            Home.update(data, RowID);
             dispose();
         } 
         
@@ -250,13 +249,13 @@ public class ComboController extends javax.swing.JFrame {
             p_statement.setString(4, NoP);
 
             p_statement.executeUpdate();
+            Object[] data = {ID, Combo, Price, NoP};
+            Home.update(data);
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-        finally {
-            Object[] data = {ID, Combo, Price, NoP};
-            Home.update(data);
+        finally {            
             dispose();
         } 
     }

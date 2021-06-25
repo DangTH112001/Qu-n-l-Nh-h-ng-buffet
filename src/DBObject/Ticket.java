@@ -20,7 +20,6 @@ import java.util.logging.Logger;
 public class Ticket {
     public static String ColumnName[] = {"Mã vé", "Mã bàn","Mã khách hàng", "Ngày ăn","Ngày đặt vé","Tổng tiền combo","Tổng tiền món khác","Thời gian bắt đầu","Thời gian kết thúc"};
 
-    
     String MAVE;
     String MABAN;
     String MAKH; 

@@ -5,6 +5,21 @@
  */
 package Controller;
 
+import DBObject.Employee;
+import DBObject.SQLTable;
+import DBObject.Ticket;
+import MainView.Home;
+import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+
 /**
  *
  * @author DangT
@@ -13,24 +28,40 @@ public class TicketController extends javax.swing.JFrame {
     private int TAG;
     private String ID;
     private int RowID;
+    private Date date;
     /**
      * Creates new form TicketController
      */
     public TicketController() {
+        date = new Date();
         initComponents();
-        
-        
     }
     
     public TicketController(Object[] data, int RowID) {     
         TAG = 2;
+        date = new Date();
         this.RowID = RowID;
         initComponents();
         
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ID = (String) data[0];
         tf_MABAN.setText((String) data[1]);
         tf_MAKH.setText((String) data[2]);
-        
+        try {         
+            DC_BOOK.setDate(format.parse((String) data[3]));
+            DC_CREATE.setDate(format.parse((String) data[4]));
+        } catch (ParseException ex) {
+            Logger.getLogger(TicketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        format = new SimpleDateFormat("HH:mm:ss");
+        tf_TONGCB.setText((String) data[5]);
+        tf_TONGMK.setText((String) data[6]);
+        try {
+            Spin_BEGIN.setValue(format.parse((String) data[7]));
+            Spin_END.setValue(format.parse((String) data[8]));
+        } catch (ParseException ex) {
+            Logger.getLogger(TicketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -60,85 +91,88 @@ public class TicketController extends javax.swing.JFrame {
         DC_BOOK = new com.toedter.calendar.JDateChooser();
         DC_CREATE = new com.toedter.calendar.JDateChooser();
         tf_TONGMK = new javax.swing.JTextField();
-        TP_BEGIN = new com.github.lgooddatepicker.components.TimePicker();
-        TP_END = new com.github.lgooddatepicker.components.TimePicker();
+        SpinnerDateModel sm2 =
+        new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        Spin_END = new javax.swing.JSpinner(sm2);
+        SpinnerDateModel sm1 = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
+        Spin_BEGIN = new javax.swing.JSpinner(sm1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(1040, 500));
 
+        lb_Title.setText("TICKET INFO");
         lb_Title.setBackground(new java.awt.Color(255, 255, 255));
         lb_Title.setFont(new java.awt.Font("Liberation Sans", 1, 22)); // NOI18N
         lb_Title.setForeground(new java.awt.Color(120, 168, 252));
-        lb_Title.setText("TICKET INFO");
 
+        lb_MAKH.setText("CUSTOMER ID:");
         lb_MAKH.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_MAKH.setForeground(new java.awt.Color(120, 168, 252));
-        lb_MAKH.setText("CUSTOMER ID:");
 
-        tf_MAKH.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tf_MAKH.setForeground(new java.awt.Color(120, 168, 252));
         tf_MAKH.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_MAKH.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_MAKH.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_MAKH.setForeground(new java.awt.Color(120, 168, 252));
 
+        lb_MABAN.setText("TABLE ID:");
         lb_MABAN.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_MABAN.setForeground(new java.awt.Color(120, 168, 252));
-        lb_MABAN.setText("TABLE ID:");
 
-        tf_MABAN.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tf_MABAN.setForeground(new java.awt.Color(120, 168, 252));
         tf_MABAN.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_MABAN.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_MABAN.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_MABAN.setForeground(new java.awt.Color(120, 168, 252));
 
+        lb_BOOK.setText("BOOK DATE:");
         lb_BOOK.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_BOOK.setForeground(new java.awt.Color(120, 168, 252));
-        lb_BOOK.setText("BOOK DATE:");
 
+        lb_CREATE.setText("CREATE DATE:");
         lb_CREATE.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_CREATE.setForeground(new java.awt.Color(120, 168, 252));
-        lb_CREATE.setText("CREATE DATE:");
 
+        lb_BEGIN.setText("BEGIN AT:");
         lb_BEGIN.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_BEGIN.setForeground(new java.awt.Color(120, 168, 252));
-        lb_BEGIN.setText("BEGIN AT:");
 
+        lb_TONGCB.setText("COMBO MONEY:");
         lb_TONGCB.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_TONGCB.setForeground(new java.awt.Color(120, 168, 252));
-        lb_TONGCB.setText("COMBO MONEY:");
 
+        lb_TONGMK.setText("FOOD MONEY:");
         lb_TONGMK.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_TONGMK.setForeground(new java.awt.Color(120, 168, 252));
-        lb_TONGMK.setText("FOOD MONEY:");
 
-        tf_TONGCB.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tf_TONGCB.setForeground(new java.awt.Color(120, 168, 252));
         tf_TONGCB.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_TONGCB.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_TONGCB.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_TONGCB.setForeground(new java.awt.Color(120, 168, 252));
         tf_TONGCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tf_TONGCBActionPerformed(evt);
             }
         });
 
+        lb_END.setText("END AT:");
         lb_END.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_END.setForeground(new java.awt.Color(120, 168, 252));
-        lb_END.setText("END AT:");
 
+        btnConfirm4.setText("CONFIRM");
         btnConfirm4.setBackground(new java.awt.Color(120, 168, 252));
         btnConfirm4.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConfirm4.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirm4.setText("CONFIRM");
         btnConfirm4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnConfirm4MouseClicked(evt);
             }
         });
 
+        btnExit.setText("CANCEL");
         btnExit.setBackground(new java.awt.Color(129, 0, 0));
         btnExit.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
-        btnExit.setText("CANCEL");
         btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnExitMouseClicked(evt);
@@ -147,10 +181,18 @@ public class TicketController extends javax.swing.JFrame {
 
         DC_BOOK.setDateFormatString("dd/MM/yyyy");
 
-        tf_TONGMK.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        tf_TONGMK.setForeground(new java.awt.Color(120, 168, 252));
+        DC_CREATE.setDateFormatString("dd/MM/yyyy");
+
         tf_TONGMK.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tf_TONGMK.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(120, 168, 252)));
+        tf_TONGMK.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        tf_TONGMK.setForeground(new java.awt.Color(120, 168, 252));
+
+        JSpinner.DateEditor de2 = new JSpinner.DateEditor(Spin_END, "HH:mm:ss");
+        Spin_END.setEditor(de2);
+
+        JSpinner.DateEditor de1 = new JSpinner.DateEditor(Spin_BEGIN, "HH:mm:ss");
+        Spin_BEGIN.setEditor(de1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -175,8 +217,8 @@ public class TicketController extends javax.swing.JFrame {
                         .addComponent(lb_CREATE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TP_BEGIN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_TONGCB, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                            .addComponent(tf_TONGCB, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                            .addComponent(Spin_BEGIN))
                         .addGap(106, 106, 106)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lb_TONGMK, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -187,13 +229,13 @@ public class TicketController extends javax.swing.JFrame {
                         .addComponent(btnConfirm4)
                         .addGap(46, 46, 46)
                         .addComponent(btnExit)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 113, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(DC_CREATE, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(DC_BOOK, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(TP_END, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tf_TONGMK))
+                            .addComponent(tf_TONGMK)
+                            .addComponent(Spin_END))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(386, 386, 386)
@@ -231,9 +273,9 @@ public class TicketController extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_BEGIN, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lb_END, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TP_BEGIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TP_END, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(67, 67, 67)
+                    .addComponent(Spin_END, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Spin_BEGIN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(68, 68, 68)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirm4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,9 +297,93 @@ public class TicketController extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirm4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirm4MouseClicked
-        
+        if (TAG == 1) {
+            add(evt);
+        } 
+        else if (TAG == 2) {
+            update(evt);
+        }
     }//GEN-LAST:event_btnConfirm4MouseClicked
+    
+    private void update(java.awt.event.MouseEvent evt) {
+        DateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat tformat = new SimpleDateFormat("HH:mm:ss");
+        
+        String tableID = tf_MABAN.getText();
+        String cusID = tf_MAKH.getText();
+        Date BookDate = DC_BOOK.getDate();
+        Date CreateDate = DC_CREATE.getDate();
+        int TongCB = Integer.parseInt(tf_TONGCB.getText());
+        int TongMK = Integer.parseInt(tf_TONGMK.getText());
+        String Begin = tformat.format((Date) Spin_BEGIN.getValue());
+        String End =  tformat.format((Date) Spin_END.getValue());
+        String query = "update VE "
+                        + "set MABAN = ?, MAKH = ?, NGAN = ?, NGDV = ?, TONGCB = ?, TONGMK = ?, TGBD = ?, TGKT = ?"
+                        + "where MAVE = ?";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, tableID);
+            p_statement.setString(2, cusID);
+            p_statement.setDate(3, new java.sql.Date(BookDate.getTime()));
+            p_statement.setDate(4, new java.sql.Date(CreateDate.getTime()));
+            p_statement.setString(5, tf_TONGCB.getText());
+            p_statement.setString(6, tf_TONGMK.getText());
+            p_statement.setDate(7, new java.sql.Date(((Date) Spin_BEGIN.getValue()).getTime()));
+            p_statement.setDate(8, new java.sql.Date(((Date) Spin_END.getValue()).getTime()));
+            p_statement.setString(9, ID);
 
+            p_statement.executeUpdate();
+            Object[] data = (new Ticket(ID, tableID, cusID, dformat.format(BookDate), dformat.format(CreateDate), TongCB, TongMK, Begin, End)).get_Properties();
+            Home.update(data, RowID);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {        
+            dispose();
+        } 
+        
+                
+    }
+    
+    private void add(java.awt.event.MouseEvent evt) {
+        DateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat tformat = new SimpleDateFormat("HH:mm:ss");
+        
+        String tableID = tf_MABAN.getText();
+        String cusID = tf_MAKH.getText();
+        Date BookDate = DC_BOOK.getDate();
+        Date CreateDate = DC_CREATE.getDate();
+        int TongCB = Integer.parseInt(tf_TONGCB.getText());
+        int TongMK = Integer.parseInt(tf_TONGMK.getText());
+        Date Begin = (Date) Spin_BEGIN.getValue();
+        Date End =  (Date) Spin_END.getValue();
+        String ID = Home.getTableID();
+  
+
+        String query = "insert into VE values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            p_statement.setString(1, ID);
+            p_statement.setString(2, tableID);
+            p_statement.setString(3, cusID);
+            p_statement.setDate(4, new java.sql.Date(BookDate.getTime()));
+            p_statement.setDate(5, new java.sql.Date(CreateDate.getTime()));
+            p_statement.setInt(6, TongCB);
+            p_statement.setInt(7, TongMK);
+            p_statement.setDate(8, new java.sql.Date(Begin.getTime()));
+            p_statement.setDate(9, new java.sql.Date(End.getTime()));
+                
+            p_statement.executeUpdate();
+            Object[] data = (new Ticket(ID, tableID, cusID, dformat.format(BookDate), dformat.format(CreateDate), TongCB, TongMK, tformat.format(Begin), tformat.format(End))).get_Properties();  
+            Home.update(data, RowID);           
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            dispose();
+        } 
+    }
+    
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         dispose();
     }//GEN-LAST:event_btnExitMouseClicked
@@ -304,56 +430,11 @@ public class TicketController extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DC_BOOK;
     private com.toedter.calendar.JDateChooser DC_CREATE;
-    private com.github.lgooddatepicker.components.TimePicker TP_BEGIN;
-    private com.github.lgooddatepicker.components.TimePicker TP_END;
-    private javax.swing.JButton btnConfirm1;
-    private javax.swing.JButton btnConfirm2;
-    private javax.swing.JButton btnConfirm3;
+    private javax.swing.JSpinner Spin_BEGIN;
+    private javax.swing.JSpinner Spin_END;
     private javax.swing.JButton btnConfirm4;
     private javax.swing.JButton btnExit;
-    private javax.swing.JComboBox<String> cbGender;
-    private javax.swing.JComboBox<String> cbGender1;
-    private javax.swing.JComboBox<String> cbGender2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JLabel lbAccount;
-    private javax.swing.JLabel lbAccount1;
-    private javax.swing.JLabel lbAccount2;
-    private javax.swing.JLabel lbAccount3;
-    private javax.swing.JLabel lbAccount4;
-    private javax.swing.JLabel lbAccount5;
-    private javax.swing.JLabel lbAccount6;
-    private javax.swing.JLabel lbAccount7;
-    private javax.swing.JLabel lbAccount8;
-    private javax.swing.JLabel lbCreateCustomerAccount1;
-    private javax.swing.JLabel lbCreateCustomerAccount2;
-    private javax.swing.JLabel lbCreateCustomerAccount3;
-    private javax.swing.JLabel lbName1;
-    private javax.swing.JLabel lbName10;
-    private javax.swing.JLabel lbName11;
-    private javax.swing.JLabel lbName12;
-    private javax.swing.JLabel lbName13;
-    private javax.swing.JLabel lbName14;
-    private javax.swing.JLabel lbName15;
-    private javax.swing.JLabel lbName16;
-    private javax.swing.JLabel lbName17;
-    private javax.swing.JLabel lbName18;
-    private javax.swing.JLabel lbName19;
-    private javax.swing.JLabel lbName2;
-    private javax.swing.JLabel lbName20;
-    private javax.swing.JLabel lbName21;
-    private javax.swing.JLabel lbName22;
-    private javax.swing.JLabel lbName23;
-    private javax.swing.JLabel lbName24;
-    private javax.swing.JLabel lbName3;
-    private javax.swing.JLabel lbName4;
-    private javax.swing.JLabel lbName5;
-    private javax.swing.JLabel lbName6;
-    private javax.swing.JLabel lbName7;
-    private javax.swing.JLabel lbName8;
-    private javax.swing.JLabel lbName9;
     private javax.swing.JLabel lb_BEGIN;
     private javax.swing.JLabel lb_BOOK;
     private javax.swing.JLabel lb_CREATE;
@@ -363,29 +444,8 @@ public class TicketController extends javax.swing.JFrame {
     private javax.swing.JLabel lb_TONGCB;
     private javax.swing.JLabel lb_TONGMK;
     private javax.swing.JLabel lb_Title;
-    private javax.swing.JTextField tf_Account;
-    private javax.swing.JTextField tf_Account1;
-    private javax.swing.JTextField tf_Account2;
-    private javax.swing.JTextField tf_Address;
-    private javax.swing.JTextField tf_Address1;
-    private javax.swing.JTextField tf_Address2;
-    private javax.swing.JTextField tf_Fullname;
-    private javax.swing.JTextField tf_Fullname1;
-    private javax.swing.JTextField tf_Fullname2;
     private javax.swing.JTextField tf_MABAN;
     private javax.swing.JTextField tf_MAKH;
-    private javax.swing.JTextField tf_ManagerID;
-    private javax.swing.JTextField tf_ManagerID1;
-    private javax.swing.JTextField tf_ManagerID2;
-    private javax.swing.JTextField tf_Phone;
-    private javax.swing.JTextField tf_Phone1;
-    private javax.swing.JTextField tf_Phone2;
-    private javax.swing.JTextField tf_Position;
-    private javax.swing.JTextField tf_Position1;
-    private javax.swing.JTextField tf_Position2;
-    private javax.swing.JTextField tf_Salary;
-    private javax.swing.JTextField tf_Salary1;
-    private javax.swing.JTextField tf_Salary2;
     private javax.swing.JTextField tf_TONGCB;
     private javax.swing.JTextField tf_TONGMK;
     // End of variables declaration//GEN-END:variables

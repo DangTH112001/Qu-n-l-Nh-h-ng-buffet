@@ -7,14 +7,20 @@ package MainView;
 
 import Controller.*;
 import DBObject.SQLTable;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +36,14 @@ public class Home extends javax.swing.JFrame {
     private static String[] Table = {"", "NHANVIEN", "COMBO", "MONKHAC", "QUA", "VE", "GIAMGIA", "KHACHHANG", "CA"};
     private String[] Ma = {"", "MANV", "MACB", "MAMK", "MAQUA", "MAVE", "MAGG", "MAKH", "MACA"};
     private static String[] Prefix = {"", "NV", "CB", "MK", "Q", "V", "GG", "KH", "C"};
+    private Timer tm;
+    private int x = 0;
+    
+    String[] list = {
+                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Drink.jpg",
+                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Food.jpg",
+                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Restaurant.jpg"
+                    };
     /**
      * Creates new form Home
      */
@@ -76,6 +90,7 @@ public class Home extends javax.swing.JFrame {
         Icon_Search.setVisible(state);
         TextField_SearchContent.setText("");
         TextField_SearchContent.setVisible(state);
+        Slide.setVisible(!state);
     }
     
     public static void update(Object[] data) {
@@ -113,6 +128,7 @@ public class Home extends javax.swing.JFrame {
         Button_Update = new javax.swing.JButton();
         Icon_Search = new javax.swing.JLabel();
         TextField_SearchContent = new javax.swing.JTextField();
+        Slide = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -127,6 +143,11 @@ public class Home extends javax.swing.JFrame {
         Label_Home.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         Label_Home.setText("Home");
         Label_Home.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Label_Home.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_HomeMouseClicked(evt);
+            }
+        });
 
         Label_Discount.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Discount.setForeground(new java.awt.Color(255, 255, 255));
@@ -341,6 +362,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TextField_SearchContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1000, 32));
+        getContentPane().add(Slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1050, 670));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -445,6 +467,8 @@ public class Home extends javax.swing.JFrame {
             case 3: {FoodController add = new FoodController(); add.setVisible(true); break;}
             case 4: {GiftController add = new GiftController(); add.setVisible(true); break;}
             case 5: {TicketController add = new TicketController(); add.setVisible(true); break;}
+            case 6: {DiscountController add = new DiscountController(); add.setVisible(true); break;}
+            case 7: {CustomerController add = new CustomerController(); add.setVisible(true); break;}
             case 8: {ShiftController add = new ShiftController(); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_AddMouseClicked
@@ -491,7 +515,9 @@ public class Home extends javax.swing.JFrame {
             case 3: {FoodController add = new FoodController(result, RowID); add.setVisible(true); break;}
             case 4: {GiftController add = new GiftController(result, RowID); add.setVisible(true); break;}
             case 5: {TicketController add = new TicketController(result, RowID); add.setVisible(true); break;}
-            case 8: {ShiftController add = new ShiftController(); add.setVisible(true); break;}
+            case 6: {DiscountController add = new DiscountController(result, RowID); add.setVisible(true); break;}
+            case 7: {CustomerController add = new CustomerController(result, RowID); add.setVisible(true); break;}
+            case 8: {ShiftController add = new ShiftController(result, RowID); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
 
@@ -501,6 +527,28 @@ public class Home extends javax.swing.JFrame {
         set_Table("MONKHAC");
     }//GEN-LAST:event_Label_FoodMouseClicked
 
+    private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
+        switchState(false);
+        
+        tm = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SetImageSize(x);
+                x += 1;
+                if (x >= list.length) 
+                   x = 0;
+            }
+        });
+        tm.start();
+    }//GEN-LAST:event_Label_HomeMouseClicked
+
+    public void SetImageSize(int i) {
+        ImageIcon icon = new ImageIcon(list[i]);
+        Image img = icon.getImage();
+        Image newImg = img.getScaledInstance(Slide.getWidth(), Slide.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon newImc = new ImageIcon(newImg);
+        Slide.setIcon(newImc);
+    }
     
     /**
      * @param args the command line arguments
@@ -556,6 +604,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_Function;
     private javax.swing.JPanel Panel_Tabs;
     private static javax.swing.JScrollPane ScrollPane_Info;
+    private javax.swing.JLabel Slide;
     private static javax.swing.JTable Table_Info;
     private javax.swing.JTextField TextField_SearchContent;
     // End of variables declaration//GEN-END:variables
