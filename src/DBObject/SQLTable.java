@@ -10,7 +10,7 @@
  */
 package DBObject;
 
-import MainView.Home;
+import MainView.ManagerHome;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -32,15 +32,13 @@ public class SQLTable {
     public SQLTable() {
         getConn();
     }
-    
     private static void getConn() {
         try {
             connection = DriverManager.getConnection(URL, UserName, Password);
         } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
     public static int getLength(String TableName) {
         int res = 0;
         
@@ -57,8 +55,7 @@ public class SQLTable {
         }
         
         return res;
-    }
-    
+    }  
     public static int getSize(String TableName) {
         int size = 0;
         String query = "select count(*) from " + TableName;
@@ -72,12 +69,11 @@ public class SQLTable {
             }
         }
         catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
         }      
         
         return size;
-    }
-    
+    }  
     public static Object[] getProperties(String TableName, ResultSet rs) {
         Object[] res = null;
         
@@ -127,7 +123,6 @@ public class SQLTable {
         
         return res;
     }
-    
     public static String[] ColumnName(String TableName) {
         String[] res = null;
         

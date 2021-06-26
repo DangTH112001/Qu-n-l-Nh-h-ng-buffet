@@ -5,7 +5,14 @@
  */
 package MainView;
 
-import Controller.*;
+import Form.QuaForm;
+import Form.GiamGiaForm;
+import Form.MonKhacForm;
+import Form.ComboForm;
+import Form.CaForm;
+import Form.VeForm;
+import Form.NhanVienForm;
+import Form.KhachHangForm;
 import DBObject.SQLTable;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -31,7 +38,7 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Phan Hau
  */
-public class Home extends javax.swing.JFrame {
+public class ManagerHome extends javax.swing.JFrame {
     private static int TagID = 0;
     private static String[] Table = {"", "NHANVIEN", "COMBO", "MONKHAC", "QUA", "VE", "GIAMGIA", "KHACHHANG", "CA"};
     private String[] Ma = {"", "MANV", "MACB", "MAMK", "MAQUA", "MAVE", "MAGG", "MAKH", "MACA"};
@@ -45,7 +52,7 @@ public class Home extends javax.swing.JFrame {
                         "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Restaurant.jpg"
                     };
     /**
-     * Creates new form Home
+     * Creates new form ManagerHome
      */
     
     private void set_Table(String TableName) {
@@ -66,7 +73,7 @@ public class Home extends javax.swing.JFrame {
                 data[i++] = SQLTable.getProperties(TableName, rs);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             Table_Info.setModel(new DefaultTableModel(data, SQLTable.ColumnName(TableName)) { 
@@ -78,7 +85,7 @@ public class Home extends javax.swing.JFrame {
         }
     }
     
-    public Home() {
+    public ManagerHome() {
         SQLTable table = new SQLTable();
         initComponents();
         switchState(false);
@@ -441,7 +448,7 @@ public class Home extends javax.swing.JFrame {
                 res += rs.getInt(1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ComboController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ComboForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             return res;
@@ -462,14 +469,14 @@ public class Home extends javax.swing.JFrame {
 
     private void Button_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_AddMouseClicked
         switch (TagID) {
-            case 1: {EmployeeController add = new EmployeeController(); add.setVisible(true); break;}
-            case 2: {ComboController add = new ComboController(); add.setVisible(true); break;}
-            case 3: {FoodController add = new FoodController(); add.setVisible(true); break;}
-            case 4: {GiftController add = new GiftController(); add.setVisible(true); break;}
-            case 5: {TicketController add = new TicketController(); add.setVisible(true); break;}
-            case 6: {DiscountController add = new DiscountController(); add.setVisible(true); break;}
-            case 7: {CustomerController add = new CustomerController(); add.setVisible(true); break;}
-            case 8: {ShiftController add = new ShiftController(); add.setVisible(true); break;}
+            case 1: {NhanVienForm add = new NhanVienForm(); add.setVisible(true); break;}
+            case 2: {ComboForm add = new ComboForm(); add.setVisible(true); break;}
+            case 3: {MonKhacForm add = new MonKhacForm(); add.setVisible(true); break;}
+            case 4: {QuaForm add = new QuaForm(); add.setVisible(true); break;}
+            case 5: {VeForm add = new VeForm(); add.setVisible(true); break;}
+            case 6: {GiamGiaForm add = new GiamGiaForm(); add.setVisible(true); break;}
+            case 7: {KhachHangForm add = new KhachHangForm(); add.setVisible(true); break;}
+            case 8: {CaForm add = new CaForm(); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_AddMouseClicked
 
@@ -510,14 +517,14 @@ public class Home extends javax.swing.JFrame {
         }
         
         switch (TagID) {
-            case 1: {EmployeeController add = new EmployeeController(result, RowID); add.setVisible(true); break;}
-            case 2: {ComboController add = new ComboController(result, RowID); add.setVisible(true); break;}
-            case 3: {FoodController add = new FoodController(result, RowID); add.setVisible(true); break;}
-            case 4: {GiftController add = new GiftController(result, RowID); add.setVisible(true); break;}
-            case 5: {TicketController add = new TicketController(result, RowID); add.setVisible(true); break;}
-            case 6: {DiscountController add = new DiscountController(result, RowID); add.setVisible(true); break;}
-            case 7: {CustomerController add = new CustomerController(result, RowID); add.setVisible(true); break;}
-            case 8: {ShiftController add = new ShiftController(result, RowID); add.setVisible(true); break;}
+            case 1: {NhanVienForm add = new NhanVienForm(result, RowID); add.setVisible(true); break;}
+            case 2: {ComboForm add = new ComboForm(result, RowID); add.setVisible(true); break;}
+            case 3: {MonKhacForm add = new MonKhacForm(result, RowID); add.setVisible(true); break;}
+            case 4: {QuaForm add = new QuaForm(result, RowID); add.setVisible(true); break;}
+            case 5: {VeForm add = new VeForm(result, RowID); add.setVisible(true); break;}
+            case 6: {GiamGiaForm add = new GiamGiaForm(result, RowID); add.setVisible(true); break;}
+            case 7: {KhachHangForm add = new KhachHangForm(result, RowID); add.setVisible(true); break;}
+            case 8: {CaForm add = new CaForm(result, RowID); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
 
@@ -567,20 +574,21 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManagerHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new ManagerHome().setVisible(true);
             }
         });
     }

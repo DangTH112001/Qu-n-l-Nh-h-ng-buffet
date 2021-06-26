@@ -6,7 +6,7 @@
 package buffetgo;
 
 import LoginView.FormLogin;
-import MainView.Home;
+import MainView.ManagerHome;
 
 /**
  *
@@ -21,7 +21,7 @@ public class BuffetGO {
         //FormLogin form = new FormLogin();
         //form.setVisible(true);
         
-        Home form = new Home();
+        ManagerHome form = new ManagerHome();
         form.setVisible(true);
     }
     
