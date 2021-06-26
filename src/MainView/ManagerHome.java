@@ -88,7 +88,22 @@ public class ManagerHome extends javax.swing.JFrame {
     public ManagerHome() {
         SQLTable table = new SQLTable();
         initComponents();
+        SetImageSize(2);
+        timer();
         switchState(false);
+    }
+    
+    private void timer() {
+        tm = new Timer(10000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SetImageSize(x);
+                x += 1;
+                if (x >= list.length) 
+                   x = 0;
+            }
+        });
+        tm.start();
     }
     
     private void switchState(boolean state) {
@@ -127,6 +142,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Customer = new javax.swing.JLabel();
         Label_Ticket = new javax.swing.JLabel();
         Label_Shift = new javax.swing.JLabel();
+        Label_Report = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
@@ -241,6 +257,16 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
 
+        Label_Report.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Report.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Report.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Report.setText("Report");
+        Label_Report.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_ReportMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
         Panel_TabsLayout.setHorizontalGroup(
@@ -248,6 +274,7 @@ public class ManagerHome extends javax.swing.JFrame {
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_TabsLayout.createSequentialGroup()
                         .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,10 +314,14 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
 
         getContentPane().add(Panel_Tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 770));
+
+        ScrollPane_Info.setPreferredSize(new java.awt.Dimension(1050, 670));
 
         Table_Info.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -369,6 +400,10 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
         getContentPane().add(TextField_SearchContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1000, 32));
+
+        Slide.setMaximumSize(new java.awt.Dimension(1050, 670));
+        Slide.setMinimumSize(new java.awt.Dimension(1050, 670));
+        Slide.setPreferredSize(new java.awt.Dimension(1050, 670));
         getContentPane().add(Slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1050, 670));
 
         pack();
@@ -536,18 +571,12 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
         switchState(false);
-        
-        tm = new Timer(10000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SetImageSize(x);
-                x += 1;
-                if (x >= list.length) 
-                   x = 0;
-            }
-        });
-        tm.start();
+        timer();
     }//GEN-LAST:event_Label_HomeMouseClicked
+
+    private void Label_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ReportMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Label_ReportMouseClicked
 
     public void SetImageSize(int i) {
         ImageIcon icon = new ImageIcon(list[i]);
@@ -606,6 +635,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Food;
     private javax.swing.JLabel Label_Gift;
     private javax.swing.JLabel Label_Home;
+    private javax.swing.JLabel Label_Report;
     private javax.swing.JLabel Label_Shift;
     private javax.swing.JLabel Label_Ticket;
     private javax.swing.JLabel Label_Total;
