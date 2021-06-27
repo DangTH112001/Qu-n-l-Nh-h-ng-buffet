@@ -5,15 +5,14 @@
  */
 package Form;
 
-import DBObject.Customer;
-import DBObject.SQLTable;
+import Controller.KhachHangController;
 import MainView.ManagerHome;
-import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,28 +22,86 @@ public class KhachHangForm extends javax.swing.JFrame {
     private int TAG;
     private String ID;
     private int RowID;
-    /**
-     * Creates new form addEmployee
-     */
+
     public KhachHangForm() {
-        TAG = 1;
+        this.TAG = 1;
         initComponents();
     }
     
-    public KhachHangForm(Object[] data, int RowID) {     
-        TAG = 2;
-        this.RowID = RowID;
+    public KhachHangForm(Object[] data, int RowID) {    
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        this.TAG = 2;
+        this.RowID = RowID;
+        
         initComponents();
+        initInfo(data);
+    }    
+    
+    private void add() {
+        if (check()) {
+            KhachHangController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            KhachHangController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        int[] idx = {1, 2, 8, 9};
+        
+        for (int i = 0; i < idx.length; i++)
+            if (data[idx[i]].equals(""))
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    private Object[] getInfo() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String FullName = tf_HoTen.getText();
+        String Gender = (String) cb_GioiTinh.getSelectedItem();
+        String Type = tf_LoaiKH.getText();
+        String Phone = tf_SDT.getText();
+        String Address = tf_DiaChi.getText();
+        String Birth = format.format(dc_NGSINH.getDate());
+        String Reg = format.format(dc_NGDK.getDate());
+        String Account  = tf_TaiKhoan.getText();
+        String Password = tf_MatKhau.getText();
+        String InviteCode = tf_MAGT.getText();
+        String Point = tf_DiemTL.getText();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, FullName, Gender, Birth, Type, Phone, Address, Reg, Account, Password, InviteCode, Point};
+        return data;
+    }
+    
+    private void initInfo(Object[] data) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         ID = (String) data[0];
         tf_HoTen.setText((String) data[1]);
         cb_GioiTinh.setSelectedItem((String) data[2]);
-        tf_LoaiKH.setText((String) data[3]);
-        tf_SDT.setText((String) data[4]);
-        tf_DiaChi.setText((String) data[5]);
+        tf_LoaiKH.setText((String) data[4]);
+        tf_SDT.setText((String) data[5]);
+        tf_DiaChi.setText((String) data[6]);
         try {
-            dc_NGSINH.setDate(format.parse((String) data[6]));
+            dc_NGSINH.setDate(format.parse((String) data[3]));
             dc_NGDK.setDate(format.parse((String) data[7]));
         } catch (ParseException ex) {
             Logger.getLogger(NhanVienForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,6 +111,7 @@ public class KhachHangForm extends javax.swing.JFrame {
         tf_MAGT.setText((String) data[10]);
         tf_DiemTL.setText((String) data[11]);     
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,7 +143,7 @@ public class KhachHangForm extends javax.swing.JFrame {
         dc_NGDK = new com.toedter.calendar.JDateChooser();
         dc_NGSINH = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         KhachHangPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -337,11 +395,10 @@ public class KhachHangForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        }
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
 
@@ -349,92 +406,6 @@ public class KhachHangForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
-    private void update(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
-        String FullName = tf_HoTen.getText();
-        String Gender = (String) cb_GioiTinh.getSelectedItem();
-        String Type = tf_LoaiKH.getText();
-        String Phone = tf_SDT.getText();
-        String Address = tf_DiaChi.getText();
-        String Birth = format.format(dc_NGSINH.getDate());
-        String Reg = format.format(dc_NGDK.getDate());
-        String Account  = tf_TaiKhoan.getText();
-        String Password = tf_MatKhau.getText();
-        String InviteCode = tf_MAGT.getText();
-        int Point = Integer.parseInt(tf_DiemTL.getText());
-        
-        String query = "update KHACHHANG "
-                        + "set HOTEN = ?, GIOITINH = ?, LOAIKH = ?, DIACHI = ?, SDT = ?, NGSINH = ?, TAIKHOAN = ?, MATKHAU = ?, MAGIOITHIEU = ?, DIEMTL = ?"
-                        + "where MAKH = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, FullName);
-            p_statement.setString(2, Gender);
-            p_statement.setString(3, Type);
-            p_statement.setString(4, Address);
-            p_statement.setString(5, Phone);
-            p_statement.setDate(6, new java.sql.Date(dc_NGSINH.getDate().getTime()));
-            p_statement.setString(7, Account);
-            p_statement.setString(8, Password);
-            p_statement.setString(9, InviteCode);
-            p_statement.setInt(10, Point);
-            p_statement.setString(11, ID);
-
-            p_statement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            Object[] data = (new Customer(ID, FullName, Gender, Type, Phone, Address, Birth, Reg, Account, Password, InviteCode, Point)).get_Properties();
-            ManagerHome.update(data, RowID);
-            dispose();
-        } 
-        
-                
-    }
-    
-    private void add(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String FullName = tf_HoTen.getText();
-        String Gender = (String) cb_GioiTinh.getSelectedItem();
-        String Type = tf_LoaiKH.getText();
-        String Phone = tf_SDT.getText();
-        String Address = tf_DiaChi.getText();
-        String Birth = format.format(dc_NGSINH.getDate());
-        String Reg = format.format(dc_NGDK.getDate());
-        String Account  = tf_TaiKhoan.getText();
-        String Password = tf_MatKhau.getText();
-        String InviteCode = tf_MAGT.getText();
-        int Point = Integer.parseInt(tf_DiemTL.getText());
-
-        String query = "insert into KHACHHANG values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setString(2, FullName);
-            p_statement.setString(3, Gender);
-            p_statement.setString(4, Type);
-            p_statement.setString(5, Phone);
-            p_statement.setString(6, Address);
-            p_statement.setDate(7, new java.sql.Date(dc_NGSINH.getDate().getTime()));
-            p_statement.setDate(8, new java.sql.Date(dc_NGDK.getDate().getTime()));
-            p_statement.setString(9, Account);
-            p_statement.setString(10, Password);
-            p_statement.setString(11, InviteCode);
-            p_statement.setInt(12, Point);
-
-            p_statement.executeUpdate();
-            Object[] data = (new Customer(ID, FullName, Gender, Type, Phone, Address, Birth, Reg, Account, Password, InviteCode, Point)).get_Properties();
-            ManagerHome.update(data);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            
-            dispose();
-        } 
-    }
     /**
      * @param args the command line arguments
      */

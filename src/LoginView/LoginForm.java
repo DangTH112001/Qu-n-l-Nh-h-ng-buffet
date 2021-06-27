@@ -5,17 +5,38 @@
  */
 package LoginView;
 
+import DBObject.SQLTable;
+import MainView.ManagerHome;
+import java.awt.Color;
+import java.awt.Insets;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+
+
 /**
  *
  * @author Phan Hau
  */
-public class FormLogin extends javax.swing.JFrame {
+public class LoginForm extends javax.swing.JFrame {
 
     /**
      * Creates new form FormLogin
      */
-    public FormLogin() {
+    public LoginForm() {
         initComponents();
+        Error.setVisible(false);
+        SQLTable table = new SQLTable();
+    }
+    
+    private void setBorder() {
+        Border errorBorder = BorderFactory.createLineBorder(Color.RED, 2);
+        TextField_UserName.setBorder(errorBorder);
+        TextField_Password.setBorder(errorBorder);
     }
 
     /**
@@ -29,7 +50,7 @@ public class FormLogin extends javax.swing.JFrame {
 
         Panel_LoginForm = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
         Label_Login = new javax.swing.JLabel();
         TextField_UserName = new javax.swing.JTextField();
         Label_UserName = new javax.swing.JLabel();
@@ -37,6 +58,7 @@ public class FormLogin extends javax.swing.JFrame {
         TextField_Password = new javax.swing.JPasswordField();
         Button_Login = new javax.swing.JButton();
         Label_Register = new javax.swing.JLabel();
+        Error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -45,29 +67,26 @@ public class FormLogin extends javax.swing.JFrame {
         Panel_LoginForm.setMinimumSize(new java.awt.Dimension(785, 578));
         Panel_LoginForm.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(120, 168, 252));
+        jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("BuffetGO");
-        jLabel3.setAlignmentX(0.5F);
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
+        Logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addComponent(Logo)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(458, Short.MAX_VALUE))
+                .addGap(102, 102, 102)
+                .addComponent(Logo)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         Panel_LoginForm.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 578));
@@ -79,12 +98,7 @@ public class FormLogin extends javax.swing.JFrame {
         Panel_LoginForm.add(Label_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 115, 68));
 
         TextField_UserName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 51, 51)));
-        TextField_UserName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextField_UserNameActionPerformed(evt);
-            }
-        });
-        Panel_LoginForm.add(TextField_UserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 205, 309, 41));
+        Panel_LoginForm.add(TextField_UserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 205, 309, 42));
 
         Label_UserName.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_UserName.setForeground(new java.awt.Color(102, 102, 102));
@@ -97,11 +111,6 @@ public class FormLogin extends javax.swing.JFrame {
         Panel_LoginForm.add(Label_Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 296, 99, -1));
 
         TextField_Password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        TextField_Password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TextField_PasswordActionPerformed(evt);
-            }
-        });
         Panel_LoginForm.add(TextField_Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 325, 309, 42));
 
         Button_Login.setBackground(new java.awt.Color(120, 168, 252));
@@ -110,12 +119,21 @@ public class FormLogin extends javax.swing.JFrame {
         Button_Login.setText("Sign In");
         Button_Login.setBorder(null);
         Button_Login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Button_Login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_LoginMouseClicked(evt);
+            }
+        });
         Panel_LoginForm.add(Button_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 410, 86, 40));
 
         Label_Register.setForeground(new java.awt.Color(120, 168, 252));
         Label_Register.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_Register.setText("Don't have an account?");
         Panel_LoginForm.add(Label_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 242, 31));
+
+        Error.setForeground(new java.awt.Color(255, 0, 51));
+        Error.setText("The username or password is incorrect.");
+        Panel_LoginForm.add(Error, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 370, -1, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,13 +151,52 @@ public class FormLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TextField_UserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_UserNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextField_UserNameActionPerformed
-
-    private void TextField_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextField_PasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TextField_PasswordActionPerformed
+    private void Button_LoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_LoginMouseClicked
+        String queryNV = "SELECT * FROM NHANVIEN "
+                    + "WHERE TAIKHOAN = ? AND MATKHAU = ?";
+        String queryKH = "SELECT * FROM KHACHHANG "
+                    + "WHERE TAIKHOAN = ? AND MATKHAU = ?";
+              
+        String TK = TextField_UserName.getText();
+        String MK = TextField_Password.getText();
+        boolean isLogin = false;
+        
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(queryNV);
+            p_statement.setString(1, TK);
+            p_statement.setString(2, MK);
+            
+            ResultSet rs = p_statement.executeQuery();
+            isLogin = rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (isLogin) {
+            ManagerHome mh = new ManagerHome();
+            mh.setVisible(true);
+            dispose();
+        }
+        
+        try {
+            PreparedStatement p_statement = SQLTable.connection.prepareStatement(queryKH);
+            p_statement.setString(1, TK);
+            p_statement.setString(2, MK);
+            
+            ResultSet rs = p_statement.executeQuery();
+            isLogin = rs.next();
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (isLogin) {
+            System.out.println("Khách hàng");
+            dispose();
+        }
+        
+        setBorder();
+        Error.setVisible(true);
+    }//GEN-LAST:event_Button_LoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -158,21 +215,23 @@ public class FormLogin extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormLogin().setVisible(true);
+                new LoginForm().setVisible(true);
              
             }
         });
@@ -180,14 +239,15 @@ public class FormLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_Login;
+    private javax.swing.JLabel Error;
     private javax.swing.JLabel Label_Login;
     private javax.swing.JLabel Label_Password;
     private javax.swing.JLabel Label_Register;
     private javax.swing.JLabel Label_UserName;
+    private javax.swing.JLabel Logo;
     private javax.swing.JPanel Panel_LoginForm;
     private javax.swing.JPasswordField TextField_Password;
     private javax.swing.JTextField TextField_UserName;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,20 +5,10 @@
  */
 package Form;
 
-import DBObject.SQLTable;
+import Controller.ComboController;
 import MainView.ManagerHome;
-import java.awt.Window;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -30,14 +20,60 @@ public class ComboForm extends javax.swing.JFrame {
     private int RowID;
 
     public ComboForm() {
-        TAG = 1;
+        this.TAG = 1;
         initComponents();
     }  
     public ComboForm(Object[] data, int RowID) {     
         TAG = 2;
         this.RowID = RowID;
-        initComponents();
         
+        initComponents();
+        initInfo(data);
+    }
+    
+    private void add() {
+        if (check()) {
+            ComboController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            ComboController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        
+        for (Object obj : data)
+            if (obj.equals("")) 
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    public Object[] getInfo() {
+        String Combo = tf_TenCB.getText();
+        String Price = tf_Gia.getText();
+        String NoP = tf_SoNguoi.getText();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, Combo, Price, NoP};
+        return data;
+    }
+    
+    public void initInfo(Object[] data) {
         ID = (String) data[0];
         tf_TenCB.setText((String) data[1]);
         tf_Gia.setText((String) data[2]);
@@ -190,66 +226,13 @@ public class ComboForm extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnExitMouseClicked
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        } 
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
-    private void update(java.awt.event.MouseEvent evt) {
-        String Combo = tf_TenCB.getText();
-        String Price = tf_Gia.getText();
-        String NoP = tf_SoNguoi.getText();
-        String query = "update COMBO "
-                        + "set TENCB = ?, GIA = ?, SONGUOI = ?"
-                        + "where MACB = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, Combo);
-            p_statement.setString(2, Price);
-            p_statement.setString(3, NoP);
-            p_statement.setString(4, ID);
-
-            p_statement.executeUpdate();
-            Object[] data = {ID, Combo, Price, NoP};
-            ManagerHome.update(data, RowID);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            dispose();
-        } 
-        
-                
-    }
     
-    private void add(java.awt.event.MouseEvent evt) {
-        String Combo = tf_TenCB.getText();
-        String Price = tf_Gia.getText();
-        String NoP = tf_SoNguoi.getText();
-        String ID = ManagerHome.getTableID();
-
-        String query = "insert into COMBO values (?, ?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setString(2, Combo);
-            p_statement.setString(3, Price);
-            p_statement.setString(4, NoP);
-
-            p_statement.executeUpdate();
-            Object[] data = {ID, Combo, Price, NoP};
-            ManagerHome.update(data);
-
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {            
-            dispose();
-        } 
-    }
     
     
     /**

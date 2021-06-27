@@ -16,10 +16,10 @@ import java.util.logging.Logger;
  */
 public class Combo {
     public static String ColumnName[] = {"Mã combo", "Tên combo", "Giá", "Số lượng"};
-    String MaCB;
-    String TenCB;
-    int Gia;
-    int SoNguoi;
+    private String MaCB;
+    private String TenCB;
+    private int Gia;
+    private int SoNguoi;
     
     public Combo(String MaCB, String TenCB, int Gia, int SoNguoi) {
         this.MaCB = MaCB;
@@ -32,8 +32,8 @@ public class Combo {
         try {
             this.MaCB = rs.getString("MACB");
             this.TenCB = rs.getString("TENCB");
-            this.Gia = rs.getInt("GIA");
-            this.SoNguoi = rs.getInt("SONGUOI");
+            this.Gia = Integer.parseInt(rs.getString("GIA"));
+            this.SoNguoi = Integer.parseInt(rs.getString("SONGUOI"));
         } catch (SQLException ex) {
             Logger.getLogger(Combo.class.getName()).log(Level.SEVERE, null, ex);
         }

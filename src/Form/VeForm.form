@@ -3,6 +3,7 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -69,7 +70,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="tf_TongCB" pref="213" max="32767" attributes="0"/>
-                              <Component id="Spin_NGBD" max="32767" attributes="0"/>
+                              <Component id="Spin_TGBD" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -142,7 +143,7 @@
                       <Component id="lb_TGBD" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="lb_TGKT" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="Spin_TGKT" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Spin_NGBD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Spin_TGBD" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -383,11 +384,11 @@
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de2 = new JSpinner.DateEditor(Spin_TGKT, &quot;HH:mm:ss&quot;);&#xa;Spin_TGKT.setEditor(de2);"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JSpinner" name="Spin_NGBD">
+        <Component class="javax.swing.JSpinner" name="Spin_TGBD">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(sm1)"/>
             <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="SpinnerDateModel sm1 = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de1 = new JSpinner.DateEditor(Spin_NGBD, &quot;HH:mm:ss&quot;);&#xa;Spin_NGBD.setEditor(de1);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JSpinner.DateEditor de1 = new JSpinner.DateEditor(Spin_TGBD, &quot;HH:mm:ss&quot;);&#xa;Spin_TGBD.setEditor(de1);"/>
           </AuxValues>
         </Component>
       </SubComponents>

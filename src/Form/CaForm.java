@@ -5,6 +5,7 @@
  */
 package Form;
 
+import Controller.CaController;
 import DBObject.Discount;
 import DBObject.SQLTable;
 import DBObject.Shift;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SwingUtilities;
@@ -39,17 +41,68 @@ public class CaForm extends javax.swing.JFrame {
      * Creates new form DiscountController
      */
     public CaForm() {
-        date = new Date();
-        TAG = 1;
+        this.date = new Date();
+        this.TAG = 1;
         initComponents();
     }
     
-    public CaForm(Object[] data, int RowID) {     
-        date = new Date();
-        TAG = 2;
-        this.RowID = RowID;
+    public CaForm(Object[] data, int RowID) {    
         DateFormat format = new SimpleDateFormat("HH:mm:ss");
+        
+        this.date = new Date();
+        this.TAG = 2;
+        this.RowID = RowID;
+        
         initComponents();
+        initInfo(data);
+    }    
+    
+    private void add() {
+        if (check()) {
+            CaController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            CaController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        
+        for (Object obj : data)
+            if (obj.equals("")) 
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    private Object[] getInfo() {
+        DateFormat format = new SimpleDateFormat("HH:mm:ss");   
+        
+        String Begin = format.format((Date) Spin_TGBD.getValue());
+        String End = format.format((Date) Spin_TGKT.getValue());
+        String Type = (String) cb_LoaiCa.getSelectedItem();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, Begin, End, Type};
+        return data;
+    }
+    
+    private void initInfo(Object[] data) {
+        DateFormat format = new SimpleDateFormat("HH:mm:ss");   
         
         ID = (String) data[0];
         try {
@@ -59,64 +112,8 @@ public class CaForm extends javax.swing.JFrame {
             Logger.getLogger(VeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         cb_LoaiCa.setSelectedItem((String) data[3]);
-    }                                     
-    
-    private void update(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("HH:mm:ss");
-        
-        String Begin = format.format((Date) Spin_TGBD.getValue());
-        String End = format.format((Date) Spin_TGKT.getValue());
-        String Type = (String) cb_LoaiCa.getSelectedItem();
-        String query = "update CA "
-                        + "set TGBD = ?, TGKT = ?, LOAICA = ?"
-                        + "where MACA = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setDate(1, new java.sql.Date(((Date) Spin_TGBD.getValue()).getTime()));
-            p_statement.setDate(2, new java.sql.Date(((Date) Spin_TGKT.getValue()).getTime()));
-            p_statement.setString(3, Type);
-            p_statement.setString(4, ID);
-            
-            p_statement.executeUpdate();
-            Object[] data = (new Shift(ID, Begin, End, Type)).get_Properties();
-            ManagerHome.update(data, RowID);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {      
-            dispose();
-        }          
     }
     
-    private void add(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("HH:mm:ss");
-        
-        String Begin = format.format((Date) Spin_TGBD.getValue());
-        String End = format.format((Date) Spin_TGKT.getValue());
-        String Type = (String) cb_LoaiCa.getSelectedItem();
-        String ID = ManagerHome.getTableID();
- 
-
-        String query = "insert into GIAMGIA values (?, ?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setDate(2, new java.sql.Date(((Date) Spin_TGBD.getValue()).getTime()));
-            p_statement.setDate(3, new java.sql.Date(((Date) Spin_TGKT.getValue()).getTime()));
-            p_statement.setString(4, Type);
-            
-            
-                
-            p_statement.executeUpdate();
-            Object[] data = (new Shift(ID, Begin, End, Type)).get_Properties();
-            ManagerHome.update(data);      
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            dispose();
-        } 
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -261,9 +258,7 @@ public class CaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
-        JComponent comp = (JComponent) evt.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
+        dispose();
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -271,11 +266,10 @@ public class CaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitActionPerformed
 
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        } 
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
 

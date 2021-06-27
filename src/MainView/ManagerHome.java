@@ -5,6 +5,7 @@
  */
 package MainView;
 
+import Controller.*;
 import Form.QuaForm;
 import Form.GiamGiaForm;
 import Form.MonKhacForm;
@@ -46,7 +47,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private Timer tm;
     private int x = 0;
     
-    String[] list = {
+     String[] list = {
                         "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Drink.jpg",
                         "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Food.jpg",
                         "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Restaurant.jpg"
@@ -388,7 +389,7 @@ public class ManagerHome extends javax.swing.JFrame {
 
         Icon_Search.setBackground(new java.awt.Color(255, 255, 255));
         Icon_Search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon_Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/icons8_search_32px.png"))); // NOI18N
+        Icon_Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_search.png"))); // NOI18N
         Icon_Search.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(Icon_Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 50, 32));
 
@@ -417,23 +418,26 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void Button_RemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_RemoveMouseClicked
         int RowID = Table_Info.getSelectedRow();
-        
+  
         if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (RowID >= 0) {
                     String ID = (String) Table_Info.getValueAt(RowID, 0);
-                    String query = "delete from " + Table[TagID] + " where " + Ma[TagID] + "= ?";
-
-                    try {
-                        PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-                        p_statement.setString(1, ID);
-
-                        p_statement.executeUpdate();
-                        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
-                        model.removeRow(RowID);
-                    } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, ex.getMessage());
-                    }    
+                    
+                    switch (TagID) {
+                        case 1: {NhanVienController.delete(ID); break;}
+                        case 2: {ComboController.delete(ID); break;}
+                        case 3: {MonKhacController.delete(ID); break;}
+                        case 4: {QuaController.delete(ID); break;}
+                        case 5: {VeController.delete(ID); break;}
+                        case 6: {GiamGiaController.delete(ID); break;}
+                        case 7: {KhachHangController.delete(ID); break;}
+                        case 8: {CaController.delete(ID); break;}
+                    }
+                    
+                    
+                    DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+                    model.removeRow(RowID);             
                 }
             }    
     }//GEN-LAST:event_Button_RemoveMouseClicked

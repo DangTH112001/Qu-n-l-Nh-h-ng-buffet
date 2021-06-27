@@ -5,7 +5,7 @@
  */
 package buffetgo;
 
-import LoginView.FormLogin;
+import LoginView.LoginForm;
 import MainView.ManagerHome;
 
 /**
@@ -18,9 +18,6 @@ public class BuffetGO {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        //FormLogin form = new FormLogin();
-        //form.setVisible(true);
-        
         ManagerHome form = new ManagerHome();
         form.setVisible(true);
     }

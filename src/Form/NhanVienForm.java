@@ -5,6 +5,8 @@
  */
 package Form;
 
+import Controller.KhachHangController;
+import Controller.NhanVienController;
 import DBObject.Employee;
 import DBObject.SQLTable;
 import MainView.ManagerHome;
@@ -15,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,19 +27,77 @@ public class NhanVienForm extends javax.swing.JFrame {
     private int TAG;
     private String ID;
     private int RowID;
-    /**
-     * Creates new form addEmployee
-     */
+
     public NhanVienForm() {
-        TAG = 1;
+        this.TAG = 1;
         initComponents();
     }
     
-    public NhanVienForm(Object[] data, int RowID) {     
-        TAG = 2;
-        this.RowID = RowID;
+    public NhanVienForm(Object[] data, int RowID) {    
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        this.TAG = 2;
+        this.RowID = RowID;
+        
         initComponents();
+        initInfo(data);
+    }    
+    
+    private void add() {
+        if (check()) {
+            NhanVienController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            NhanVienController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        int[] idx = {2, 3, 4, 5, 6, 7 ,8 ,9, 10, 11};
+        
+        for (int i = 0; i < idx.length; i++)
+            if (data[idx[i]].equals(""))
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    private Object[] getInfo() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String ManagerID = tf_MaQuanLy.getText();
+        String FullName = tf_HoTen.getText();
+        String Address = tf_DiaChi.getText();
+        String Account = tf_TaiKhoan.getText();
+        String Position = tf_ChucVu.getText();
+        String Salary = tf_Luong.getText();
+        String Gender = (String) cb_GioiTinh.getSelectedItem();
+        String Birth = format.format(dc_NGSINH.getDate());
+        String Start = format.format(dc_NGBD.getDate());
+        String Phone = tf_SDT.getText();
+        String Password = tf_MatKhau.getText();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, ManagerID, FullName, Gender, Start, Address, Position, Phone, Salary, Birth, Account, Password};
+        return data;
+    }
+    
+    private void initInfo(Object[] data) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         ID = (String) data[0];
         tf_MaQuanLy.setText((String) data[1]);
@@ -53,8 +114,7 @@ public class NhanVienForm extends javax.swing.JFrame {
             Logger.getLogger(NhanVienForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         tf_SDT.setText((String) data[7]);
-        tf_MatKhau.setText((String) data[11]);
-        dc_NGBD.enable(false);
+        tf_MatKhau.setText((String) data[11]);     
     }
 
     /**
@@ -353,102 +413,13 @@ public class NhanVienForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        } 
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
-    
-    private void update(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
-        String ManagerID = tf_MaQuanLy.getText();
-        String FullName = tf_HoTen.getText();
-        String Address = tf_DiaChi.getText();
-        String Account = tf_TaiKhoan.getText();
-        String Position = tf_ChucVu.getText();
-        int Salary = Integer.parseInt(tf_Luong.getText());
-        String Gender = (String) cb_GioiTinh.getSelectedItem();
-        String Birth = format.format(dc_NGSINH.getDate());
-        String Phone = tf_SDT.getText();
-        String Password = tf_MatKhau.getText();
-        String query = "update NHANVIEN "
-                        + "set MAQUANLY = ?, HOTEN = ?, GIOITINH = ?, DIACHI = ?, CHUCVU = ?, SDT = ?, LUONG = ?, NGSINH = ?, TAIKHOAN = ?, MATKHAU = ?"
-                        + "where MANV = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ManagerID);
-            p_statement.setString(2, FullName);
-            p_statement.setString(3, Gender);
-            p_statement.setString(4, Address);
-            p_statement.setString(5, Position);
-            p_statement.setString(6, Phone);
-            p_statement.setInt(7, Salary);
-            p_statement.setDate(8, new java.sql.Date(dc_NGSINH.getDate().getTime()));
-            p_statement.setString(9, Account);
-            p_statement.setString(10, Password);
-            p_statement.setString(11, ID);
 
-            p_statement.executeUpdate();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            Object[] data = (new Employee(ID, ManagerID, FullName, Gender, format.format(dc_NGBD.getDate()), Address, Position, Phone, Salary, Birth, Account, Password)).get_Properties();
-            ManagerHome.update(data, RowID);
-            dispose();
-        } 
-        
-                
-    }
-    
-    private void add(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String ManagerID = tf_MaQuanLy.getText();
-        String FullName = tf_HoTen.getText();
-        String Address = tf_DiaChi.getText();
-        String Account = tf_TaiKhoan.getText();
-        String Position = tf_ChucVu.getText();
-        int Salary = Integer.parseInt(tf_Luong.getText());
-        String Gender = (String) cb_GioiTinh.getSelectedItem();
-        String Birth = format.format(dc_NGSINH.getDate());
-        String Start = format.format(dc_NGBD.getDate());
-        String Phone = tf_SDT.getText();
-        String Password = tf_MatKhau.getText();
-        String ID = ManagerHome.getTableID();
-
-        String query = "insert into NHANVIEN values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setString(2, ManagerID);
-            p_statement.setString(3, FullName);
-            p_statement.setString(4, Gender);
-            p_statement.setDate(5, new java.sql.Date(dc_NGBD.getDate().getTime()));
-            p_statement.setString(6, Address);
-            p_statement.setString(7, Position);
-            p_statement.setString(8, Phone);
-            p_statement.setInt(9, Salary);
-            p_statement.setDate(10, new java.sql.Date(dc_NGSINH.getDate().getTime()));
-            p_statement.setString(11, Account);
-            p_statement.setString(12, Password);
-
-            p_statement.executeUpdate();
-            Object[] data = (new Employee(ID, ManagerID, FullName, Gender, format.format(dc_NGBD.getDate()), Address, Position, Phone, Salary, Birth, Account, Password)).get_Properties();
-            ManagerHome.update(data);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            
-            dispose();
-        } 
-    }
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

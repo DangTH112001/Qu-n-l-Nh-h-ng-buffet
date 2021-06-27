@@ -5,32 +5,76 @@
  */
 package Form;
 
+import Controller.MonKhacController;
+import Controller.QuaController;
 import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author DangT
  */
 public class QuaForm extends javax.swing.JFrame {
-
-    private int TAG;
+private int TAG;
     private String ID;
     private int RowID;
-    /**
-     * Creates new form addFood
-     */
+
     public QuaForm() {
-        TAG = 1;
+        this.TAG = 1;
         initComponents();
-    }
-    
+    }  
     public QuaForm(Object[] data, int RowID) {     
         TAG = 2;
         this.RowID = RowID;
-        initComponents();
         
+        initComponents();
+        initInfo(data);
+    }
+    
+    private void add() {
+        if (check()) {
+            QuaController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            QuaController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        
+        for (Object obj : data)
+            if (obj.equals("")) 
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    public Object[] getInfo() {
+        String Name = tf_TenQua.getText();
+        String Point = tf_DiemDoi.getText();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, Name, Point};
+        return data;
+    }
+    
+    public void initInfo(Object[] data) {
         ID = (String) data[0];
         tf_TenQua.setText((String) data[1]);
         tf_DiemDoi.setText((String) data[2]);
@@ -157,62 +201,13 @@ public class QuaForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        }
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
-    private void update(java.awt.event.MouseEvent evt) {
-        String Name = tf_TenQua.getText();
-        String Price = tf_DiemDoi.getText();
-        String query = "update QUA "
-                        + "set TENQUA = ?, DIEMDOI = ?"
-                        + "where MAQUA = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, Name);
-            p_statement.setString(2, Price);
-            p_statement.setString(3, ID);
-
-            p_statement.executeUpdate();
-            Object[] data = {ID, Name, Price};
-            ManagerHome.update(data, RowID);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            
-            dispose();
-        } 
-        
-                
-    }
-    
-    private void add(java.awt.event.MouseEvent evt) {
-        String Name = tf_TenQua.getText();
-        String Price = tf_DiemDoi.getText();
-        String ID = ManagerHome.getTableID();
-
-        String query = "insert into QUA values (?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setString(2, Name);
-            p_statement.setString(3, Price);
-
-            p_statement.executeUpdate();
-            Object[] data = {ID, Name, Price};
-            ManagerHome.update(data);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {   
-            dispose();
-        } 
-    }
-    
+  
     private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
         dispose();
     }//GEN-LAST:event_btnExitMouseClicked

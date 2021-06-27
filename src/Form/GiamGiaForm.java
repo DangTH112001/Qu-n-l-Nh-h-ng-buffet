@@ -5,19 +5,15 @@
  */
 package Form;
 
-import DBObject.Discount;
-import DBObject.SQLTable;
+import Controller.GiamGiaController;
 import MainView.ManagerHome;
-import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,22 +23,77 @@ public class GiamGiaForm extends javax.swing.JFrame {
     private Date date;
     private int TAG;
     private String ID;
-    private int RowID;
-    /**
-     * Creates new form DiscountController
-     */
+    private int RowID;                                
+    
     public GiamGiaForm() {
-        date = new Date();
-        TAG = 1;
+        this.date = new Date();
+        this.TAG = 1;
         initComponents();
     }
     
-    public GiamGiaForm(Object[] data, int RowID) {     
-        date = new Date();
-        TAG = 2;
+    public GiamGiaForm(Object[] data, int RowID) {    
+        this.date = new Date();  
+        this.TAG = 2;
         this.RowID = RowID;
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
         initComponents();
+        initInfo(data);
+    }    
+    
+    private void add() {
+        if (check()) {
+            GiamGiaController.add(getInfo());
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private void update() {
+        if (check()) {
+            GiamGiaController.update(getInfo(), RowID);
+            dispose();
+        }
+        else 
+            ErrorMessage();
+    }
+    
+    private boolean check() {
+        Object[] data = getInfo();
+        int[] idx = {1, 2, 3, 6};
+        
+        for (int i = 0; i < idx.length; i++)
+            if (data[idx[i]].equals(""))
+                return false;
+        return true;
+    }
+    
+    private void ErrorMessage() {
+        JOptionPane.showMessageDialog(null, "Invalid Input");
+    }
+    
+    private Object[] getInfo() {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        
+        String Name = tf_TenGG.getText();
+        String Percent = tf_PhanTram.getText();
+        String Type = tf_LoaiKH.getText();
+        String Start= "01/01/0000";
+        String End= "31/12/9999";
+        if (dc_NGBD.getDate() != null)
+             Start = format.format(dc_NGBD.getDate());
+        if (dc_NGKT.getDate() != null)
+             End = format.format(dc_NGKT.getDate());
+        String Status = tf_TinhTrang.getText();
+        if (ID == null)
+            ID = ManagerHome.getTableID();
+        
+        Object[] data = {ID, Name, Percent, Type, Start, End, Status};
+        return data;
+    }
+    
+    private void initInfo(Object[] data) {
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         ID = (String) data[0];
         tf_TenGG.setText((String) data[1]);
@@ -54,87 +105,10 @@ public class GiamGiaForm extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(GiamGiaForm.class.getName()).log(Level.SEVERE, null, ex);
         }    
-        tf_TinhTrang.setText((String) data[6]);
-    }                                     
-    
-    private void update(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
-        String Name = tf_TenGG.getText();
-        int Percent = Integer.parseInt(tf_PhanTram.getText());
-        int Type = Integer.parseInt(tf_LoaiKH.getText());
-        Date Start = dc_NGBD.getDate();
-        Date End = dc_NGKT.getDate();
-        
-        
-            try {
-                if (Start == null)
-                    Start = format.parse("01/01/0000");
-                if (End == null)
-                    End = format.parse("31/12/9999");
-        } catch (ParseException ex) {
-            Logger.getLogger(GiamGiaForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        int Status = Integer.parseInt(tf_TinhTrang.getText());
-        String query = "update GIAMGIA "
-                        + "set TENGG = ?, PHANTRAM = ?, LOAIKH = ?, NGBD = ?, NGKT = ?, TINHTRANG = ?"
-                        + "where MAGG = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, Name);
-            p_statement.setInt(2, Percent);
-            p_statement.setInt(3, Type);
-            p_statement.setDate(4, new java.sql.Date(Start.getTime()));
-            p_statement.setDate(5, new java.sql.Date(End.getTime()));
-            p_statement.setInt(6, Status);
-            p_statement.setString(7, ID);
-            
-            p_statement.executeUpdate();
-            Object[] data = (new Discount(ID, Name, Percent, Type, format.format(Start), format.format(End), Status)).get_Properties();
-            ManagerHome.update(data, RowID);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {      
-            dispose();
-        }          
+        tf_TinhTrang.setText((String) data[6]); 
     }
     
-    private void add(java.awt.event.MouseEvent evt) {
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        
-        String Name = tf_TenGG.getText();
-        int Percent = Integer.parseInt(tf_PhanTram.getText());
-        int Type = Integer.parseInt(tf_LoaiKH.getText());
-        Date Start = dc_NGBD.getDate();
-        Date End = dc_NGKT.getDate();
-        int Status = Integer.parseInt(tf_TinhTrang.getText());
-        String ID = ManagerHome.getTableID();
- 
-
-        String query = "insert into GIAMGIA values (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
-            p_statement.setString(1, ID);
-            p_statement.setString(2, Name);
-            p_statement.setInt(3, Percent);
-            p_statement.setInt(4, Type);
-            p_statement.setDate(5, new java.sql.Date(Start.getTime()));
-            p_statement.setDate(6, new java.sql.Date(End.getTime()));
-            p_statement.setInt(7, Status);
-            
-                
-            p_statement.executeUpdate();
-            Object[] data = (new Discount(ID, Name, Percent, Type, format.format(Start), format.format(End), Status)).get_Properties();
-            ManagerHome.update(data);          
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        finally {
-            dispose();
-        } 
-    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -329,11 +303,10 @@ public class GiamGiaForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExitMouseClicked
 
     private void btnConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmMouseClicked
-        if (TAG == 1) {
-            add(evt);
-        } 
-        else if (TAG == 2) {
-            update(evt);
+        switch (TAG) {
+            case 1: add(); break;
+            case 2: update(); break;
+            default: break;
         }
     }//GEN-LAST:event_btnConfirmMouseClicked
 

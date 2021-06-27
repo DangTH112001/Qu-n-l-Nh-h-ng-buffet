@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author DangT
  */
 public class Customer {
-    public static String ColumnName[] = {"Mã KH", "Họ và tên", "Giới tính", "Loại khách hàng", "SĐT", "Địa chỉ", "Ngày sinh", "Ngày đăng ký", "Tài khoản", "Mật khẩu", "Mã giới thiệu", "Điểm tích lũy"};
+    public static String ColumnName[] = {"Mã KH", "Họ và tên", "Giới tính", "Ngày sinh", "Loại khách hàng", "SĐT", "Địa chỉ", "Ngày đăng ký", "Tài khoản", "Mật khẩu", "Mã giới thiệu", "Điểm tích lũy"};
     String Cus_ID;
     String Cus_Name;
     String Cus_Gender; 
@@ -74,6 +74,6 @@ public class Customer {
     }
     
     public Object[] get_Properties() {
-        return new Object[] {Cus_ID, Cus_Name, Cus_Gender, Cus_Type, Cus_Phone, Cus_Address, Cus_Ngsinh, Cus_NgDK, Cus_TK, Cus_MK, MAGT, Point};
+        return new Object[] {Cus_ID, Cus_Name, Cus_Gender, Cus_Ngsinh, Cus_Type, Cus_Phone, Cus_Address , Cus_NgDK, Cus_TK, Cus_MK, MAGT, Point};
     }
 }
