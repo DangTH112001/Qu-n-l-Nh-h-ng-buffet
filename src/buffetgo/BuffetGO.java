@@ -18,7 +18,7 @@ public class BuffetGO {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        ManagerHome form = new ManagerHome();
+        LoginForm form = new LoginForm();
         form.setVisible(true);
     }
     

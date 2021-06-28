@@ -6,9 +6,9 @@
 package Form;
 
 import Controller.VeController;
-import DBObject.Employee;
+import DBObject.NhanVien;
 import DBObject.SQLTable;
-import DBObject.Ticket;
+import DBObject.Ve;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;

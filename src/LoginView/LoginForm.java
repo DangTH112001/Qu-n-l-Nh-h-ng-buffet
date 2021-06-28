@@ -23,14 +23,14 @@ import javax.swing.border.Border;
  * @author Phan Hau
  */
 public class LoginForm extends javax.swing.JFrame {
-
-    /**
-     * Creates new form FormLogin
-     */
+    ManagerHome mh = new ManagerHome();
+    SQLTable table = new SQLTable();
+    
     public LoginForm() {
         initComponents();
         Error.setVisible(false);
-        SQLTable table = new SQLTable();
+        mh = new ManagerHome();
+        table = new SQLTable();
     }
     
     private void setBorder() {
@@ -168,14 +168,17 @@ public class LoginForm extends javax.swing.JFrame {
             
             ResultSet rs = p_statement.executeQuery();
             isLogin = rs.next();
+            if (isLogin) {
+                ManagerHome.MaNV = rs.getString("MANV");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (isLogin) {
-            ManagerHome mh = new ManagerHome();
-            mh.setVisible(true);
-            dispose();
+        finally {
+            if (isLogin) {
+                mh.setVisible(true);
+                dispose();
+            }
         }
         
         try {
@@ -188,10 +191,11 @@ public class LoginForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (isLogin) {
-            System.out.println("Khách hàng");
-            dispose();
+        finally {    
+            if (isLogin) {
+                System.out.println("Khách hàng");
+                dispose();
+            }
         }
         
         setBorder();

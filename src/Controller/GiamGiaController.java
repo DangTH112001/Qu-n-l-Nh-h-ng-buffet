@@ -5,7 +5,7 @@
  */
 package Controller;
 
-import DBObject.Discount;
+import DBObject.GiamGia;
 import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;

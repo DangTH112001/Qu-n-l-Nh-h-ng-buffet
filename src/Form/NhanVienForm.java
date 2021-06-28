@@ -7,7 +7,7 @@ package Form;
 
 import Controller.KhachHangController;
 import Controller.NhanVienController;
-import DBObject.Employee;
+import DBObject.NhanVien;
 import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
@@ -279,6 +279,8 @@ public class NhanVienForm extends javax.swing.JFrame {
         });
 
         dc_NGBD.setDateFormatString("dd/MM/yyyy");
+
+        dc_NGSINH.setDateFormatString("dd/MM/yyyy");
 
         javax.swing.GroupLayout NhanVienPanelLayout = new javax.swing.GroupLayout(NhanVienPanel);
         NhanVienPanel.setLayout(NhanVienPanelLayout);

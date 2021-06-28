@@ -6,9 +6,9 @@
 package Form;
 
 import Controller.CaController;
-import DBObject.Discount;
+import DBObject.GiamGia;
 import DBObject.SQLTable;
-import DBObject.Shift;
+import DBObject.Ca;
 import MainView.ManagerHome;
 import java.awt.Window;
 import java.sql.Connection;

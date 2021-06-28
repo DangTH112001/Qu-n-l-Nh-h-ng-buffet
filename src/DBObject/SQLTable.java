@@ -43,14 +43,15 @@ public class SQLTable {
         int res = 0;
         
         switch (TableName) {
-            case "NHANVIEN" : res = Employee.ColumnName.length; break;
+            case "NHANVIEN" : res = NhanVien.ColumnName.length; break;
             case "COMBO" : res = Combo.ColumnName.length; break;
-            case "MONKHAC" : res = Food.ColumnName.length; break;
-            case "QUA" : res = Gift.ColumnName.length; break;
-            case "VE" : res = Ticket.ColumnName.length; break;
-            case "GIAMGIA" : res = Discount.ColumnName.length; break;
-            case "KHACHHANG" : res = Customer.ColumnName.length; break;
-            case "CA" : res = Shift.ColumnName.length; break;
+            case "MONKHAC" : res = MonKhac.ColumnName.length; break;
+            case "QUA" : res = Qua.ColumnName.length; break;
+            case "VE" : res = Ve.ColumnName.length; break;
+            case "GIAMGIA" : res = GiamGia.ColumnName.length; break;
+            case "KHACHHANG" : res = KhachHang.ColumnName.length; break;
+            case "CA" : res = Ca.ColumnName.length; break;
+            case "HOADON": res = HoaDon.ColumnName.length; break;
             default: break;
         }
         
@@ -79,7 +80,7 @@ public class SQLTable {
         
         switch (TableName) {
             case "NHANVIEN" : {
-                Employee emp = new Employee(rs);
+                NhanVien emp = new NhanVien(rs);
                 res = emp.get_Properties();
                 break;
             }
@@ -89,33 +90,38 @@ public class SQLTable {
                 break;
             }
             case "MONKHAC" : {
-                Food f = new Food(rs);
+                MonKhac f = new MonKhac(rs);
                 res = f.get_Properties();
                 break;
             } 
             case "QUA" : {
-                Gift g = new Gift(rs);
+                Qua g = new Qua(rs);
                 res = g.get_Properties();
                 break;
             }
             case "VE" : {
-                Ticket t = new Ticket(rs);
+                Ve t = new Ve(rs);
                 res = t.get_Properties();
                 break;
             }
             case "GIAMGIA" : {
-                Discount d = new Discount(rs);
+                GiamGia d = new GiamGia(rs);
                 res = d.get_Properties();
                 break;
             }
             case "KHACHHANG" : {
-                Customer c = new Customer(rs);
+                KhachHang c = new KhachHang(rs);
                 res = c.get_Properties();
                 break;
             }
             case "CA" : {
-                Shift s = new Shift(rs);
+                Ca s = new Ca(rs);
                 res = s.get_Properties();
+                break;
+            }
+            case "HOADON" : {
+                HoaDon hd = new HoaDon(rs);
+                res = hd.get_Properties();
                 break;
             }
             default: break;
@@ -128,7 +134,7 @@ public class SQLTable {
         
         switch (TableName) {
             case "NHANVIEN" : {
-                res = Employee.ColumnName;
+                res = NhanVien.ColumnName;
                 break;
             }
             case "COMBO" : {
@@ -136,27 +142,31 @@ public class SQLTable {
                 break;
             }
             case "MONKHAC" : {
-                res = Food.ColumnName;
+                res = MonKhac.ColumnName;
                 break;
             }
             case "QUA" : {
-                res = Gift.ColumnName;
+                res = Qua.ColumnName;
                 break;
             }
             case "VE" :{
-                res = Ticket.ColumnName;
+                res = Ve.ColumnName;
                 break;
             }
             case "GIAMGIA" : {
-                res = Discount.ColumnName;
+                res = GiamGia.ColumnName;
                 break;
             }
             case "KHACHHANG" : {
-                res = Customer.ColumnName;
+                res = KhachHang.ColumnName;
                 break;
             }
             case "CA" : {
-                res = Shift.ColumnName;
+                res = Ca.ColumnName;
+                break;
+            }
+            case "HOADON" : {
+                res = HoaDon.ColumnName;
                 break;
             }
             default: break;
