@@ -8,12 +8,10 @@ package MainView;
 import Controller.*;
 import Form.*;
 import DBObject.*;
-import LoginView.LoginForm;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -44,9 +42,9 @@ public class ManagerHome extends javax.swing.JFrame {
     public static String MaNV;
     
      String[] list = {
-                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Drink.jpg",
-                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Food.jpg",
-                        "C:\\Users\\DangT\\Desktop\\BF_Restaurant\\src\\ImgSlide\\Restaurant.jpg"
+                        "Drink.jpg",
+                        "Food.jpg",
+                        "Restaurant.jpg"
                     };
     
     private void set_Table(String TableName) {
@@ -135,7 +133,7 @@ public class ManagerHome extends javax.swing.JFrame {
         }  
      }  
     public void SetImageSize(int i) {
-        ImageIcon icon = new ImageIcon(list[i]);
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("/ImgSlide/" + list[i]));
         Image img = icon.getImage();
         Image newImg = img.getScaledInstance(Slide.getWidth(), Slide.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon newImc = new ImageIcon(newImg);
@@ -572,15 +570,12 @@ public class ManagerHome extends javax.swing.JFrame {
     private void Label_BillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_BillMouseClicked
         // Check if already check in
         // if not insert
-        String query = "SELECT * FROM PHANCONG WHERE MANV = ? AND NGLAM = ?";
-        try {
-            PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+        if (PhanCongController.check(MaNV)) {
+            PhanCongController.add(MaNV);
+            JOptionPane.showMessageDialog(null, "Check in complete");
         }
-        catch (Exception ex) {
-            
-        }
-        
-        System.out.println(MaNV);
+        else 
+            JOptionPane.showMessageDialog(null, "Employee aldready check in");
     }//GEN-LAST:event_Label_BillMouseClicked
     private void Label_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ReportMouseClicked
         // TODO add your handling code here:
