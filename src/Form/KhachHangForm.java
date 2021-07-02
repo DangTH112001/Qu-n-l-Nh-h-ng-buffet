@@ -6,6 +6,7 @@
 package Form;
 
 import Controller.KhachHangController;
+import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -85,7 +86,7 @@ public class KhachHangForm extends javax.swing.JFrame {
         String InviteCode = tf_MAGT.getText();
         String Point = tf_DiemTL.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("KHACHHANG", "KH");
         
         Object[] data = {ID, FullName, Gender, Birth, Type, Phone, Address, Reg, Account, Password, InviteCode, Point};
         return data;

@@ -6,7 +6,7 @@
 package Form;
 
 import Controller.ComboController;
-import MainView.ManagerHome;
+import DBObject.SQLTable;
 import javax.swing.JOptionPane;
 
 
@@ -67,7 +67,7 @@ public class ComboForm extends javax.swing.JFrame {
         String Price = tf_Gia.getText();
         String NoP = tf_SoNguoi.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("COMBO", "CB");
         
         Object[] data = {ID, Combo, Price, NoP};
         return data;

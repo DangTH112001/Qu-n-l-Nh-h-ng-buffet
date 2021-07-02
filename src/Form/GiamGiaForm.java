@@ -6,6 +6,7 @@
 package Form;
 
 import Controller.GiamGiaController;
+import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -86,7 +87,7 @@ public class GiamGiaForm extends javax.swing.JFrame {
              End = format.format(dc_NGKT.getDate());
         String Status = tf_TinhTrang.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("GIAMGIA", "GG");
         
         Object[] data = {ID, Name, Percent, Type, Start, End, Status};
         return data;

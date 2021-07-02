@@ -95,7 +95,7 @@ public class CaForm extends javax.swing.JFrame {
         String End = format.format((Date) Spin_TGKT.getValue());
         String Type = (String) cb_LoaiCa.getSelectedItem();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("CA", "C");
         
         Object[] data = {ID, Begin, End, Type};
         return data;

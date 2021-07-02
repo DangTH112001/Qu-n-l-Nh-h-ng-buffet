@@ -6,13 +6,13 @@
 package Controller;
 
 import DBObject.SQLTable;
+import MainView.EmployeeHome;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class HoaDonController {
      public static void update(Object[] data, int RowID) {
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update HOADON "
                         + "set MANV = ?, MAKH = ?, MAVE = ?, MAGG = ?, TONGTIEN = ?, NGHD = ?"
                         + "where MAHD = ?";
@@ -34,17 +34,17 @@ public class HoaDonController {
             p_statement.setDate(6, new java.sql.Date((format.parse((String) data[6])).getTime()));
             p_statement.setString(7, (String) data[0]);
             
-
             p_statement.executeUpdate();  
+            JOptionPane.showMessageDialog(null, "Update complete");
             ManagerHome.update(data, RowID);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
     public static void add(Object[] data) {    
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
-        String query = "insert into VE values (?, ?, ?, ?, ?, ?, ?)";
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String query = "insert into HOADON values (?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, (String) data[0]);
@@ -57,9 +57,10 @@ public class HoaDonController {
             
 
             p_statement.executeUpdate();
-            ManagerHome.update(data);
+            JOptionPane.showMessageDialog(null, "Add complete");
+            EmployeeHome.update(data);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
@@ -69,8 +70,9 @@ public class HoaDonController {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, ID);
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete complete");
         } catch (SQLException ex) {
-            Logger.getLogger(ComboController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 }

@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package LoginView;
+package Form;
 
 import DBObject.SQLTable;
+import MainView.CustomerHome;
+import MainView.EmployeeHome;
 import MainView.ManagerHome;
 import java.awt.Color;
-import java.awt.Insets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -23,18 +26,24 @@ import javax.swing.border.Border;
  * @author Phan Hau
  */
 public class LoginForm extends javax.swing.JFrame {
-    ManagerHome mh = new ManagerHome();
+    ManagerHome mh;
+    EmployeeHome eh;
+    CustomerHome ch;
+    TaiKhoan ai;
     SQLTable table = new SQLTable();
     
     public LoginForm() {
         initComponents();
         Error.setVisible(false);
         mh = new ManagerHome();
+        eh = new EmployeeHome();
+        ch = new CustomerHome();
+        ai = new TaiKhoan();
         table = new SQLTable();
     }
     
     private void setBorder() {
-        Border errorBorder = BorderFactory.createLineBorder(Color.RED, 2);
+        Border errorBorder = BorderFactory.createLineBorder(Color.RED, 1);
         TextField_UserName.setBorder(errorBorder);
         TextField_Password.setBorder(errorBorder);
     }
@@ -129,6 +138,11 @@ public class LoginForm extends javax.swing.JFrame {
         Label_Register.setForeground(new java.awt.Color(120, 168, 252));
         Label_Register.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_Register.setText("Don't have an account?");
+        Label_Register.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_RegisterMouseClicked(evt);
+            }
+        });
         Panel_LoginForm.add(Label_Register, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 242, 31));
 
         Error.setForeground(new java.awt.Color(255, 0, 51));
@@ -156,6 +170,7 @@ public class LoginForm extends javax.swing.JFrame {
                     + "WHERE TAIKHOAN = ? AND MATKHAU = ?";
         String queryKH = "SELECT * FROM KHACHHANG "
                     + "WHERE TAIKHOAN = ? AND MATKHAU = ?";
+        String ChucVu = null;
               
         String TK = TextField_UserName.getText();
         String MK = TextField_Password.getText();
@@ -170,13 +185,19 @@ public class LoginForm extends javax.swing.JFrame {
             isLogin = rs.next();
             if (isLogin) {
                 ManagerHome.MaNV = rs.getString("MANV");
+                EmployeeHome.MaNV = rs.getString("MANV");
+                ChucVu = rs.getString("CHUCVU");
+                System.out.println(rs.getString("NGVL"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             if (isLogin) {
-                mh.setVisible(true);
+                if (ChucVu.equals("Quản lý"))
+                    mh.setVisible(true);
+                if (ChucVu.equals("Nhan vien"))
+                    eh.setVisible(true);
                 dispose();
             }
         }
@@ -188,12 +209,18 @@ public class LoginForm extends javax.swing.JFrame {
             
             ResultSet rs = p_statement.executeQuery();
             isLogin = rs.next();
+            if (isLogin) {
+                ch.MaKH = rs.getString("MAKH");
+                ch.Point = rs.getInt("DIEMTL");
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                ai.data = new Object[] {rs.getString("HOTEN"), rs.getString("GIOITINH"), format.format(rs.getDate("NGSINH")), rs.getString("DIACHI"), rs.getString("SDT"), rs.getString("MAGIOITHIEU")};
+            }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {    
             if (isLogin) {
-                System.out.println("Khách hàng");
+                ch.setVisible(true);
                 dispose();
             }
         }
@@ -201,6 +228,12 @@ public class LoginForm extends javax.swing.JFrame {
         setBorder();
         Error.setVisible(true);
     }//GEN-LAST:event_Button_LoginMouseClicked
+
+    private void Label_RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_RegisterMouseClicked
+        RegisterForm form = new RegisterForm();
+        form.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Label_RegisterMouseClicked
 
     /**
      * @param args the command line arguments

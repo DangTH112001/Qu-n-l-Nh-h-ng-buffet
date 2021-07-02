@@ -68,7 +68,7 @@ private int TAG;
         String Name = tf_TenQua.getText();
         String Point = tf_DiemDoi.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("QUA", "Q");
         
         Object[] data = {ID, Name, Point};
         return data;

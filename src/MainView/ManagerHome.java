@@ -79,8 +79,6 @@ public class ManagerHome extends javax.swing.JFrame {
     public ManagerHome() {
         SQLTable table = new SQLTable();
         initComponents();
-        SetImageSize(2);
-        timer();
         switchState(false);
     } 
     private void timer() {
@@ -101,11 +99,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Icon_Search.setVisible(state);
         TextField_SearchContent.setText("");
         TextField_SearchContent.setVisible(state);
-        Button_Print.setVisible(!state);
         Slide.setVisible(!state);
-        
-        if (TagID == 9) 
-            Button_Print.setVisible(true);
     }  
     public static void update(Object[] data) {
         DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
@@ -117,21 +111,7 @@ public class ManagerHome extends javax.swing.JFrame {
             model.setValueAt(data[i - 1], rowid, i - 1);
         }
     }
-    public static String getTableID() {
-        String res = Prefix[TagID];
-        try {
-            Statement statement = SQLTable.connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT SEQ_"+Table[TagID]+".NEXTVAL FROM dual");  
-            while (rs.next()) {
-                res += rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(ComboForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
-            return res;
-        }  
-     }  
+      
     public void SetImageSize(int i) {
         ImageIcon icon = new ImageIcon(this.getClass().getResource("/ImgSlide/" + list[i]));
         Image img = icon.getImage();
@@ -155,14 +135,12 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Ticket = new javax.swing.JLabel();
         Label_Shift = new javax.swing.JLabel();
         Label_Report = new javax.swing.JLabel();
-        Label_Bill = new javax.swing.JLabel();
-        Label_Bill1 = new javax.swing.JLabel();
+        Label_CheckIn = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
         Button_Add = new javax.swing.JButton();
         Button_Remove = new javax.swing.JButton();
-        Button_Print = new javax.swing.JButton();
         Button_Update = new javax.swing.JButton();
         Icon_Search = new javax.swing.JLabel();
         TextField_SearchContent = new javax.swing.JTextField();
@@ -173,7 +151,6 @@ public class ManagerHome extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1600, 780));
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Panel_Tabs.setBackground(new java.awt.Color(23, 35, 51));
 
@@ -285,23 +262,13 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
 
-        Label_Bill.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Bill.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Bill.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Bill.setText("Check In");
-        Label_Bill.addMouseListener(new java.awt.event.MouseAdapter() {
+        Label_CheckIn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_CheckIn.setForeground(new java.awt.Color(255, 255, 255));
+        Label_CheckIn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_CheckIn.setText("Check In");
+        Label_CheckIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_BillMouseClicked(evt);
-            }
-        });
-
-        Label_Bill1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Bill1.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Bill1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Bill1.setText("Bill Management");
-        Label_Bill1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_Bill1MouseClicked(evt);
+                Label_CheckInMouseClicked(evt);
             }
         });
 
@@ -312,21 +279,20 @@ public class ManagerHome extends javax.swing.JFrame {
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Label_Bill1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                        .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                        .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Label_Ticket, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                        .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Label_Customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
                     .addGroup(Panel_TabsLayout.createSequentialGroup()
                         .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(Label_Home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Label_Bill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Label_CheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Label_Employee, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                         .addGap(55, 55, 55)
                         .addComponent(Label_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -343,9 +309,7 @@ public class ManagerHome extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Label_Bill, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addComponent(Label_Bill1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Label_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -364,12 +328,10 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         Label_Home.getAccessibleContext().setAccessibleName("");
-
-        getContentPane().add(Panel_Tabs, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 770));
 
         ScrollPane_Info.setPreferredSize(new java.awt.Dimension(1050, 670));
 
@@ -386,8 +348,6 @@ public class ManagerHome extends javax.swing.JFrame {
         ));
         ScrollPane_Info.setViewportView(Table_Info);
 
-        getContentPane().add(ScrollPane_Info, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 1050, 670));
-
         Button_Add.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         Button_Add.setText("Add");
         Button_Add.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,14 +361,6 @@ public class ManagerHome extends javax.swing.JFrame {
         Button_Remove.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Button_RemoveMouseClicked(evt);
-            }
-        });
-
-        Button_Print.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        Button_Print.setText("Print");
-        Button_Print.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Button_PrintMouseClicked(evt);
             }
         });
 
@@ -427,8 +379,7 @@ public class ManagerHome extends javax.swing.JFrame {
             .addGroup(Panel_FunctionLayout.createSequentialGroup()
                 .addGroup(Panel_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Button_Remove, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(Button_Update, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(Button_Print, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                    .addComponent(Button_Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Button_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -440,18 +391,13 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(Button_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Button_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Button_Print, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(426, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(Panel_Function, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 20, 190, 720));
 
         Icon_Search.setBackground(new java.awt.Color(255, 255, 255));
         Icon_Search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Icon_Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_search.png"))); // NOI18N
         Icon_Search.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        getContentPane().add(Icon_Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 50, 32));
 
         TextField_SearchContent.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         TextField_SearchContent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -460,12 +406,51 @@ public class ManagerHome extends javax.swing.JFrame {
                 TextField_SearchContentKeyTyped(evt);
             }
         });
-        getContentPane().add(TextField_SearchContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 1000, 32));
 
         Slide.setMaximumSize(new java.awt.Dimension(1050, 670));
         Slide.setMinimumSize(new java.awt.Dimension(1050, 670));
         Slide.setPreferredSize(new java.awt.Dimension(1050, 670));
-        getContentPane().add(Slide, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 1050, 670));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Panel_Tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(TextField_SearchContent, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Icon_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ScrollPane_Info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(Panel_Function, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Panel_Tabs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TextField_SearchContent, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Icon_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ScrollPane_Info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Panel_Function, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -567,7 +552,7 @@ public class ManagerHome extends javax.swing.JFrame {
             case 9: {HoaDonForm add = new HoaDonForm(result, RowID); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
-    private void Label_BillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_BillMouseClicked
+    private void Label_CheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CheckInMouseClicked
         // Check if already check in
         // if not insert
         if (PhanCongController.check(MaNV)) {
@@ -576,7 +561,7 @@ public class ManagerHome extends javax.swing.JFrame {
         }
         else 
             JOptionPane.showMessageDialog(null, "Employee aldready check in");
-    }//GEN-LAST:event_Label_BillMouseClicked
+    }//GEN-LAST:event_Label_CheckInMouseClicked
     private void Label_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ReportMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_Label_ReportMouseClicked
@@ -623,20 +608,8 @@ public class ManagerHome extends javax.swing.JFrame {
     }//GEN-LAST:event_Label_DiscountMouseClicked
     private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
         switchState(false);
-        timer();
     }//GEN-LAST:event_Label_HomeMouseClicked
-    private void Label_Bill1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_Bill1MouseClicked
-        TagID = 9;
-        switchState(true);
-        set_Table("HOADON");
-    }//GEN-LAST:event_Label_Bill1MouseClicked
-
-    private void Button_PrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_PrintMouseClicked
-        System.out.println("Clicked");
-    }//GEN-LAST:event_Button_PrintMouseClicked
     
-    
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -673,12 +646,10 @@ public class ManagerHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Button_Add;
-    private javax.swing.JButton Button_Print;
     private javax.swing.JButton Button_Remove;
     private javax.swing.JButton Button_Update;
     private javax.swing.JLabel Icon_Search;
-    private javax.swing.JLabel Label_Bill;
-    private javax.swing.JLabel Label_Bill1;
+    private javax.swing.JLabel Label_CheckIn;
     private javax.swing.JLabel Label_Combo;
     private javax.swing.JLabel Label_Customer;
     private javax.swing.JLabel Label_Discount;

@@ -90,7 +90,7 @@ public class NhanVienForm extends javax.swing.JFrame {
         String Phone = tf_SDT.getText();
         String Password = tf_MatKhau.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("NHANVIEN", "NV");
         
         Object[] data = {ID, ManagerID, FullName, Gender, Start, Address, Position, Phone, Salary, Birth, Account, Password};
         return data;

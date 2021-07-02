@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,9 +40,10 @@ public class NhanVienController {
             p_statement.setString(11, (String) data[0]);
 
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Update complete");
             ManagerHome.update(data, RowID);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
@@ -65,9 +67,10 @@ public class NhanVienController {
            
             
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Add complete");
             ManagerHome.update(data);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
@@ -77,8 +80,9 @@ public class NhanVienController {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, ID);
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete complete");
         } catch (SQLException ex) {
-            Logger.getLogger(ComboController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 }

@@ -10,6 +10,7 @@
  */
 package DBObject;
 
+import Form.ComboForm;
 import MainView.ManagerHome;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -52,6 +53,7 @@ public class SQLTable {
             case "KHACHHANG" : res = KhachHang.ColumnName.length; break;
             case "CA" : res = Ca.ColumnName.length; break;
             case "HOADON": res = HoaDon.ColumnName.length; break;
+            case "DOI" : res = Doi.ColumnName.length; break;
             default: break;
         }
         
@@ -124,6 +126,11 @@ public class SQLTable {
                 res = hd.get_Properties();
                 break;
             }
+            case "DOI" : {
+                Doi d = new Doi(rs);
+                res = d.get_Properties();
+                break;
+            }
             default: break;
         }
         
@@ -169,10 +176,30 @@ public class SQLTable {
                 res = HoaDon.ColumnName;
                 break;
             }
+            case "DOI" : {
+                res = Doi.ColumnName;
+                break;
+            }
             default: break;
         }
         
         return res;
     }
+    
+    public static String getTableID(String TableName, String Prefix) {
+        String res = Prefix;
+        try {
+            Statement statement = SQLTable.connection.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT SEQ_"+TableName+".NEXTVAL FROM dual");  
+            while (rs.next()) {
+                res += rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ComboForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally {
+            return res;
+        }  
+     }
 }
 

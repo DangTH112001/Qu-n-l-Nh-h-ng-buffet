@@ -10,8 +10,7 @@ import DBObject.SQLTable;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,10 +29,10 @@ public class ComboController {
             p_statement.setString(4, (String) data[0]);
 
             p_statement.executeUpdate();
-            
+            JOptionPane.showMessageDialog(null, "Update complete");
             ManagerHome.update(data, RowID);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
@@ -47,9 +46,10 @@ public class ComboController {
             p_statement.setInt(4, Integer.parseInt((String) data[3]));
 
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Add complete");
             ManagerHome.update(data);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
@@ -59,8 +59,9 @@ public class ComboController {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, ID);
             p_statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete complete");
         } catch (SQLException ex) {
-            Logger.getLogger(ComboController.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
    

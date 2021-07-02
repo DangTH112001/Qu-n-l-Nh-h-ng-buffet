@@ -91,7 +91,7 @@ public class VeForm extends javax.swing.JFrame {
         String Begin = tformat.format((Date) Spin_TGBD.getValue());
         String End = tformat.format((Date) Spin_TGKT.getValue());
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("VE", "V");
         
         Object[] data = {ID, tableID, cusID, BookDate, CreateDate, TongCB, TongMK, Begin, End};
         return data;

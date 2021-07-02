@@ -6,7 +6,7 @@
 package Form;
 
 import Controller.HoaDonController;
-import MainView.ManagerHome;
+import DBObject.SQLTable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,7 +76,7 @@ public class HoaDonForm extends javax.swing.JFrame {
         String TongTien = tf_TongTien.getText();
         String NgHD = format.format(dc_NGHD.getDate());
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("HOADON", "HD");
         
         Object[] data = {ID, MaNV, MaKH, MaVe, MaGG, TongTien, NgHD};
         return data;

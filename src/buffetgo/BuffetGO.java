@@ -5,7 +5,7 @@
  */
 package buffetgo;
 
-import LoginView.LoginForm;
+import Form.LoginForm;
 import MainView.ManagerHome;
 
 /**

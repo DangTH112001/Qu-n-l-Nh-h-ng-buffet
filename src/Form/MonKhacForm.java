@@ -68,7 +68,7 @@ public class MonKhacForm extends javax.swing.JFrame {
         String Name = tf_TenMK.getText();
         String Price = tf_Gia.getText();
         if (ID == null)
-            ID = ManagerHome.getTableID();
+            ID = SQLTable.getTableID("MONKHAC", "MK");
         
         Object[] data = {ID, Name, Price};
         return data;

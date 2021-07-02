@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,7 +29,7 @@ public class PhanCongController {
                 return false;
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return true;
     }
@@ -48,7 +49,7 @@ public class PhanCongController {
                    
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         // Thêm
         query = "insert into PHANCONG values (?, ?, ?)";
@@ -60,9 +61,10 @@ public class PhanCongController {
             p_statement.setDate(3, new java.sql.Date(date.getTime()));
             
             p_statement.executeUpdate();
+            
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 }
