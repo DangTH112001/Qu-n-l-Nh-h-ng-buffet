@@ -51,17 +51,9 @@ public class EmployeeHome extends javax.swing.JFrame {
     public EmployeeHome() {
         SQLTable table = new SQLTable();
         initComponents();
-        SetImageSize(2);
-        timer();
         switchState(false);
     }
-    public void SetImageSize(int i) {
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("/ImgSlide/" + list[i]));
-        Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(Slide.getWidth(), Slide.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon newImc = new ImageIcon(newImg);
-        Slide.setIcon(newImc);
-    }
+    
     private void switchState(boolean state) {
         ScrollPane_Info.setVisible(state);
         Panel_Function.setVisible(state);
@@ -307,20 +299,8 @@ public class EmployeeHome extends javax.swing.JFrame {
 
     private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
         switchState(false);
-        timer();
     }//GEN-LAST:event_Label_HomeMouseClicked
-    private void timer() {
-        tm = new Timer(10000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SetImageSize(x);
-                x += 1;
-                if (x >= list.length) 
-                   x = 0;
-            }
-        });
-        tm.start();
-    } 
+
     private void Label_CheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CheckInMouseClicked
         // Check if already check in
         // if not insert

@@ -6,6 +6,7 @@
 package MainView;
 
 import Controller.DoiController;
+import Controller.VeController;
 import Form.TaiKhoan;
 import DBObject.SQLTable;
 import Form.DatVeForm;
@@ -40,6 +41,18 @@ public class CustomerHome extends javax.swing.JFrame {
     public CustomerHome() {
         initComponents();
         SQLTable table = new SQLTable();
+        switchState(false);
+        lb_CurrentPoint.setVisible(false);
+    }
+    
+    private void switchState(boolean state) {
+        Func_Pane.setVisible(state);
+        Icon_SearchQua.setVisible(state);
+        Icon_SearchDoi.setVisible(state);
+        ScrollPane_Qua.setVisible(state);
+        ScrollPane_Doi.setVisible(state);
+        TextField_SearchQua.setVisible(state);
+        TextField_SearchLSDQ.setVisible(state);
     }
     
     private void set_TableDoi() {
@@ -130,9 +143,9 @@ public class CustomerHome extends javax.swing.JFrame {
         TextField_SearchLSDQ = new javax.swing.JTextField();
         ScrollPane_Qua = new javax.swing.JScrollPane();
         Table_Above = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ScrollPane_Doi = new javax.swing.JScrollPane();
         Table_Below = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        Func_Pane = new javax.swing.JPanel();
         btn_Exchange = new javax.swing.JButton();
         btn_Remove = new javax.swing.JButton();
         btn_Update = new javax.swing.JButton();
@@ -280,7 +293,7 @@ public class CustomerHome extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(Table_Below);
+        ScrollPane_Doi.setViewportView(Table_Below);
 
         btn_Exchange.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         btn_Exchange.setText("Exchange");
@@ -306,17 +319,17 @@ public class CustomerHome extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout Func_PaneLayout = new javax.swing.GroupLayout(Func_Pane);
+        Func_Pane.setLayout(Func_PaneLayout);
+        Func_PaneLayout.setHorizontalGroup(
+            Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_Exchange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
             .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
             .addComponent(btn_Update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        Func_PaneLayout.setVerticalGroup(
+            Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Func_PaneLayout.createSequentialGroup()
                 .addComponent(btn_Exchange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,9 +358,9 @@ public class CustomerHome extends javax.swing.JFrame {
                                 .addGap(0, 0, 0)
                                 .addComponent(TextField_SearchLSDQ, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(ScrollPane_Qua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))
+                            .addComponent(ScrollPane_Doi))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Func_Pane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -362,7 +375,7 @@ public class CustomerHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Func_Pane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(ScrollPane_Qua, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +387,7 @@ public class CustomerHome extends javax.swing.JFrame {
                     .addComponent(Icon_SearchDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TextField_SearchLSDQ, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ScrollPane_Doi, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(Panel_Tabs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -392,12 +405,24 @@ public class CustomerHome extends javax.swing.JFrame {
     }//GEN-LAST:event_Label_CreateMouseClicked
 
     private void Label_GiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_GiftMouseClicked
+        btn_Remove.setVisible(false);
+        btn_Update.setVisible(false);
+        btn_Exchange.setVisible(true);
+        lb_CurrentPoint.setVisible(true);
+        switchState(true);
+        
         lb_CurrentPoint.setText("Current Point: " + Point);
         set_TableQua();
         set_TableDoi();
     }//GEN-LAST:event_Label_GiftMouseClicked
 
     private void Label_BookingHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_BookingHistoryMouseClicked
+        btn_Remove.setVisible(true);
+        btn_Update.setVisible(true);
+        btn_Exchange.setVisible(false);
+        lb_CurrentPoint.setVisible(false);
+        switchState(true);
+        
         set_TableVe1();
         set_TableVe2();
     }//GEN-LAST:event_Label_BookingHistoryMouseClicked
@@ -566,7 +591,17 @@ public class CustomerHome extends javax.swing.JFrame {
     }//GEN-LAST:event_TextField_SearchLSDQKeyTyped
 
     private void btn_RemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_RemoveMouseClicked
-        // TODO add your handling code here:
+        int RowID = Table_Above.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) Table_Above.getModel();
+        
+        try {
+            String ID = (String) model.getValueAt(RowID, 0);
+            VeController.delete(ID);
+            model.removeRow(RowID);
+        }
+        catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btn_RemoveMouseClicked
 
     private void btn_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateMouseClicked
@@ -609,6 +644,7 @@ public class CustomerHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Func_Pane;
     private javax.swing.JLabel Icon_SearchDoi;
     private javax.swing.JLabel Icon_SearchQua;
     private javax.swing.JLabel Label_AccountManagement;
@@ -617,7 +653,8 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Gift;
     private javax.swing.JLabel Label_Home;
     private javax.swing.JPanel Panel_Tabs;
-    private static javax.swing.JScrollPane ScrollPane_Qua;
+    private javax.swing.JScrollPane ScrollPane_Doi;
+    private javax.swing.JScrollPane ScrollPane_Qua;
     private javax.swing.JTable Table_Above;
     private javax.swing.JTable Table_Below;
     private javax.swing.JTextField TextField_SearchLSDQ;
@@ -625,8 +662,6 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JButton btn_Exchange;
     private javax.swing.JButton btn_Remove;
     private javax.swing.JButton btn_Update;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private static javax.swing.JLabel lb_CurrentPoint;
+    private javax.swing.JLabel lb_CurrentPoint;
     // End of variables declaration//GEN-END:variables
 }

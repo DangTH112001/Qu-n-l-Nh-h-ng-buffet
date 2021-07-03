@@ -6,15 +6,7 @@
 package Form;
 
 import Controller.CaController;
-import DBObject.GiamGia;
 import DBObject.SQLTable;
-import DBObject.Ca;
-import MainView.ManagerHome;
-import java.awt.Window;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,11 +14,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -47,8 +37,6 @@ public class CaForm extends javax.swing.JFrame {
     }
     
     public CaForm(Object[] data, int RowID) {    
-        DateFormat format = new SimpleDateFormat("HH:mm:ss");
-        
         this.date = new Date();
         this.TAG = 2;
         this.RowID = RowID;

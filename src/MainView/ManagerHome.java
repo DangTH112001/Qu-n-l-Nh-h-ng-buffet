@@ -37,7 +37,6 @@ public class ManagerHome extends javax.swing.JFrame {
     private static String[] Table = {"", "NHANVIEN", "COMBO", "MONKHAC", "QUA", "VE", "GIAMGIA", "KHACHHANG", "CA", "HOADON"};
     private static String[] Ma = {"", "MANV", "MACB", "MAMK", "MAQUA", "MAVE", "MAGG", "MAKH", "MACA", "MAHD"};
     private static String[] Prefix = {"", "NV", "CB", "MK", "Q", "V", "GG", "KH", "C", "HD"};
-    private Timer tm;
     private int x = 0;
     public static String MaNV;
     
@@ -81,18 +80,7 @@ public class ManagerHome extends javax.swing.JFrame {
         initComponents();
         switchState(false);
     } 
-    private void timer() {
-        tm = new Timer(10000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SetImageSize(x);
-                x += 1;
-                if (x >= list.length) 
-                   x = 0;
-            }
-        });
-        tm.start();
-    } 
+
     private void switchState(boolean state) {
         ScrollPane_Info.setVisible(state);
         Panel_Function.setVisible(state);
@@ -112,13 +100,6 @@ public class ManagerHome extends javax.swing.JFrame {
         }
     }
       
-    public void SetImageSize(int i) {
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("/ImgSlide/" + list[i]));
-        Image img = icon.getImage();
-        Image newImg = img.getScaledInstance(Slide.getWidth(), Slide.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon newImc = new ImageIcon(newImg);
-        Slide.setIcon(newImc);
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -563,7 +544,15 @@ public class ManagerHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Employee aldready check in");
     }//GEN-LAST:event_Label_CheckInMouseClicked
     private void Label_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ReportMouseClicked
-        // TODO add your handling code here:
+        ReportForm form;
+        try {
+            form = new ReportForm();
+            form.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Label_ReportMouseClicked
     private void Label_ShiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ShiftMouseClicked
         TagID = 8;

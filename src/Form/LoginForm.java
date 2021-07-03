@@ -210,10 +210,10 @@ public class LoginForm extends javax.swing.JFrame {
             ResultSet rs = p_statement.executeQuery();
             isLogin = rs.next();
             if (isLogin) {
-                ch.MaKH = rs.getString("MAKH");
-                ch.Point = rs.getInt("DIEMTL");
+                CustomerHome.MaKH = rs.getString("MAKH");
+                CustomerHome.Point = rs.getInt("DIEMTL");
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-                ai.data = new Object[] {rs.getString("HOTEN"), rs.getString("GIOITINH"), format.format(rs.getDate("NGSINH")), rs.getString("DIACHI"), rs.getString("SDT"), rs.getString("MAGIOITHIEU")};
+                TaiKhoan.data = new Object[] {rs.getString("HOTEN"), rs.getString("GIOITINH"), format.format(rs.getDate("NGSINH")), rs.getString("DIACHI"), rs.getString("SDT"), rs.getString("MAGIOITHIEU")};
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);

@@ -18,7 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,7 +36,6 @@ public class DatVeForm extends javax.swing.JFrame {
     private String[] TableInfo = {"Tên món", "Giá", "Số lượng"};
     private Integer TongCB = 0;
     private Integer TongMK = 0;
-    Vector<Object[]> data = new Vector<>();
     CustomerHome home;
     
     Map<String, String> MapCombo;
@@ -45,18 +43,18 @@ public class DatVeForm extends javax.swing.JFrame {
     Map<Integer, String> MapBan;
     
     private boolean state = false;
-    
     private Date date;
+    
     public DatVeForm() {
         DateFormat time = new SimpleDateFormat("HH:mm:ss");
-        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         SQLTable table = new SQLTable();
+        
         this.date = new Date();
         initComponents();
         home = new CustomerHome();
-        MapCombo = new HashMap<String, String>();
-        MapMonKhac = new HashMap<String, String>();
-        MapBan = new HashMap<Integer, String>();
+        MapCombo = new HashMap<>();
+        MapMonKhac = new HashMap<>();
+        MapBan = new HashMap<>();
             
         initCombo();
         initMonKhac();

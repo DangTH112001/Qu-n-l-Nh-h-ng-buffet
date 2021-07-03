@@ -5,16 +5,11 @@
  */
 package Form;
 
-import Controller.KhachHangController;
 import Controller.NhanVienController;
-import DBObject.NhanVien;
 import DBObject.SQLTable;
-import MainView.ManagerHome;
-import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;

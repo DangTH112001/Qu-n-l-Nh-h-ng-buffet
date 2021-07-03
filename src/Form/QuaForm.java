@@ -5,11 +5,8 @@
  */
 package Form;
 
-import Controller.MonKhacController;
 import Controller.QuaController;
 import DBObject.SQLTable;
-import MainView.ManagerHome;
-import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
 /**

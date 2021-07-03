@@ -57,12 +57,20 @@ public class NhanVien {
             this.Boss_ID = rs.getString("MaQuanLy");
             this.Emp_Name = rs.getString("HOTEN");
             this.Emp_Sex = rs.getString("GIOITINH");
-            this.Start = format.format(rs.getDate("NGVL"));
+            //this.Start = format.format(rs.getDate("NGVL"));
+            if (rs.getDate("NGVL") != null)
+                this.Start = format.format(rs.getDate("NGVL"));
+            else
+                this.Start = "";
             this.Emp_Address = rs.getString("DIACHI");
             this.Emp_Position = rs.getString("CHUCVU");
             this.Emp_PhoneNumber = rs.getString("SDT");
             this.Emp_Salary = rs.getInt("LUONG");
-            this.Emp_Birth = format.format(rs.getDate("NGSINH"));
+            //this.Emp_Birth = format.format(rs.getDate("NGSINH"));
+            if (rs.getDate("NGSINH") != null)
+                this.Emp_Birth = format.format(rs.getDate("NGSINH"));
+            else
+                this.Emp_Birth = "";
             this.Emp_UserName = rs.getString("TAIKHOAN");
             this.Emp_Password = rs.getString("MATKHAU");
         } catch (SQLException ex) {

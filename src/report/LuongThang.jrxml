@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LuongTHang" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85d0f36-8a42-4486-a4bc-9cd295bfec2b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.background.image.properties" value="true,true,0.25,-8,-9,0,0,611,458"/>
+	<parameter name="MONTH" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    NHANVIEN.HOTEN "Họ tên",
+    CATHUONG(NHANVIEN.MANV, $P{MONTH}) "Ca thường",
+    TANGCA(NHANVIEN.MANV, $P{MONTH}) "Tăng ca",
+    GET_SALARY(NHANVIEN.MANV, CATHUONG(NHANVIEN.MANV, $P{MONTH}), TANGCA(NHANVIEN.MANV, $P{MONTH})) "Lương"
+FROM (PHANCONG INNER JOIN NHANVIEN
+        ON NHANVIEN.MANV = PHANCONG.MANV) INNER JOIN CA
+                                            ON PHANCONG.MACA = CA.MACA
+WHERE EXTRACT(MONTH FROM PHANCONG.NGLAM) = $P{MONTH}
+GROUP BY NHANVIEN.MANV, NHANVIEN.HOTEN]]>
+	</queryString>
+	<field name="Họ tên" class="java.lang.String"/>
+	<field name="Ca thường" class="java.math.BigDecimal"/>
+	<field name="Tăng ca" class="java.math.BigDecimal"/>
+	<field name="Lương" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image scaleImage="RetainShape">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="79" backcolor="#F0F0F0" uuid="62debfeb-8c28-430e-a791-4d66fa686090"/>
+				<imageExpression><![CDATA["C:\\Users\\DangT\\Desktop\\123.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#78A8FC" uuid="1543f9bd-602d-42aa-b04f-a7a85b4dfe61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPLOYEE SALARY REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="406" y="0" width="49" height="20" uuid="a9551139-64e4-4cef-a92c-a87cad1210da"/>
+				<textElement>
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<text><![CDATA[Month:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="a4852906-60a7-4cf5-836c-8db3c52ae3f0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{MONTH}.intValue()==1?"JAN":
+    $P{MONTH}.intValue()==2?"FEB":
+        $P{MONTH}.intValue()==3?"MAR":
+            $P{MONTH}.intValue()==4?"APR":
+                $P{MONTH}.intValue()==5?"MAY":
+                    $P{MONTH}.intValue()==6?"JUN":
+                        $P{MONTH}.intValue()==7?"JUL":
+                            $P{MONTH}.intValue()==8?"AUG":
+                                $P{MONTH}.intValue()==9?"SEP":
+                                    $P{MONTH}.intValue()==10?"OCT":
+                                        $P{MONTH}.intValue()==11?"NOV":"DEC"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="6" width="100" height="52" uuid="a44070f5-4838-4d4c-9618-6e47307c03b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="154" y="9" width="100" height="52" uuid="b4119eef-4266-46c5-9e6e-a92008a65c4d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="13" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Normal Shift]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="6" width="100" height="52" uuid="76668607-95e2-4d5d-b03b-37618bcc218a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Overtime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="5" width="100" height="52" uuid="a1e8699c-bda7-4966-918a-8f3b3fc650d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salary]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="5" width="555" height="1" uuid="60a3626f-0617-4f02-9d8e-278f1b3e860f"/>
+			</line>
+			<line>
+				<reportElement x="0" y="58" width="555" height="1" uuid="42604b4a-bb60-410c-8856-e9c75c985e73"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="16" y="20" width="100" height="20" uuid="e808fa6d-9ac4-47c6-8981-351b43d23fd2"/>
+				<box leftPadding="10"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Họ tên}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="154" y="20" width="100" height="20" uuid="35c85e97-a912-45ff-8b52-bbda87440b48"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Ca thường}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="20" width="100" height="20" uuid="339b8dc8-73e0-42e6-92fa-ed8eed3878c3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="13" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Tăng ca}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0 đ">
+				<reportElement x="433" y="20" width="100" height="20" uuid="2d779ffc-817f-4bf4-a4a0-dabfefe96719"/>
+				<box leftPadding="25"/>
+				<textElement textAlignment="Left">
+					<font fontName="Serif" size="13" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Lương}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

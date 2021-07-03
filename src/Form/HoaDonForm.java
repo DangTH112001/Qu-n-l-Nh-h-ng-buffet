@@ -68,7 +68,7 @@ public class HoaDonForm extends javax.swing.JFrame {
     }
     
     public Object[] getInfo() {
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String MaNV = tf_MaNV.getText();
         String MaKH = tf_MaKH.getText();
         String MaVe = tf_MaVe.getText();
@@ -83,7 +83,7 @@ public class HoaDonForm extends javax.swing.JFrame {
     }
     
     public void initInfo(Object[] data) {
-        DateFormat format = new SimpleDateFormat("dd/mm/yyyy");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ID = (String) data[0];
         tf_MaNV.setText((String) data[1]);
         tf_MaKH.setText((String) data[2]);

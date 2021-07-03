@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpBaoCaoDoanhThu" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="031f4f33-5ba3-4304-b135-26956741e7c8">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="YEAR" class="java.lang.Integer"/>
+	<queryString language="plsql">
+		<![CDATA[SELECT EXTRACT(MONTH FROM NGHD),EXTRACT(YEAR FROM NGHD),MAHD,TONGTIEN
+FROM HOADON
+WHERE EXTRACT(YEAR FROM NGHD) = $P{YEAR}
+ORDER BY EXTRACT(MONTH FROM NGHD)]]>
+	</queryString>
+	<field name="EXTRACT(MONTHFROMNGHD)" class="java.math.BigDecimal"/>
+	<field name="EXTRACT(YEARFROMNGHD)" class="java.math.BigDecimal"/>
+	<field name="MAHD" class="java.lang.String"/>
+	<field name="TONGTIEN" class="java.math.BigDecimal"/>
+	<variable name="TONGTIEN_1" class="java.math.BigDecimal" resetType="Group" resetGroup="Month" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGTIEN}]]></variableExpression>
+	</variable>
+	<variable name="TONGTIEN_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TONGTIEN}]]></variableExpression>
+	</variable>
+	<variable name="SOLUONG" class="java.lang.Integer" resetType="Group" resetGroup="Month" calculation="Count">
+		<variableExpression><![CDATA[$F{MAHD}]]></variableExpression>
+	</variable>
+	<group name="Month">
+		<groupExpression><![CDATA[$F{EXTRACT(MONTHFROMNGHD)}]]></groupExpression>
+		<groupHeader>
+			<band height="39">
+				<rectangle>
+					<reportElement x="0" y="0" width="555" height="39" backcolor="#78A8FC" uuid="300fc716-6f44-419a-b76a-46fe8dd398d3"/>
+				</rectangle>
+				<staticText>
+					<reportElement x="210" y="10" width="118" height="20" forecolor="#FFFFFF" uuid="b5d57016-a67f-4459-a1d3-51f99fde1522"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[INVOICES CODE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="401" y="10" width="100" height="20" forecolor="#FFFFFF" uuid="c4800c4c-99a7-47c3-a005-57bda7a861d6"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AMOUNT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="39" y="10" width="67" height="20" forecolor="#FFFFFF" uuid="66e7aefc-bdcd-4e01-a051-94ca7ad74c5e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true"/>
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[MONTH:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="106" y="10" width="28" height="20" forecolor="#FFFFFF" uuid="4ef1f030-fd0a-443d-b90a-5943418ebf75"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{EXTRACT(MONTHFROMNGHD)}.intValue()==1?"JAN":
+    $F{EXTRACT(MONTHFROMNGHD)}.intValue()==2?"FEB":
+        $F{EXTRACT(MONTHFROMNGHD)}.intValue()==3?"MAR":
+            $F{EXTRACT(MONTHFROMNGHD)}.intValue()==4?"APR":
+                $F{EXTRACT(MONTHFROMNGHD)}.intValue()==5?"MAY":
+                    $F{EXTRACT(MONTHFROMNGHD)}.intValue()==6?"JUN":
+                        $F{EXTRACT(MONTHFROMNGHD)}.intValue()==7?"JUL":
+                            $F{EXTRACT(MONTHFROMNGHD)}.intValue()==8?"AUG":
+                                $F{EXTRACT(MONTHFROMNGHD)}.intValue()==9?"SEP":
+                                    $F{EXTRACT(MONTHFROMNGHD)}.intValue()==10?"OCT":
+                                        $F{EXTRACT(MONTHFROMNGHD)}.intValue()==11?"NOV":"DEC"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="77">
+				<textField>
+					<reportElement x="401" y="15" width="100" height="20" uuid="7ef94a58-a0ea-4914-a9d3-2c191bc9f544"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{TONGTIEN_1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="92" y="15" width="155" height="20" uuid="daaa1f3e-ab32-413e-bbe7-3435cecfad8d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Lucida Bright" size="14" isBold="true"/>
+						<paragraph rightIndent="5"/>
+					</textElement>
+					<text><![CDATA[Amount of invoices:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="39" y="0" width="462" height="1" uuid="d3c4caff-4939-44de-909a-63a2458035cc"/>
+				</line>
+				<textField>
+					<reportElement x="257" y="15" width="27" height="20" uuid="bcf01bec-5ef0-46e6-8833-210f573ec405"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
+						<font fontName="Lucida Bright" size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOLUONG}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="145" y="0" width="205" height="21" forecolor="#78A8FC" uuid="5f0e328f-3502-450e-9fcd-75ed8db20a81"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="18" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[MONTHLY REPORT IN ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="460" y="31" width="95" height="20" forecolor="#78A8FC" uuid="b1661520-8420-4fa2-be5a-e7dad002acde"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="371" y="31" width="89" height="20" forecolor="#78A8FC" uuid="e4d0334a-8309-48fd-9677-f34586e509cd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Created:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="350" y="0" width="63" height="21" forecolor="#78A8FC" uuid="a1cdbdb4-1b6e-4ba6-961a-ec653dd3046c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{YEAR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="34">
+			<textField>
+				<reportElement x="247" y="7" width="81" height="19" uuid="9f5e253d-19d1-4b50-beb8-85711dac0e1c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAHD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="6" width="100" height="20" uuid="7c84aa3b-abdd-421f-bdf9-1bb077405b14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONGTIEN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="257" y="10" width="144" height="32" uuid="3a9cf8d8-a738-4b1a-bfa2-dbe1e3feaeab"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Revenue:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="10" width="100" height="32" uuid="e57df8c0-4259-441a-9ce3-3f3b175f4003"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TONGTIEN_2}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="39" y="0" width="462" height="1" uuid="6f7f71e3-7034-4846-863e-14496d42e4fb"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

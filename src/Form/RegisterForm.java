@@ -277,10 +277,9 @@ public class RegisterForm extends javax.swing.JFrame {
             
             Object[] data = {ID, FullName, Gender, Birth, Type, Phone, Address, Reg, Account, Password, InviteCode, Point};
             KhachHangController.add(data);
-            
             LoginForm form = new LoginForm();
             form.setVisible(true);
-            dispose();
+            dispose();   
         }
         else {
             lb_Error.setVisible(true);

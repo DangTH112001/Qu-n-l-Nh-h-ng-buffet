@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
  */
 public class PhanCongController {
     public static boolean check(String MaNV) {
-	Date date = new Date();
         String query = "SELECT * FROM PHANCONG WHERE MANV = ? AND TO_CHAR(NGLAM, 'dd/mm/yyyy') = TO_CHAR(SYSDATE, 'dd/mm/yyyy')";
         try {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
