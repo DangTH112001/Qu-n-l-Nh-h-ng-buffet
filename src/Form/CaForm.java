@@ -120,6 +120,7 @@ public class CaForm extends javax.swing.JFrame {
         cb_LoaiCa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SHIFT FORM");
         setResizable(false);
 
         CaPanel.setBackground(new java.awt.Color(255, 255, 255));

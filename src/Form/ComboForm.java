@@ -96,6 +96,7 @@ public class ComboForm extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("COMBO FORM");
         setBackground(new java.awt.Color(153, 153, 255));
         setResizable(false);
 

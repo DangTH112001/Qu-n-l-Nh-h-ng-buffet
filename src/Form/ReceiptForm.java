@@ -119,6 +119,7 @@ public class ReceiptForm extends javax.swing.JFrame {
         Icon_Search1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CREATE RECEIPT FORM");
         setResizable(false);
 
         Table_GiamGia.setModel(new javax.swing.table.DefaultTableModel(

@@ -144,6 +144,7 @@ public class KhachHangForm extends javax.swing.JFrame {
         dc_NGSINH = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CUSTOMER FORM");
 
         KhachHangPanel.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -90,6 +90,7 @@ private int TAG;
         btnExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("GIFT FORM");
 
         QuaPanel.setBackground(new java.awt.Color(255, 255, 255));
 

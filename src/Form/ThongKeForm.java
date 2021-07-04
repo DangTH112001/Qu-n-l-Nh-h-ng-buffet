@@ -36,11 +36,11 @@ import org.jfree.data.category.DefaultCategoryDataset;
  *
  * @author NTTV
  */
-public class ReportForm extends javax.swing.JFrame {
+public class ThongKeForm extends javax.swing.JFrame {
     Object[] SalaryCol = {"Name", "Normal Shift", "Overtime", "Salary"};
     private SQLTable table;
 
-    public ReportForm() throws SQLException, ClassNotFoundException {
+    public ThongKeForm() throws SQLException, ClassNotFoundException {
         initComponents();
         setTitle("Report");
 
@@ -199,6 +199,7 @@ public class ReportForm extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("REPORT FORM");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
 
@@ -357,9 +358,9 @@ public class ReportForm extends javax.swing.JFrame {
             showRevenueChart();
         } catch (SQLException ex) {
             System.out.println("Không thể xuất biểu đồ");
-            Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_checkChartMouseClicked
 
@@ -377,7 +378,7 @@ public class ReportForm extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -391,7 +392,7 @@ public class ReportForm extends javax.swing.JFrame {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_exportSalaryMouseClicked
 
@@ -403,11 +404,11 @@ public class ReportForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ReportForm().setVisible(true);
+                    new ThongKeForm().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(ReportForm.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

@@ -36,7 +36,7 @@ public class HoaDonController {
             
             p_statement.executeUpdate();  
             JOptionPane.showMessageDialog(null, "Update complete");
-            ManagerHome.update(data, RowID);
+            EmployeeHome.initTable();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -58,7 +58,7 @@ public class HoaDonController {
 
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add complete");
-            EmployeeHome.update(data);
+            EmployeeHome.initTable();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

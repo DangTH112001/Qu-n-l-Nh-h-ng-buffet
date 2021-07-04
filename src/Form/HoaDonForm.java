@@ -118,6 +118,7 @@ public class HoaDonForm extends javax.swing.JFrame {
         dc_NGHD = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("RECEIPT FORM");
         setResizable(false);
 
         KhachHangPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -150,7 +151,7 @@ public class HoaDonForm extends javax.swing.JFrame {
         lb_KhachHangTitle2.setBackground(new java.awt.Color(255, 255, 255));
         lb_KhachHangTitle2.setFont(new java.awt.Font("Liberation Sans", 1, 22)); // NOI18N
         lb_KhachHangTitle2.setForeground(new java.awt.Color(120, 168, 252));
-        lb_KhachHangTitle2.setText("BILL INFO");
+        lb_KhachHangTitle2.setText("RECEIPT INFO");
 
         lb_MaNV.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         lb_MaNV.setForeground(new java.awt.Color(120, 168, 252));

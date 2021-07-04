@@ -81,6 +81,7 @@ public class TaiKhoan extends javax.swing.JFrame {
         lb_Error = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("ACCOUNT INFORMATION");
 
         lb_Title.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lb_Title.setForeground(new java.awt.Color(120, 168, 252));

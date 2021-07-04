@@ -154,6 +154,7 @@ public class NhanVienForm extends javax.swing.JFrame {
         lbName.setText("FOOD NAME:");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("EMPLOYEE FORM");
         setResizable(false);
 
         NhanVienPanel.setBackground(new java.awt.Color(255, 255, 255));

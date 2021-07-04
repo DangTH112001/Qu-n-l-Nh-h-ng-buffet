@@ -11,6 +11,7 @@ import Form.TaiKhoan;
 import DBObject.SQLTable;
 import Form.DatVeForm;
 import java.awt.Color;
+import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -40,9 +42,32 @@ public class CustomerHome extends javax.swing.JFrame {
     
     public CustomerHome() {
         initComponents();
-        SQLTable table = new SQLTable();
-        switchState(false);
+        initIcon();
+        SQLTable table = new SQLTable();   
+    }
+    
+    public CustomerHome(String MaKH) {
+        this.MaKH = MaKH;
+        initComponents();
+        initIcon();
+        SQLTable table = new SQLTable();   
+        
+        btn_Remove.setVisible(true);
+        btn_Exchange.setVisible(false);
         lb_CurrentPoint.setVisible(false);
+        switchState(true);
+        
+        set_TableVe1();
+        set_TableVe2();
+    }
+    
+    
+    private void initIcon() {
+        ImageIcon imageIcon = new ImageIcon("src\\Images\\logo.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(lb_Icon.getHeight(), lb_Icon.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg); 
+        lb_Icon.setIcon(imageIcon);
     }
     
     private void switchState(boolean state) {
@@ -131,11 +156,11 @@ public class CustomerHome extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel_Tabs = new javax.swing.JPanel();
-        Label_Home = new javax.swing.JLabel();
         Label_Create = new javax.swing.JLabel();
         Label_Gift = new javax.swing.JLabel();
         Label_BookingHistory = new javax.swing.JLabel();
         Label_AccountManagement = new javax.swing.JLabel();
+        lb_Icon = new javax.swing.JLabel();
         Icon_SearchQua = new javax.swing.JLabel();
         lb_CurrentPoint = new javax.swing.JLabel();
         Icon_SearchDoi = new javax.swing.JLabel();
@@ -148,29 +173,18 @@ public class CustomerHome extends javax.swing.JFrame {
         Func_Pane = new javax.swing.JPanel();
         btn_Exchange = new javax.swing.JButton();
         btn_Remove = new javax.swing.JButton();
-        btn_Update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Customer");
 
         Panel_Tabs.setBackground(new java.awt.Color(23, 35, 51));
-
-        Label_Home.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Home.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Home.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Home.setText("Home");
-        Label_Home.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
-        Label_Home.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Label_Home.setPreferredSize(new java.awt.Dimension(95, 95));
-        Label_Home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_HomeMouseClicked(evt);
-            }
-        });
 
         Label_Create.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Create.setForeground(new java.awt.Color(255, 255, 255));
         Label_Create.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Create.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_ticket.png"))); // NOI18N
         Label_Create.setText("Create Ticket");
+        Label_Create.setIconTextGap(15);
         Label_Create.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_CreateMouseClicked(evt);
@@ -180,7 +194,9 @@ public class CustomerHome extends javax.swing.JFrame {
         Label_Gift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Gift.setForeground(new java.awt.Color(255, 255, 255));
         Label_Gift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Gift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_Gift.png"))); // NOI18N
         Label_Gift.setText("Gift");
+        Label_Gift.setIconTextGap(15);
         Label_Gift.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_GiftMouseClicked(evt);
@@ -190,7 +206,9 @@ public class CustomerHome extends javax.swing.JFrame {
         Label_BookingHistory.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_BookingHistory.setForeground(new java.awt.Color(255, 255, 255));
         Label_BookingHistory.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_BookingHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_clock.png"))); // NOI18N
         Label_BookingHistory.setText("Booking History");
+        Label_BookingHistory.setIconTextGap(10);
         Label_BookingHistory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_BookingHistoryMouseClicked(evt);
@@ -200,12 +218,18 @@ public class CustomerHome extends javax.swing.JFrame {
         Label_AccountManagement.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_AccountManagement.setForeground(new java.awt.Color(255, 255, 255));
         Label_AccountManagement.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_AccountManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_Account.png"))); // NOI18N
         Label_AccountManagement.setText("Account mangement");
+        Label_AccountManagement.setIconTextGap(15);
         Label_AccountManagement.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_AccountManagementMouseClicked(evt);
             }
         });
+
+        lb_Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Icon.setAlignmentX(0.5F);
+        lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
@@ -214,28 +238,30 @@ public class CustomerHome extends javax.swing.JFrame {
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Home, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                        .addComponent(Label_Create, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_AccountManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lb_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Panel_TabsLayout.createSequentialGroup()
+                        .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_Create, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_AccountManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         Panel_TabsLayout.setVerticalGroup(
             Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lb_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(Label_Create, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_AccountManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(416, 416, 416))
         );
 
         Icon_SearchQua.setBackground(new java.awt.Color(255, 255, 255));
@@ -311,21 +337,12 @@ public class CustomerHome extends javax.swing.JFrame {
             }
         });
 
-        btn_Update.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        btn_Update.setText("Update");
-        btn_Update.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_UpdateMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout Func_PaneLayout = new javax.swing.GroupLayout(Func_Pane);
         Func_Pane.setLayout(Func_PaneLayout);
         Func_PaneLayout.setHorizontalGroup(
             Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_Exchange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
             .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-            .addComponent(btn_Update, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
         );
         Func_PaneLayout.setVerticalGroup(
             Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,8 +350,6 @@ public class CustomerHome extends javax.swing.JFrame {
                 .addComponent(btn_Exchange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btn_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -374,12 +389,8 @@ public class CustomerHome extends javax.swing.JFrame {
                 .addComponent(lb_CurrentPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Func_Pane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ScrollPane_Qua, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(Func_Pane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ScrollPane_Qua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(416, 416, 416)
@@ -395,10 +406,6 @@ public class CustomerHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
-
-    }//GEN-LAST:event_Label_HomeMouseClicked
-
     private void Label_CreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CreateMouseClicked
         DatVeForm form = new DatVeForm();
         form.setVisible(true);
@@ -406,7 +413,6 @@ public class CustomerHome extends javax.swing.JFrame {
 
     private void Label_GiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_GiftMouseClicked
         btn_Remove.setVisible(false);
-        btn_Update.setVisible(false);
         btn_Exchange.setVisible(true);
         lb_CurrentPoint.setVisible(true);
         switchState(true);
@@ -418,7 +424,6 @@ public class CustomerHome extends javax.swing.JFrame {
 
     private void Label_BookingHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_BookingHistoryMouseClicked
         btn_Remove.setVisible(true);
-        btn_Update.setVisible(true);
         btn_Exchange.setVisible(false);
         lb_CurrentPoint.setVisible(false);
         switchState(true);
@@ -604,10 +609,6 @@ public class CustomerHome extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_RemoveMouseClicked
 
-    private void btn_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_UpdateMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -651,7 +652,6 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_BookingHistory;
     private javax.swing.JLabel Label_Create;
     private javax.swing.JLabel Label_Gift;
-    private javax.swing.JLabel Label_Home;
     private javax.swing.JPanel Panel_Tabs;
     private javax.swing.JScrollPane ScrollPane_Doi;
     private javax.swing.JScrollPane ScrollPane_Qua;
@@ -661,7 +661,7 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JTextField TextField_SearchQua;
     private javax.swing.JButton btn_Exchange;
     private javax.swing.JButton btn_Remove;
-    private javax.swing.JButton btn_Update;
     private javax.swing.JLabel lb_CurrentPoint;
+    private javax.swing.JLabel lb_Icon;
     // End of variables declaration//GEN-END:variables
 }

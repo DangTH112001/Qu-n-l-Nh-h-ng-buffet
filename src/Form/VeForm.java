@@ -144,6 +144,7 @@ public class VeForm extends javax.swing.JFrame {
         Spin_TGBD = new javax.swing.JSpinner(sm1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("TICKET FORM");
         setResizable(false);
 
         VePanel.setBackground(new java.awt.Color(255, 255, 255));

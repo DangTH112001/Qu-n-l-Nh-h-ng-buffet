@@ -93,6 +93,7 @@ public class MonKhacForm extends javax.swing.JFrame {
         jToolBar1.setRollover(true);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("FOOD FORM");
         setResizable(false);
 
         MonKhacPanel.setBackground(new java.awt.Color(255, 255, 255));

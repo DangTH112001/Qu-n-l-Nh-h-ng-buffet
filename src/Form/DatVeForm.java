@@ -218,6 +218,7 @@ public class DatVeForm extends javax.swing.JFrame {
         lb_Title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("BOOKING FORM");
 
         Table_Combo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -569,45 +570,18 @@ public class DatVeForm extends javax.swing.JFrame {
         if (!check()) {
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
-        
+        String VeID = SQLTable.getTableID("VE", "V");
         int RowID = 0;
         String CusID = CustomerHome.MaKH;
         String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
         String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
         String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        try {
-            while (true) {
-                String name = (String) Table_Info.getValueAt(RowID, 0);
-                String soluong = (String) Table_Info.getValueAt(RowID, 0);
-                RowID++;
-
-                if (name.contains("Combo")) {
-                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
-                    stm.setString(1, CusID);
-                    stm.setString(2, MapCombo.get(name));
-                    stm.setInt(3, Integer.parseInt(soluong));
-                    stm.executeUpdate();
-                    stm.close();
-                }
-                else {
-                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
-                    stm.setString(1, CusID);
-                    stm.setString(2, MapMonKhac.get(name));
-                    stm.setInt(3, Integer.parseInt(soluong));
-                    stm.executeUpdate();
-                    stm.close();
-                }                
-            }
-        }
-        catch (Exception ex) {
-            
-        }
         DateFormat time = new SimpleDateFormat("HH:mm:ss");
         DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-        
+
         Object[] data = {
-            SQLTable.getTableID("VE", "V"),
+            VeID,
             tf_MaBan.getText(),
             CusID,
             date.format(dc_NgAn.getDate()),
@@ -618,8 +592,46 @@ public class DatVeForm extends javax.swing.JFrame {
             time.format((Date) Spin_TGKT.getValue())
         };
         VeController.add(data);
-        dispose();
         
+        
+        
+        while (true) {
+            String name = (String) Table_Info.getValueAt(RowID, 0);
+            String soluong = (String) Table_Info.getValueAt(RowID, 2);
+            RowID++;
+
+            try {
+                if (name.contains("Combo")) {
+                    String Ma = MapCombo.get(name);
+                    int SL = Integer.parseInt(soluong);
+
+                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
+
+                    stm.setString(1, Ma);
+                    stm.setString(2, VeID);
+                    stm.setInt(3, SL);
+                    stm.execute();
+                    stm.close();
+                }
+                else {
+                    String Ma = MapCombo.get(name);
+                    int SL = Integer.parseInt(soluong);
+
+                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
+
+                    stm.setString(1, Ma);
+                    stm.setString(2, VeID);
+                    stm.setInt(3, SL);
+                    stm.execute();
+                    stm.close();
+                }   
+            }
+            catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                break;
+            }       
+        }
+        dispose();
     }//GEN-LAST:event_btn_CreateMouseClicked
 
     private void Table_InfoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_Table_InfoInputMethodTextChanged

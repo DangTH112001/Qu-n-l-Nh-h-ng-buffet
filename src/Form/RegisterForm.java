@@ -60,6 +60,7 @@ public class RegisterForm extends javax.swing.JFrame {
         tf_Password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("REGISTER FORM");
         setResizable(false);
 
         lb_Title.setBackground(new java.awt.Color(255, 255, 255));

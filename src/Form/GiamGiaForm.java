@@ -131,6 +131,7 @@ public class GiamGiaForm extends javax.swing.JFrame {
         dc_NGKT = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("DISCOUNT FORM");
         setResizable(false);
 
         GiamGiaPanel.setBackground(new java.awt.Color(255, 255, 255));

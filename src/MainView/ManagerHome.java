@@ -40,12 +40,6 @@ public class ManagerHome extends javax.swing.JFrame {
     private int x = 0;
     public static String MaNV;
     
-     String[] list = {
-                        "Drink.jpg",
-                        "Food.jpg",
-                        "Restaurant.jpg"
-                    };
-    
     private void set_Table(String TableName) {
         switchState(true);
         String query = "select * from " + TableName;
@@ -76,10 +70,21 @@ public class ManagerHome extends javax.swing.JFrame {
         }
     } 
     public ManagerHome() {
+        TagID = 1;
         SQLTable table = new SQLTable();
         initComponents();
-        switchState(false);
+        initIcon();
+        switchState(true);
+        set_Table("NHANVIEN");
     } 
+    
+    private void initIcon() {
+        ImageIcon imageIcon = new ImageIcon("src\\Images\\logo.png"); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(lb_Icon.getHeight(), lb_Icon.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg); 
+        lb_Icon.setIcon(imageIcon);
+    }
 
     private void switchState(boolean state) {
         ScrollPane_Info.setVisible(state);
@@ -87,7 +92,6 @@ public class ManagerHome extends javax.swing.JFrame {
         Icon_Search.setVisible(state);
         TextField_SearchContent.setText("");
         TextField_SearchContent.setVisible(state);
-        Slide.setVisible(!state);
     }  
     public static void update(Object[] data) {
         DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
@@ -105,9 +109,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private void initComponents() {
 
         Panel_Tabs = new javax.swing.JPanel();
-        Label_Home = new javax.swing.JLabel();
         Label_Discount = new javax.swing.JLabel();
-        Label_Total = new javax.swing.JLabel();
         Label_Employee = new javax.swing.JLabel();
         Label_Food = new javax.swing.JLabel();
         Label_Combo = new javax.swing.JLabel();
@@ -117,6 +119,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Shift = new javax.swing.JLabel();
         Label_Report = new javax.swing.JLabel();
         Label_CheckIn = new javax.swing.JLabel();
+        lb_Icon = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
@@ -125,7 +128,6 @@ public class ManagerHome extends javax.swing.JFrame {
         Button_Update = new javax.swing.JButton();
         Icon_Search = new javax.swing.JLabel();
         TextField_SearchContent = new javax.swing.JTextField();
-        Slide = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manager");
@@ -135,22 +137,10 @@ public class ManagerHome extends javax.swing.JFrame {
 
         Panel_Tabs.setBackground(new java.awt.Color(23, 35, 51));
 
-        Label_Home.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Home.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Home.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Home.setText("Home");
-        Label_Home.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
-        Label_Home.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Label_Home.setPreferredSize(new java.awt.Dimension(95, 95));
-        Label_Home.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_HomeMouseClicked(evt);
-            }
-        });
-
         Label_Discount.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Discount.setForeground(new java.awt.Color(255, 255, 255));
         Label_Discount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Discount.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_discount.png"))); // NOI18N
         Label_Discount.setText("Discount Management");
         Label_Discount.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -158,14 +148,10 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
 
-        Label_Total.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Total.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Total.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Total.setText("Total");
-
         Label_Employee.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Employee.setForeground(new java.awt.Color(255, 255, 255));
         Label_Employee.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Employee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_member.png"))); // NOI18N
         Label_Employee.setText("Employee Management");
         Label_Employee.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -176,6 +162,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Food.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Food.setForeground(new java.awt.Color(255, 255, 255));
         Label_Food.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Food.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_cafe.png"))); // NOI18N
         Label_Food.setText("Food Management");
         Label_Food.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,6 +173,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Combo.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Combo.setForeground(new java.awt.Color(255, 255, 255));
         Label_Combo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Combo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_combo.png"))); // NOI18N
         Label_Combo.setText("Combo Management");
         Label_Combo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -196,6 +184,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Gift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Gift.setForeground(new java.awt.Color(255, 255, 255));
         Label_Gift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Gift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_Gift.png"))); // NOI18N
         Label_Gift.setText("Gift Management");
         Label_Gift.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -206,6 +195,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Customer.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Customer.setForeground(new java.awt.Color(255, 255, 255));
         Label_Customer.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Customer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_Account.png"))); // NOI18N
         Label_Customer.setText("Customer Management");
         Label_Customer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -216,6 +206,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Ticket.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Ticket.setForeground(new java.awt.Color(255, 255, 255));
         Label_Ticket.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Ticket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_ticket.png"))); // NOI18N
         Label_Ticket.setText("Ticket Management");
         Label_Ticket.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -226,6 +217,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Shift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Shift.setForeground(new java.awt.Color(255, 255, 255));
         Label_Shift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Shift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_shift.png"))); // NOI18N
         Label_Shift.setText("Shift Management");
         Label_Shift.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -236,6 +228,7 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Report.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_Report.setForeground(new java.awt.Color(255, 255, 255));
         Label_Report.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Report.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_report.png"))); // NOI18N
         Label_Report.setText("Report");
         Label_Report.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -246,12 +239,17 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_CheckIn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         Label_CheckIn.setForeground(new java.awt.Color(255, 255, 255));
         Label_CheckIn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_CheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_check.png"))); // NOI18N
         Label_CheckIn.setText("Check In");
         Label_CheckIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Label_CheckInMouseClicked(evt);
             }
         });
+
+        lb_Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Icon.setAlignmentX(0.5F);
+        lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
@@ -270,27 +268,19 @@ public class ManagerHome extends javax.swing.JFrame {
                     .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Label_Customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-                    .addGroup(Panel_TabsLayout.createSequentialGroup()
-                        .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Label_Home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Label_CheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Label_Employee, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
-                        .addGap(55, 55, 55)
-                        .addComponent(Label_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lb_Icon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Label_CheckIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         Panel_TabsLayout.setVerticalGroup(
             Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_TabsLayout.createSequentialGroup()
-                .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_TabsLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(Label_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Panel_TabsLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Label_Home, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Label_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(lb_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(Label_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -309,10 +299,8 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap())
         );
-
-        Label_Home.getAccessibleContext().setAccessibleName("");
 
         ScrollPane_Info.setPreferredSize(new java.awt.Dimension(1050, 670));
 
@@ -388,10 +376,6 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
 
-        Slide.setMaximumSize(new java.awt.Dimension(1050, 670));
-        Slide.setMinimumSize(new java.awt.Dimension(1050, 670));
-        Slide.setPreferredSize(new java.awt.Dimension(1050, 670));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -408,9 +392,7 @@ public class ManagerHome extends javax.swing.JFrame {
                             .addComponent(Icon_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ScrollPane_Info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ScrollPane_Info, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(Panel_Function, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29))))
@@ -424,9 +406,6 @@ public class ManagerHome extends javax.swing.JFrame {
                     .addComponent(TextField_SearchContent, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Icon_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(Slide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ScrollPane_Info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -438,8 +417,12 @@ public class ManagerHome extends javax.swing.JFrame {
 
     private void Button_RemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_RemoveMouseClicked
         int RowID = Table_Info.getSelectedRow();
-  
-        if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+        
+        if (RowID == -1) {
+            JOptionPane.showMessageDialog(null, "No row selected");
+        }
+        else {
+            if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 if (RowID >= 0) {
                     String ID = (String) Table_Info.getValueAt(RowID, 0);
@@ -459,7 +442,8 @@ public class ManagerHome extends javax.swing.JFrame {
                     DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
                     model.removeRow(RowID);             
                 }
-            }    
+            } 
+        }
     }//GEN-LAST:event_Button_RemoveMouseClicked
     private void TextField_SearchContentKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TextField_SearchContentKeyTyped
         Table_Info.setAutoCreateRowSorter(true);
@@ -530,7 +514,7 @@ public class ManagerHome extends javax.swing.JFrame {
             case 6: {GiamGiaForm add = new GiamGiaForm(result, RowID); add.setVisible(true); break;}
             case 7: {KhachHangForm add = new KhachHangForm(result, RowID); add.setVisible(true); break;}
             case 8: {CaForm add = new CaForm(result, RowID); add.setVisible(true); break;}
-            case 9: {HoaDonForm add = new HoaDonForm(result, RowID); add.setVisible(true); break;}
+            
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
     private void Label_CheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CheckInMouseClicked
@@ -544,9 +528,9 @@ public class ManagerHome extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Employee aldready check in");
     }//GEN-LAST:event_Label_CheckInMouseClicked
     private void Label_ReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ReportMouseClicked
-        ReportForm form;
+        ThongKeForm form;
         try {
-            form = new ReportForm();
+            form = new ThongKeForm();
             form.setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
@@ -595,9 +579,6 @@ public class ManagerHome extends javax.swing.JFrame {
         switchState(true);
         set_Table("GIAMGIA");
     }//GEN-LAST:event_Label_DiscountMouseClicked
-    private void Label_HomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_HomeMouseClicked
-        switchState(false);
-    }//GEN-LAST:event_Label_HomeMouseClicked
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -645,16 +626,14 @@ public class ManagerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Employee;
     private javax.swing.JLabel Label_Food;
     private javax.swing.JLabel Label_Gift;
-    private javax.swing.JLabel Label_Home;
     private javax.swing.JLabel Label_Report;
     private javax.swing.JLabel Label_Shift;
     private javax.swing.JLabel Label_Ticket;
-    private javax.swing.JLabel Label_Total;
     private javax.swing.JPanel Panel_Function;
     private javax.swing.JPanel Panel_Tabs;
     private static javax.swing.JScrollPane ScrollPane_Info;
-    private javax.swing.JLabel Slide;
     private static javax.swing.JTable Table_Info;
     private javax.swing.JTextField TextField_SearchContent;
+    private javax.swing.JLabel lb_Icon;
     // End of variables declaration//GEN-END:variables
 }
