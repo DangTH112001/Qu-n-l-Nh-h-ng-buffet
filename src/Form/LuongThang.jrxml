@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LuongTHang" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85d0f36-8a42-4486-a4bc-9cd295bfec2b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LuongTHang" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f85d0f36-8a42-4486-a4bc-9cd295bfec2b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -28,12 +28,8 @@ GROUP BY NHANVIEN.MANV, NHANVIEN.HOTEN]]>
 	</background>
 	<title>
 		<band height="80" splitType="Stretch">
-			<image scaleImage="RetainShape">
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="79" backcolor="#F0F0F0" uuid="62debfeb-8c28-430e-a791-4d66fa686090"/>
-				<imageExpression><![CDATA["resources\\Images\\BackgroundReport.jpg"]]></imageExpression>
-			</image>
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="79" forecolor="#78A8FC" uuid="1543f9bd-602d-42aa-b04f-a7a85b4dfe61"/>
+				<reportElement x="0" y="0" width="555" height="79" forecolor="#78A8FC" backcolor="#F0F0F0" uuid="1543f9bd-602d-42aa-b04f-a7a85b4dfe61"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="28" isBold="true"/>
 				</textElement>
