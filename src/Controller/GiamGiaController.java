@@ -6,11 +6,16 @@
 package Controller;
 
 import DBObject.SQLTable;
+//import static DBObject.SQLTable.connection;
 import MainView.ManagerHome;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,13 +23,22 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class GiamGiaController {
+    public static Connection connection;
+    private static String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
+    private static String UserName = "BuffetGO";
+    private static String Password = "123";
+    
     public static void update(Object[] data, int RowID) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update GIAMGIA "
                         + "set TENGG = ?, PHANTRAM = ?, LOAIKH = ?, NGBD = ?, NGKT = ?, TINHTRANG = ?"
                         + "where MAGG = ?";
         try {
+            connection = DriverManager.getConnection(URL, UserName, Password);
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
+            
             p_statement.setString(1, (String) data[1]);
             p_statement.setInt(2, Integer.parseInt((String) data[2]));
             p_statement.setInt(3, Integer.parseInt((String) data[3]));
@@ -34,13 +48,20 @@ public class GiamGiaController {
             p_statement.setString(7, (String) data[0]);
             
             p_statement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Update complete");
-            ManagerHome.update(data, RowID);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-        }
+            
+            if (ManagerHome.MaNV.equals("NV03")) {
+                TimeUnit.SECONDS.sleep(10);
+            }
+            else {
+                connection.commit();
+            }
+            connection.commit();
+            ManagerHome.set_Table("GIAMGIA");
     }
-    
+    catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage());
+    }
+}
     public static void add(Object[] data) {   
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "insert into GIAMGIA values (?, ?, ?, ?, ?, ?, ?)";
@@ -56,7 +77,7 @@ public class GiamGiaController {
             
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add complete");
-            ManagerHome.update(data);
+            ManagerHome.set_Table("GIAMGIA");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

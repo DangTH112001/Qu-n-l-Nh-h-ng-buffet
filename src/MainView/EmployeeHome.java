@@ -45,17 +45,8 @@ public class EmployeeHome extends javax.swing.JFrame {
     public EmployeeHome() {
         SQLTable table = new SQLTable();
         initComponents();
-        initIcon();
         switchState(true);
         initTable();
-    }
-    
-    private void initIcon() {
-        ImageIcon imageIcon = new ImageIcon("src\\Images\\logo.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(lb_Icon.getHeight(), lb_Icon.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon = new ImageIcon(newimg); 
-        lb_Icon.setIcon(imageIcon);
     }
     
     private void switchState(boolean state) {
@@ -126,6 +117,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         });
 
         lb_Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logoResize.png"))); // NOI18N
         lb_Icon.setAlignmentX(0.5F);
         lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 

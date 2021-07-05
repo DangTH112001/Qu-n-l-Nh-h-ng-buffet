@@ -11,7 +11,6 @@ import Form.TaiKhoan;
 import DBObject.SQLTable;
 import Form.DatVeForm;
 import java.awt.Color;
-import java.awt.Image;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +21,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -42,14 +40,12 @@ public class CustomerHome extends javax.swing.JFrame {
     
     public CustomerHome() {
         initComponents();
-        initIcon();
         SQLTable table = new SQLTable();   
     }
     
     public CustomerHome(String MaKH) {
         this.MaKH = MaKH;
         initComponents();
-        initIcon();
         SQLTable table = new SQLTable();   
         
         btn_Remove.setVisible(true);
@@ -59,15 +55,6 @@ public class CustomerHome extends javax.swing.JFrame {
         
         set_TableVe1();
         set_TableVe2();
-    }
-    
-    
-    private void initIcon() {
-        ImageIcon imageIcon = new ImageIcon("src\\Images\\logo.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(lb_Icon.getHeight(), lb_Icon.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon = new ImageIcon(newimg); 
-        lb_Icon.setIcon(imageIcon);
     }
     
     private void switchState(boolean state) {
@@ -228,6 +215,7 @@ public class CustomerHome extends javax.swing.JFrame {
         });
 
         lb_Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logoResize.png"))); // NOI18N
         lb_Icon.setAlignmentX(0.5F);
         lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 

@@ -39,7 +39,7 @@ public class KhachHangController {
 
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Update complete");
-            ManagerHome.update(data, RowID);
+            ManagerHome.set_Table("KHACHHANG");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -65,7 +65,7 @@ public class KhachHangController {
             
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add complete");
-            ManagerHome.update(data);
+            ManagerHome.set_Table("KHACHHANG");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }

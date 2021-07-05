@@ -8,6 +8,9 @@ package Form;
 import DBObject.SQLTable;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -371,14 +374,15 @@ public class ThongKeForm extends javax.swing.JFrame {
     private void showBaoCao() {
         Map parameters = new HashMap();
         parameters.put("YEAR", Integer.parseInt(tf_yearChart.getText()));
+        
         try {        
-            JasperDesign jd = JRXmlLoader.load("src\\report\\rpBaoCao.jrxml");
+            JasperDesign jd = JRXmlLoader.load(this.getClass().getResourceAsStream("rpBaoCao.jrxml"));
             JasperReport jr = JasperCompileManager.compileReport(jd);
             JasperPrint jp = JasperFillManager.fillReport(jr, parameters, SQLTable.connection);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -386,13 +390,13 @@ public class ThongKeForm extends javax.swing.JFrame {
         Map parameters = new HashMap();
         parameters.put("MONTH", getMonth((String) cb_Month.getSelectedItem()));
         try {        
-            JasperDesign jd = JRXmlLoader.load("src\\report\\LuongThang.jrxml");
+            JasperDesign jd = JRXmlLoader.load(this.getClass().getResourceAsStream("LuongThang.jrxml"));
             JasperReport jr = JasperCompileManager.compileReport(jd);
             JasperPrint jp = JasperFillManager.fillReport(jr, parameters, SQLTable.connection);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
         } catch (JRException ex) {
-            Logger.getLogger(ThongKeForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }//GEN-LAST:event_btn_exportSalaryMouseClicked
 

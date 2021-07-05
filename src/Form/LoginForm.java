@@ -55,6 +55,7 @@ public class LoginForm extends javax.swing.JFrame {
         Panel_LoginForm = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         Logo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         Label_Login = new javax.swing.JLabel();
         TextField_UserName = new javax.swing.JTextField();
         Label_UserName = new javax.swing.JLabel();
@@ -77,13 +78,21 @@ public class LoginForm extends javax.swing.JFrame {
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logo.png"))); // NOI18N
         Logo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        jLabel1.setFont(new java.awt.Font("Script MT Bold", 3, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(120, 168, 252));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("BuffetGO");
+        jLabel1.setAlignmentX(0.5F);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(59, 59, 59)
-                .addComponent(Logo)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Logo)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -91,7 +100,9 @@ public class LoginForm extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addComponent(Logo)
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         Panel_LoginForm.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 578));
@@ -277,6 +288,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPanel Panel_LoginForm;
     private javax.swing.JPasswordField TextField_Password;
     private javax.swing.JTextField TextField_UserName;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,19 +9,14 @@ import Controller.*;
 import Form.*;
 import DBObject.*;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -40,8 +35,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private int x = 0;
     public static String MaNV;
     
-    private void set_Table(String TableName) {
-        switchState(true);
+    public static void set_Table(String TableName) {
         String query = "select * from " + TableName;
         
         int Col = SQLTable.getLength(TableName);
@@ -69,22 +63,14 @@ public class ManagerHome extends javax.swing.JFrame {
             });
         }
     } 
+    
     public ManagerHome() {
         TagID = 1;
         SQLTable table = new SQLTable();
         initComponents();
-        initIcon();
         switchState(true);
         set_Table("NHANVIEN");
     } 
-    
-    private void initIcon() {
-        ImageIcon imageIcon = new ImageIcon("src\\Images\\logo.png"); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(lb_Icon.getHeight(), lb_Icon.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon = new ImageIcon(newimg); 
-        lb_Icon.setIcon(imageIcon);
-    }
 
     private void switchState(boolean state) {
         ScrollPane_Info.setVisible(state);
@@ -93,16 +79,6 @@ public class ManagerHome extends javax.swing.JFrame {
         TextField_SearchContent.setText("");
         TextField_SearchContent.setVisible(state);
     }  
-    public static void update(Object[] data) {
-        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
-        model.addRow(data);
-    } 
-    public static void update(Object[] data, int rowid) {
-        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
-        for (int i = 1; i <= data.length; i++) {
-            model.setValueAt(data[i - 1], rowid, i - 1);
-        }
-    }
       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -248,6 +224,7 @@ public class ManagerHome extends javax.swing.JFrame {
         });
 
         lb_Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logoResize.png"))); // NOI18N
         lb_Icon.setAlignmentX(0.5F);
         lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 

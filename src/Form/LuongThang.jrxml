@@ -30,7 +30,7 @@ GROUP BY NHANVIEN.MANV, NHANVIEN.HOTEN]]>
 		<band height="80" splitType="Stretch">
 			<image scaleImage="RetainShape">
 				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="555" height="79" backcolor="#F0F0F0" uuid="62debfeb-8c28-430e-a791-4d66fa686090"/>
-				<imageExpression><![CDATA["src\\Images\\BackgroundReport.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["resources\\Images\\BackgroundReport.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="79" forecolor="#78A8FC" uuid="1543f9bd-602d-42aa-b04f-a7a85b4dfe61"/>
