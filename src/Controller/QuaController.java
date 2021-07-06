@@ -6,6 +6,7 @@
 package Controller;
 
 import DBObject.SQLTable;
+import MainView.CustomerHome;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

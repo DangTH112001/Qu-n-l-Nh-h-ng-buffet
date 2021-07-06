@@ -33,7 +33,7 @@ import javax.swing.table.TableRowSorter;
  * @author DangT
  */
 public class CustomerHome extends javax.swing.JFrame {
-
+    public static boolean isOK;
     public static int Point;
     public static String MaKH;
     public static Object[] data = {};
@@ -47,6 +47,7 @@ public class CustomerHome extends javax.swing.JFrame {
         this.MaKH = MaKH;
         initComponents();
         SQLTable table = new SQLTable();   
+        isOK = true;
         
         btn_Remove.setVisible(true);
         btn_Exchange.setVisible(false);
@@ -525,7 +526,8 @@ public class CustomerHome extends javax.swing.JFrame {
         Object[] data = {MaKH, MaQua, format.format(date), SoLuong};
         
         DoiController.add(data);
-        update(data);
+        if (isOK)
+            update(data);
         lb_CurrentPoint.setText("Current Point: " + Point);
     }//GEN-LAST:event_btn_ExchangeMouseClicked
 

@@ -26,9 +26,9 @@ import java.util.logging.Logger;
  */
 public class SQLTable {
     public static Connection connection;
-    private static String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
-    private static String UserName = "BuffetGO";
-    private static String Password = "123";
+    public static String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
+    public static String UserName = "BuffetGO";
+    public static String Password = "123";
 
     public SQLTable() {
         getConn();

@@ -6,6 +6,8 @@
 package Controller;
 
 import DBObject.SQLTable;
+import Form.DatVeForm;
+import MainView.CustomerHome;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -44,7 +46,7 @@ public class VeController {
         }
     }
     
-    public static void add(Object[] data) {   
+    public static void add(Object[] data) { 
         DateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat tformat = new SimpleDateFormat("HH:mm:ss");
         String query = "insert into VE values (?, ?, ?, ?, ?, ?, ?, ?, ?)";

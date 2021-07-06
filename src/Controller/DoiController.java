@@ -6,6 +6,7 @@
 package Controller;
 
 import DBObject.SQLTable;
+import MainView.CustomerHome;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,8 +29,10 @@ public class DoiController {
             
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add complete");
+            CustomerHome.isOK = true;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            CustomerHome.isOK = false;
         }
     }
 }

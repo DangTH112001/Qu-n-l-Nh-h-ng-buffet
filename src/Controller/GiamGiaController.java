@@ -24,9 +24,6 @@ import javax.swing.JOptionPane;
  */
 public class GiamGiaController {
     public static Connection connection;
-    private static String URL = "jdbc:oracle:thin:@//localhost:1521/orclpdb";
-    private static String UserName = "BuffetGO";
-    private static String Password = "123";
     
     public static void update(Object[] data, int RowID) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -34,7 +31,7 @@ public class GiamGiaController {
                         + "set TENGG = ?, PHANTRAM = ?, LOAIKH = ?, NGBD = ?, NGKT = ?, TINHTRANG = ?"
                         + "where MAGG = ?";
         try {
-            connection = DriverManager.getConnection(URL, UserName, Password);
+            connection = DriverManager.getConnection(SQLTable.URL, SQLTable.UserName, SQLTable.Password);
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
@@ -49,12 +46,12 @@ public class GiamGiaController {
             
             p_statement.executeUpdate();
             
-            if (ManagerHome.MaNV.equals("NV03")) {
+            /*if (ManagerHome.MaNV.equals("NV03")) {
                 TimeUnit.SECONDS.sleep(10);
             }
             else {
                 connection.commit();
-            }
+            }*/
             connection.commit();
             ManagerHome.set_Table("GIAMGIA");
     }

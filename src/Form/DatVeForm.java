@@ -569,69 +569,72 @@ public class DatVeForm extends javax.swing.JFrame {
     private void btn_CreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CreateMouseClicked
         if (!check()) {
             JOptionPane.showMessageDialog(null, "Invalid input");
+            
         }
-        String VeID = SQLTable.getTableID("VE", "V");
-        int RowID = 0;
-        String CusID = CustomerHome.MaKH;
-        String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
-        String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
-        String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        
-        DateFormat time = new SimpleDateFormat("HH:mm:ss");
-        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        else {
+            String VeID = SQLTable.getTableID("VE", "V");
+            int RowID = 0;
+            String CusID = CustomerHome.MaKH;
+            String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
+            String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
+            String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        Object[] data = {
-            VeID,
-            tf_MaBan.getText(),
-            CusID,
-            date.format(dc_NgAn.getDate()),
-            date.format(new Date()),
-            TongCB.toString(),
-            TongMK.toString(),
-            time.format((Date) Spin_TGBD.getValue()),
-            time.format((Date) Spin_TGKT.getValue())
-        };
-        VeController.add(data);
-        
-        
-        
-        while (true) {
-            String name = (String) Table_Info.getValueAt(RowID, 0);
-            String soluong = (String) Table_Info.getValueAt(RowID, 2);
-            RowID++;
+            DateFormat time = new SimpleDateFormat("HH:mm:ss");
+            DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 
-            try {
-                if (name.contains("Combo")) {
-                    String Ma = MapCombo.get(name);
-                    int SL = Integer.parseInt(soluong);
+            Object[] data = {
+                VeID,
+                tf_MaBan.getText(),
+                CusID,
+                date.format(dc_NgAn.getDate()),
+                date.format(new Date()),
+                TongCB.toString(),
+                TongMK.toString(),
+                time.format((Date) Spin_TGBD.getValue()),
+                time.format((Date) Spin_TGKT.getValue())
+            };
+            VeController.add(data);
 
-                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
 
-                    stm.setString(1, Ma);
-                    stm.setString(2, VeID);
-                    stm.setInt(3, SL);
-                    stm.execute();
-                    stm.close();
+
+            while (true) {
+                String name = (String) Table_Info.getValueAt(RowID, 0);
+                String soluong = (String) Table_Info.getValueAt(RowID, 2);
+                RowID++;
+
+                try {
+                    if (name.contains("Combo")) {
+                        String Ma = MapCombo.get(name);
+                        int SL = Integer.parseInt(soluong);
+
+                        PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
+
+                        stm.setString(1, Ma);
+                        stm.setString(2, VeID);
+                        stm.setInt(3, SL);
+                        stm.execute();
+                        stm.close();
+                    }
+                    else {
+                        String Ma = MapMonKhac.get(name);
+                        int SL = Integer.parseInt(soluong);
+
+                        PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
+
+                        stm.setString(1, Ma);
+                        stm.setString(2, VeID);
+                        stm.setInt(3, SL);
+                        stm.execute();
+                        stm.close();
+                    }   
                 }
-                else {
-                    String Ma = MapCombo.get(name);
-                    int SL = Integer.parseInt(soluong);
-
-                    PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
-
-                    stm.setString(1, Ma);
-                    stm.setString(2, VeID);
-                    stm.setInt(3, SL);
-                    stm.execute();
-                    stm.close();
-                }   
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                    break;
+                }       
             }
-            catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-                break;
-            }       
-        }
-        dispose();
+            dispose();
+        }    
     }//GEN-LAST:event_btn_CreateMouseClicked
 
     private void Table_InfoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_Table_InfoInputMethodTextChanged
