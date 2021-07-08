@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpBaoCaoDoanhThu" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="031f4f33-5ba3-4304-b135-26956741e7c8">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="84"/>
 	<parameter name="YEAR" class="java.lang.Integer"/>
 	<queryString language="plsql">
 		<![CDATA[SELECT EXTRACT(MONTH FROM NGHD),EXTRACT(YEAR FROM NGHD),MAHD,TONGTIEN
@@ -81,7 +81,7 @@ ORDER BY EXTRACT(MONTH FROM NGHD)]]>
 					<textFieldExpression><![CDATA[$V{TONGTIEN_1}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="92" y="15" width="155" height="20" uuid="daaa1f3e-ab32-413e-bbe7-3435cecfad8d"/>
+					<reportElement x="210" y="15" width="155" height="20" uuid="daaa1f3e-ab32-413e-bbe7-3435cecfad8d"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font fontName="Lucida Bright" size="14" isBold="true"/>
 						<paragraph rightIndent="5"/>
@@ -91,13 +91,6 @@ ORDER BY EXTRACT(MONTH FROM NGHD)]]>
 				<line>
 					<reportElement x="39" y="0" width="462" height="1" uuid="d3c4caff-4939-44de-909a-63a2458035cc"/>
 				</line>
-				<textField>
-					<reportElement x="257" y="15" width="27" height="20" uuid="bcf01bec-5ef0-46e6-8833-210f573ec405"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
-						<font fontName="Lucida Bright" size="13"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$V{SOLUONG}]]></textFieldExpression>
-				</textField>
 			</band>
 		</groupFooter>
 	</group>

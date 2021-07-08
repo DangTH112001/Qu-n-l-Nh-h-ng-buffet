@@ -51,7 +51,7 @@ public class GiamGiaForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            GiamGiaController.update(getInfo(), RowID);
+            GiamGiaController.update(getInfo());
             dispose();
         }
         else 

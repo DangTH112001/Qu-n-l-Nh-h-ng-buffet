@@ -6,6 +6,7 @@
 package MainView;
 
 import Controller.DoiController;
+import Controller.KhachHangController;
 import Controller.VeController;
 import Form.TaiKhoan;
 import DBObject.SQLTable;
@@ -21,6 +22,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -50,6 +52,7 @@ public class CustomerHome extends javax.swing.JFrame {
         isOK = true;
         
         btn_Remove.setVisible(true);
+        btn_Update.setVisible(true);
         btn_Exchange.setVisible(false);
         lb_CurrentPoint.setVisible(false);
         switchState(true);
@@ -149,6 +152,7 @@ public class CustomerHome extends javax.swing.JFrame {
         Label_BookingHistory = new javax.swing.JLabel();
         Label_AccountManagement = new javax.swing.JLabel();
         lb_Icon = new javax.swing.JLabel();
+        Label_Delete = new javax.swing.JLabel();
         Icon_SearchQua = new javax.swing.JLabel();
         lb_CurrentPoint = new javax.swing.JLabel();
         Icon_SearchDoi = new javax.swing.JLabel();
@@ -161,6 +165,7 @@ public class CustomerHome extends javax.swing.JFrame {
         Func_Pane = new javax.swing.JPanel();
         btn_Exchange = new javax.swing.JButton();
         btn_Remove = new javax.swing.JButton();
+        btn_Update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Customer");
@@ -220,6 +225,18 @@ public class CustomerHome extends javax.swing.JFrame {
         lb_Icon.setAlignmentX(0.5F);
         lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
+        Label_Delete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Delete.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Delete.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_delete.png"))); // NOI18N
+        Label_Delete.setText("Delete Account");
+        Label_Delete.setIconTextGap(10);
+        Label_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_DeleteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
         Panel_TabsLayout.setHorizontalGroup(
@@ -233,7 +250,8 @@ public class CustomerHome extends javax.swing.JFrame {
                             .addComponent(Label_Create, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Label_AccountManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -250,7 +268,9 @@ public class CustomerHome extends javax.swing.JFrame {
                 .addComponent(Label_AccountManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_BookingHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(416, 416, 416))
+                .addGap(18, 18, 18)
+                .addComponent(Label_Delete, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(351, 351, 351))
         );
 
         Icon_SearchQua.setBackground(new java.awt.Color(255, 255, 255));
@@ -326,12 +346,21 @@ public class CustomerHome extends javax.swing.JFrame {
             }
         });
 
+        btn_Update.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        btn_Update.setText("Update");
+        btn_Update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_UpdateMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Func_PaneLayout = new javax.swing.GroupLayout(Func_Pane);
         Func_Pane.setLayout(Func_PaneLayout);
         Func_PaneLayout.setHorizontalGroup(
             Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_Exchange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-            .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(btn_Exchange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+            .addComponent(btn_Remove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+            .addComponent(btn_Update, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
         );
         Func_PaneLayout.setVerticalGroup(
             Func_PaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,6 +368,8 @@ public class CustomerHome extends javax.swing.JFrame {
                 .addComponent(btn_Exchange, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btn_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -402,6 +433,7 @@ public class CustomerHome extends javax.swing.JFrame {
 
     private void Label_GiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_GiftMouseClicked
         btn_Remove.setVisible(false);
+        btn_Update.setVisible(false);
         btn_Exchange.setVisible(true);
         lb_CurrentPoint.setVisible(true);
         switchState(true);
@@ -413,6 +445,7 @@ public class CustomerHome extends javax.swing.JFrame {
 
     private void Label_BookingHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_BookingHistoryMouseClicked
         btn_Remove.setVisible(true);
+        btn_Update.setVisible(true);
         btn_Exchange.setVisible(false);
         lb_CurrentPoint.setVisible(false);
         switchState(true);
@@ -423,7 +456,7 @@ public class CustomerHome extends javax.swing.JFrame {
 
     private void set_TableVe1() {
         Object[] Col = {"Mã vé", "Ngày ăn", "Thời gian bắt đầu", "Thời gian kết thúc"};
-        String query = "SELECT * FROM VE WHERE MAKH = ? AND NGAN >= SYSDATE";
+        String query = "SELECT * FROM VE WHERE MAKH = ? AND NGAN >= SYSDATE ORDER BY MAVE";
         DateFormat time = new SimpleDateFormat("HH:mm:ss");
         DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Table_Above.setModel(new DefaultTableModel(null, Col) { 
@@ -450,7 +483,7 @@ public class CustomerHome extends javax.swing.JFrame {
     
     private void set_TableVe2() {
         Object[] Col = {"Mã vé", "Ngày ăn", "Thời gian bắt đầu", "Thời gian kết thúc"};
-        String query = "SELECT * FROM VE WHERE MAKH = ? AND NGAN < SYSDATE";
+        String query = "SELECT * FROM VE WHERE MAKH = ? AND NGAN < SYSDATE ORDER BY MAVE";
         DateFormat time = new SimpleDateFormat("HH:mm:ss");
         DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
         Table_Below.setModel(new DefaultTableModel(null, Col) { 
@@ -589,15 +622,28 @@ public class CustomerHome extends javax.swing.JFrame {
         int RowID = Table_Above.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) Table_Above.getModel();
         
-        try {
-            String ID = (String) model.getValueAt(RowID, 0);
-            VeController.delete(ID);
-            model.removeRow(RowID);
-        }
-        catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        if (JOptionPane.showConfirmDialog(null, "Are you sure?", "WARNING",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                if (RowID >= 0) {
+                    String ID = (String) model.getValueAt(RowID, 0);
+                    VeController.delete(ID);
+                    model.removeRow(RowID);          
+                }
+            } 
     }//GEN-LAST:event_btn_RemoveMouseClicked
+
+    private void Label_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_DeleteMouseClicked
+        KhachHangController.delete(MaKH);
+        System.exit(0);
+    }//GEN-LAST:event_Label_DeleteMouseClicked
+
+    private void btn_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_UpdateMouseClicked
+        int RowID = Table_Above.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) Table_Above.getModel();
+    
+        DatVeForm dv = new DatVeForm((String) model.getValueAt(RowID, 0));
+        dv.setVisible(true);
+    }//GEN-LAST:event_btn_UpdateMouseClicked
 
     /**
      * @param args the command line arguments
@@ -641,6 +687,7 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_AccountManagement;
     private javax.swing.JLabel Label_BookingHistory;
     private javax.swing.JLabel Label_Create;
+    private javax.swing.JLabel Label_Delete;
     private javax.swing.JLabel Label_Gift;
     private javax.swing.JPanel Panel_Tabs;
     private javax.swing.JScrollPane ScrollPane_Doi;
@@ -651,6 +698,7 @@ public class CustomerHome extends javax.swing.JFrame {
     private javax.swing.JTextField TextField_SearchQua;
     private javax.swing.JButton btn_Exchange;
     private javax.swing.JButton btn_Remove;
+    private javax.swing.JButton btn_Update;
     private javax.swing.JLabel lb_CurrentPoint;
     private javax.swing.JLabel lb_Icon;
     // End of variables declaration//GEN-END:variables

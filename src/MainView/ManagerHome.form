@@ -57,7 +57,6 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Panel_Tabs" min="-2" max="-2" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -65,12 +64,16 @@
                   <Component id="Icon_Search" min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ScrollPane_Info" max="32767" attributes="0"/>
-                          <Component id="Panel_Function" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="Panel_Function" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Component id="Panel_Tabs" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="ScrollPane_Info" min="-2" pref="740" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -89,25 +92,29 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="Label_Report" min="-2" pref="217" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="Label_Combo" alignment="0" pref="220" max="32767" attributes="0"/>
-                          <Component id="Label_Food" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="Label_Gift" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
-                      <Component id="Label_Ticket" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
-                      <Component id="Label_Discount" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="Label_Shift" alignment="0" max="32767" attributes="0"/>
-                          <Component id="Label_Customer" alignment="0" pref="217" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="Label_Employee" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="lb_Icon" alignment="0" max="32767" attributes="0"/>
-                          <Component id="Label_CheckIn" alignment="0" pref="220" max="32767" attributes="0"/>
+                      <Component id="Label_Ca" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Label_Report" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="Label_Combo" alignment="0" pref="220" max="32767" attributes="0"/>
+                                  <Component id="Label_Food" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="Label_Gift" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="Label_Ticket" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="Label_Discount" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="Label_Customer" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="Label_Employee" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="lb_Icon" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="Label_CheckIn" alignment="0" pref="220" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="Label_Table" alignment="0" min="-2" pref="217" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -115,7 +122,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lb_Icon" pref="94" max="32767" attributes="0"/>
+                  <Component id="lb_Icon" min="-2" pref="94" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Label_CheckIn" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -133,10 +140,12 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Label_Customer" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="Label_Shift" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="Label_Ca" min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="Label_Table" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Label_Report" min="-2" pref="47" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -268,7 +277,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_TicketMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="Label_Shift">
+        <Component class="javax.swing.JLabel" name="Label_Table">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="18" style="0"/>
@@ -278,12 +287,12 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Images/ic_shift.png"/>
+              <Image iconType="3" name="/Images/ic_table.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Shift Management"/>
+            <Property name="text" type="java.lang.String" value="Table Management"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_ShiftMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_TableMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="Label_Report">
@@ -333,6 +342,24 @@
               <Connection code="BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE)" type="code"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Label_Ca">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Images/ic_shift.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Shift Management"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_CaMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -388,7 +415,7 @@
                   <Component id="Button_Remove" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Button_Update" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="454" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

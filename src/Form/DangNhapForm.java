@@ -25,14 +25,14 @@ import javax.swing.border.Border;
  *
  * @author Phan Hau
  */
-public class LoginForm extends javax.swing.JFrame {
+public class DangNhapForm extends javax.swing.JFrame {
     ManagerHome mh;
     EmployeeHome eh;
     CustomerHome ch;
     TaiKhoan ai;
     SQLTable table = new SQLTable();
     
-    public LoginForm() {
+    public DangNhapForm() {
         initComponents();
         Error.setVisible(false);
         mh = new ManagerHome();
@@ -197,7 +197,7 @@ public class LoginForm extends javax.swing.JFrame {
                 System.out.println(rs.getString("NGVL"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DangNhapForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {
             if (isLogin) {
@@ -223,7 +223,7 @@ public class LoginForm extends javax.swing.JFrame {
                 TaiKhoan.data = new Object[] {rs.getString("HOTEN"), rs.getString("GIOITINH"), format.format(rs.getDate("NGSINH")), rs.getString("DIACHI"), rs.getString("SDT"), rs.getString("MAGIOITHIEU")};
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DangNhapForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally {    
             if (isLogin) {
@@ -237,7 +237,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_Button_LoginMouseClicked
 
     private void Label_RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_RegisterMouseClicked
-        RegisterForm form = new RegisterForm();
+        DangKyForm form = new DangKyForm();
         form.setVisible(true);
         dispose();
     }//GEN-LAST:event_Label_RegisterMouseClicked
@@ -256,14 +256,18 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DangNhapForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -271,7 +275,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new DangNhapForm().setVisible(true);
              
             }
         });

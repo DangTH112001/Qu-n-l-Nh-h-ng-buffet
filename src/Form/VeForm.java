@@ -54,7 +54,7 @@ public class VeForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            VeController.update(getInfo(), RowID);
+            VeController.update(getInfo());
             dispose();
         }
         else 

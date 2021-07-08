@@ -20,6 +20,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -32,6 +34,14 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -71,6 +81,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         Panel_Function = new javax.swing.JPanel();
         Button_Remove = new javax.swing.JButton();
         Button_Update = new javax.swing.JButton();
+        Button_Print = new javax.swing.JButton();
         Icon_Search = new javax.swing.JLabel();
         TextField_SearchContent = new javax.swing.JTextField();
 
@@ -182,6 +193,14 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
+        Button_Print.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        Button_Print.setText("Print");
+        Button_Print.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Button_PrintMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_FunctionLayout = new javax.swing.GroupLayout(Panel_Function);
         Panel_Function.setLayout(Panel_FunctionLayout);
         Panel_FunctionLayout.setHorizontalGroup(
@@ -189,7 +208,8 @@ public class EmployeeHome extends javax.swing.JFrame {
             .addGroup(Panel_FunctionLayout.createSequentialGroup()
                 .addGroup(Panel_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Button_Remove, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                    .addComponent(Button_Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Button_Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Button_Print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         Panel_FunctionLayout.setVerticalGroup(
@@ -198,6 +218,8 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(Button_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Button_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Button_Print, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -362,6 +384,24 @@ public class EmployeeHome extends javax.swing.JFrame {
         initTable();
     }//GEN-LAST:event_Label_ReceiptMouseClicked
 
+    private void Button_PrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_PrintMouseClicked
+        int RowID = Table_Info.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+        String ID = (String) model.getValueAt(RowID, 0);
+        
+        Map parameters = new HashMap();
+        parameters.put("MAHD", ID);
+        try {        
+            JasperDesign jd = JRXmlLoader.load(this.getClass().getResourceAsStream("HoaDon.jrxml"));
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parameters, SQLTable.connection);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_Button_PrintMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -398,6 +438,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_Print;
     private javax.swing.JButton Button_Remove;
     private javax.swing.JButton Button_Update;
     private javax.swing.JLabel Icon_Search;

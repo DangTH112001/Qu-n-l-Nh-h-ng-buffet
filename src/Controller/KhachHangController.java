@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class KhachHangController {
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update KHACHHANG "
                         + "set HOTEN = ?, GIOITINH = ?, NGSINH = ?, LOAIKH = ?, SDT = ?, DIACHI = ?, TAIKHOAN = ?, MATKHAU = ?, MAGIOITHIEU = ?, DIEMTL = ?"

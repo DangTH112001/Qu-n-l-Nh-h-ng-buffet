@@ -46,7 +46,7 @@ public class HoaDonForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            HoaDonController.update(getInfo(), RowID);
+            HoaDonController.update(getInfo());
             dispose();
         }
         else 

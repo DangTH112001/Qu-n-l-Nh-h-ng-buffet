@@ -5,7 +5,7 @@
  */
 package buffetgo;
 
-import Form.LoginForm;
+import Form.DangNhapForm;
 import MainView.ManagerHome;
 
 /**
@@ -18,7 +18,7 @@ public class BuffetGO {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        LoginForm form = new LoginForm();
+        DangNhapForm form = new DangNhapForm();
         form.setVisible(true);
     }
     

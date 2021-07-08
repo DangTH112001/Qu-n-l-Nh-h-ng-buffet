@@ -10,6 +10,7 @@ import DBObject.SQLTable;
 import MainView.CustomerHome;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -37,6 +38,7 @@ public class DatVeForm extends javax.swing.JFrame {
     private Integer TongCB = 0;
     private Integer TongMK = 0;
     CustomerHome home;
+    String MaVe;
     
     Map<String, String> MapCombo;
     Map<String, String> MapMonKhac;
@@ -45,12 +47,14 @@ public class DatVeForm extends javax.swing.JFrame {
     private boolean state = false;
     private Date date;
     
-    public DatVeForm() {
-        DateFormat time = new SimpleDateFormat("HH:mm:ss");
+    public DatVeForm(String MaVe) {
+        this.MaVe = MaVe;
         SQLTable table = new SQLTable();
-        
+        DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat time = new SimpleDateFormat("HH:mm:ss");
         this.date = new Date();
         initComponents();
+        btn_Create.setText("Update");
         home = new CustomerHome();
         MapCombo = new HashMap<>();
         MapMonKhac = new HashMap<>();
@@ -59,13 +63,88 @@ public class DatVeForm extends javax.swing.JFrame {
         initCombo();
         initMonKhac();
         initInfo();
+        
         try {
-            dc_NgAn.setDate(new Date());
-            Spin_TGBD.setValue(time.parse("00:00:00"));
-            Spin_TGKT.setValue(time.parse("00:00:00"));
-        } catch (ParseException ex) {
+            String query = "SELECT MABAN, TGBD, TGKT, NGAN, TONGCB, TONGMK FROM VE WHERE MAVE = ?";
+            
+            PreparedStatement st = SQLTable.connection.prepareStatement(query);
+            st.setString(1, MaVe);
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                tf_MaBan.setText(rs.getString("MABAN"));
+                dc_NgAn.setDate(rs.getDate("NGAN"));
+                Spin_TGBD.setValue(rs.getDate("TGBD"));
+                Spin_TGKT.setValue(rs.getDate("TGKT"));
+                tf_TongCB.setText(rs.getString("TONGCB"));
+                tf_TongMK.setText(rs.getString("TONGMK"));
+                Integer i = rs.getInt("TONGCB") + rs.getInt("TONGMK");
+                tf_Tong.setText(i.toString());
+            }
+            
+            st.close();
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(DatVeForm.class.getName()).log(Level.SEVERE, null, ex);
         }
+        DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
+        try {
+            String queryCB = "SELECT TENCB, GIA, SOLUONG FROM CTCB INNER JOIN COMBO ON CTCB.MACB = COMBO.MACB WHERE MAVE = ?";
+            String queryMK = "SELECT TENMK, GIA, SOLUONG FROM CTMK INNER JOIN MONKHAC ON CTMK.MAMK = MONKHAC.MAMK WHERE MAVE = ?";
+            String DeleteCB = "DELETE FROM CTCB WHERE MAVE = ?";
+            String DeleteMK = "DELETE FROM CTMK WHERE MAVE = ?";
+            
+            PreparedStatement st = SQLTable.connection.prepareStatement(queryCB);
+            st.setString(1, MaVe);
+            ResultSet rs = st.executeQuery();
+            
+            while (rs.next()) {
+                model.addRow(new Object[] {rs.getString("TENCB"), rs.getInt("GIA"), rs.getString("SOLUONG")});
+            }
+            
+            st.close();
+            
+            st = SQLTable.connection.prepareStatement(queryMK);
+            st.setString(1, MaVe);
+            rs = st.executeQuery();
+            
+            while (rs.next()) {
+                model.addRow(new Object[] {rs.getString("TENMK"), rs.getInt("GIA"), rs.getString("SOLUONG")});
+            }
+            
+            st.close();
+            
+            st = SQLTable.connection.prepareStatement(DeleteCB);
+            st.setString(1, MaVe);
+            st.execute();
+            st.close();
+            
+            st = SQLTable.connection.prepareStatement(DeleteMK);
+            st.setString(1, MaVe);
+            st.execute();
+            st.close();
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DatVeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public DatVeForm() {
+        DateFormat time = new SimpleDateFormat("HH:mm:ss");
+        SQLTable table = new SQLTable();
+        
+        this.date = new Date();
+        initComponents();
+        btn_Create.setText("Create");
+        home = new CustomerHome();
+        MapCombo = new HashMap<>();
+        MapMonKhac = new HashMap<>();
+        MapBan = new HashMap<>();
+            
+        initCombo();
+        initMonKhac();
+        initInfo();
+        
     }
     
     private void initBan() {
@@ -286,6 +365,11 @@ public class DatVeForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        Table_Info.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                Table_InfoComponentAdded(evt);
+            }
+        });
         Table_Info.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Table_InfoMouseClicked(evt);
@@ -304,8 +388,8 @@ public class DatVeForm extends javax.swing.JFrame {
             }
         });
         Table_Info.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                Table_InfoKeyTyped(evt);
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Table_InfoKeyPressed(evt);
             }
         });
         jScrollPane4.setViewportView(Table_Info);
@@ -520,7 +604,7 @@ public class DatVeForm extends javax.swing.JFrame {
         int RowID = Table_Combo.getSelectedRow();
         
         DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
-        model.addRow(new Object[] {Table_Combo.getValueAt(RowID, 0), Table_Combo.getValueAt(RowID, 2), "1"});
+        model.addRow(new Object[] {(String) Table_Combo.getValueAt(RowID, 0),(Integer) Table_Combo.getValueAt(RowID, 2), "1"});
         
         
         TongCB += (int) Table_Combo.getValueAt(RowID, 2);
@@ -534,8 +618,7 @@ public class DatVeForm extends javax.swing.JFrame {
         int RowID = Table_MonKhac.getSelectedRow();
         
         DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
-        model.addRow(new Object[] {Table_MonKhac.getValueAt(RowID, 0), Table_MonKhac.getValueAt(RowID, 1), "1"});
-
+        model.addRow(new Object[] {(String) Table_MonKhac.getValueAt(RowID, 0),(Integer) Table_MonKhac.getValueAt(RowID, 1), "1"});
         
         TongMK += (int) Table_MonKhac.getValueAt(RowID, 1);
         tf_TongMK.setText(TongMK.toString());
@@ -557,15 +640,14 @@ public class DatVeForm extends javax.swing.JFrame {
                 }
             }
         }
+        else {
+            updateTong();
+        }
     }//GEN-LAST:event_Table_InfoMouseClicked
 
     private void Table_InfoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_Table_InfoPropertyChange
         updateTong();
     }//GEN-LAST:event_Table_InfoPropertyChange
-
-    private void Table_InfoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Table_InfoKeyTyped
-        updateTong();
-    }//GEN-LAST:event_Table_InfoKeyTyped
 
     private void btn_CreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_CreateMouseClicked
         if (!check()) {
@@ -573,74 +655,142 @@ public class DatVeForm extends javax.swing.JFrame {
             
         }
         else {
-            String VeID = SQLTable.getTableID("VE", "V");
-            int RowID = 0;
-            String CusID = CustomerHome.MaKH;
-            String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
-            String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
-            String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            if (btn_Create.getText().equals("Create")) {
+                String VeID = SQLTable.getTableID("VE", "V");
+                int RowID = 0;
+                String CusID = CustomerHome.MaKH;
+                String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
+                String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
+                String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            DateFormat time = new SimpleDateFormat("HH:mm:ss");
-            DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                DateFormat time = new SimpleDateFormat("HH:mm:ss");
+                DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
 
-            Object[] data = {
-                VeID,
-                tf_MaBan.getText(),
-                CusID,
-                date.format(dc_NgAn.getDate()),
-                date.format(new Date()),
-                TongCB.toString(),
-                TongMK.toString(),
-                time.format((Date) Spin_TGBD.getValue()),
-                time.format((Date) Spin_TGKT.getValue())
-            };
-            VeController.add(data);
+                Object[] data = {
+                    VeID,
+                    tf_MaBan.getText(),
+                    CusID,
+                    date.format(dc_NgAn.getDate()),
+                    date.format(new Date()),
+                    TongCB.toString(),
+                    TongMK.toString(),
+                    time.format((Date) Spin_TGBD.getValue()),
+                    time.format((Date) Spin_TGKT.getValue())
+                };
+                VeController.add(data);
 
+                while (true) {
+                    String name = (String) Table_Info.getValueAt(RowID, 0);
+                    String soluong = (String) Table_Info.getValueAt(RowID, 2);
+                    RowID++;
 
+                    try {
+                        if (name.contains("Combo")) {
+                            String Ma = MapCombo.get(name);
+                            int SL = Integer.parseInt(soluong);
 
-            while (true) {
-                String name = (String) Table_Info.getValueAt(RowID, 0);
-                String soluong = (String) Table_Info.getValueAt(RowID, 2);
-                RowID++;
+                            PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
 
-                try {
-                    if (name.contains("Combo")) {
-                        String Ma = MapCombo.get(name);
-                        int SL = Integer.parseInt(soluong);
+                            stm.setString(1, Ma);
+                            stm.setString(2, VeID);
+                            stm.setInt(3, SL);
+                            stm.execute();
+                            stm.close();
+                        }
+                        else {
+                            String Ma = MapMonKhac.get(name);
+                            int SL = Integer.parseInt(soluong);
 
-                        PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
+                            PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
 
-                        stm.setString(1, Ma);
-                        stm.setString(2, VeID);
-                        stm.setInt(3, SL);
-                        stm.execute();
-                        stm.close();
+                            stm.setString(1, Ma);
+                            stm.setString(2, VeID);
+                            stm.setInt(3, SL);
+                            stm.execute();
+                            stm.close();
+                        }   
                     }
-                    else {
-                        String Ma = MapMonKhac.get(name);
-                        int SL = Integer.parseInt(soluong);
-
-                        PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
-
-                        stm.setString(1, Ma);
-                        stm.setString(2, VeID);
-                        stm.setInt(3, SL);
-                        stm.execute();
-                        stm.close();
-                    }   
-                }
-                catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                    break;
+                    catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                        break;
+                    }
                 }       
+            }
+            else {
+                int RowID = 0;
+                String CusID = CustomerHome.MaKH;
+                String queryCB = "INSERT INTO CTCB VALUES (?, ?, ?)";
+                String queryMK = "INSERT INTO CTMK VALUES (?, ?, ?)";
+                String queryVe = "INSERT INTO VE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                DateFormat time = new SimpleDateFormat("HH:mm:ss");
+                DateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+
+                Object[] data = {
+                    MaVe,
+                    tf_MaBan.getText(),
+                    CusID,
+                    date.format(dc_NgAn.getDate()),
+                    date.format(new Date()),
+                    TongCB.toString(),
+                    TongMK.toString(),
+                    time.format((Date) Spin_TGBD.getValue()),
+                    time.format((Date) Spin_TGKT.getValue())
+                };
+                VeController.update(data);
+
+                while (true) {
+                    String name = (String) Table_Info.getValueAt(RowID, 0);
+                    String soluong = (String) Table_Info.getValueAt(RowID, 2);
+                    RowID++;
+
+                    try {
+                        if (name.contains("Combo")) {
+                            String Ma = MapCombo.get(name);
+                            int SL = Integer.parseInt(soluong);
+
+                            PreparedStatement stm = SQLTable.connection.prepareStatement(queryCB);
+
+                            stm.setString(1, Ma);
+                            stm.setString(2, MaVe);
+                            stm.setInt(3, SL);
+                            stm.execute();
+                            stm.close();
+                        }
+                        else {
+                            String Ma = MapMonKhac.get(name);
+                            int SL = Integer.parseInt(soluong);
+
+                            PreparedStatement stm = SQLTable.connection.prepareStatement(queryMK);
+
+                            stm.setString(1, Ma);
+                            stm.setString(2, MaVe);
+                            stm.setInt(3, SL);
+                            stm.execute();
+                            stm.close();
+                        }   
+                    }
+                    catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                        break;
+                    }
+                }     
             }
             dispose();
         }    
     }//GEN-LAST:event_btn_CreateMouseClicked
 
+    private void Table_InfoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Table_InfoKeyPressed
+        updateTong();
+    }//GEN-LAST:event_Table_InfoKeyPressed
+
     private void Table_InfoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_Table_InfoInputMethodTextChanged
         updateTong();
     }//GEN-LAST:event_Table_InfoInputMethodTextChanged
+
+    private void Table_InfoComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_Table_InfoComponentAdded
+        updateTong();
+    }//GEN-LAST:event_Table_InfoComponentAdded
     
     private boolean check() {
         DateFormat time = new SimpleDateFormat("HH:mm:ss");
@@ -678,7 +828,7 @@ public class DatVeForm extends javax.swing.JFrame {
                 if (tmp.contains("Combo")) {
                     TongCB += money * Integer.parseInt(soluong);
                 }
-                else {
+                else if (tmp != null) {
                     TongMK += money * Integer.parseInt(soluong);
                 }
             }
@@ -687,7 +837,7 @@ public class DatVeForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cannot contain character");
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("1" + ex.getMessage());
         }
         
         tf_TongCB.setText(TongCB.toString());

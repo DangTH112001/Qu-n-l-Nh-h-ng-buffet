@@ -104,6 +104,7 @@
                               <Component id="Label_Gift" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                               <Component id="Label_AccountManagement" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                               <Component id="Label_BookingHistory" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                              <Component id="Label_Delete" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -125,7 +126,9 @@
                   <Component id="Label_AccountManagement" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Label_BookingHistory" min="-2" pref="47" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="416" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="Label_Delete" min="-2" pref="47" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="351" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -218,6 +221,25 @@
               <Connection code="BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE)" type="code"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Label_Delete">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="2"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Images/ic_delete.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Delete Account"/>
+            <Property name="iconTextGap" type="int" value="10"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_DeleteMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -340,8 +362,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="btn_Exchange" alignment="1" pref="190" max="32767" attributes="0"/>
-              <Component id="btn_Remove" alignment="1" pref="190" max="32767" attributes="0"/>
+              <Component id="btn_Exchange" alignment="1" pref="214" max="32767" attributes="0"/>
+              <Component id="btn_Remove" alignment="1" pref="214" max="32767" attributes="0"/>
+              <Component id="btn_Update" alignment="0" pref="214" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -350,6 +373,8 @@
                   <Component id="btn_Exchange" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_Remove" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btn_Update" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -376,6 +401,17 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_RemoveMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_Update">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Update"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btn_UpdateMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

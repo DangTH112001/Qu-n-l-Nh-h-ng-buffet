@@ -6,7 +6,6 @@
 package Controller;
 
 import DBObject.SQLTable;
-import MainView.CustomerHome;
 import MainView.ManagerHome;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,11 +15,11 @@ import javax.swing.JOptionPane;
  *
  * @author DangT
  */
-public class QuaController {
+public class BanController {
     public static void update(Object[] data) {
-        String query = "update QUA "
-                        + "set TENQUA = ?, DIEMDOI = ?"
-                        + "where MAQUA = ?";
+        String query = "update BAN "
+                        + "set LOAIBAN = ?, SONGUOI = ?"
+                        + "where MABAN = ?";
         try {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, (String) data[1]);
@@ -29,14 +28,14 @@ public class QuaController {
 
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Update complete");
-            ManagerHome.set_Table("QUA");
+            ManagerHome.set_Table("BAN");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
     public static void add(Object[] data) {    
-        String query = "insert into QUA values (?, ?, ?)";
+        String query = "insert into BAN values (?, ?, ?)";
         try {
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, (String) data[0]);
@@ -45,7 +44,7 @@ public class QuaController {
             
             p_statement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Add complete");
-            ManagerHome.set_Table("QUA");
+            ManagerHome.set_Table("BAN");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -53,7 +52,7 @@ public class QuaController {
     
     public static void delete(String ID) {
         try {
-            String query = "delete from QUA where MAQUA = ?";
+            String query = "delete from BAN where MABAN = ?";
             PreparedStatement p_statement = SQLTable.connection.prepareStatement(query);
             p_statement.setString(1, ID);
             p_statement.executeUpdate();

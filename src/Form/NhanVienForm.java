@@ -49,7 +49,7 @@ public class NhanVienForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            NhanVienController.update(getInfo(), RowID);
+            NhanVienController.update(getInfo());
             dispose();
         }
         else 

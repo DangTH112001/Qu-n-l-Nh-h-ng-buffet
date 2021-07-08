@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class NhanVienController {
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update NHANVIEN "
                         + "set MAQUANLY = ?, HOTEN = ?, GIOITINH = ?, DIACHI = ?, CHUCVU = ?, SDT = ?, LUONG = ?, NGSINH = ?, TAIKHOAN = ?, MATKHAU = ?"

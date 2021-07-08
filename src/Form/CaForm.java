@@ -56,7 +56,7 @@ public class CaForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            CaController.update(getInfo(), RowID);
+            CaController.update(getInfo());
             dispose();
         }
         else 

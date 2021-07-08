@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class MonKhacController {   
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         String query = "update MONKHAC "
                         + "set TENMK = ?, GIA = ?"
                         + "where MAMK = ?";

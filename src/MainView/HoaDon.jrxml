@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HoaDon" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18dee79f-4c53-469a-9635-f5347c116faf">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="MAHD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    HOADON.MAHD "MAHD",
+    HOADON.MAKH "MAKH",
+    HOADON.MANV "MANV",
+    HOADON.TONGTIEN "TONGTIEN",
+    GET_DISCOUNT_PERCENT(HOADON.MAGG) "PHANTRAM",
+    1 - GET_DISCOUNT_PERCENT(HOADON.MAGG) "PHANTRAM2",
+    HOADON.MAVE "MAVE",
+    T.TENCB "TENMONAN",
+    T.GIA "GIA",
+    T.SOLUONG "SOLUONG"
+FROM
+    HOADON,
+    (
+        SELECT MAVE, TENCB, SOLUONG, GIA
+        FROM (CTCB INNER JOIN COMBO ON CTCB.MACB = COMBO.MACB)
+        UNION ALL
+        SELECT MAVE, TENMK, SOLUONG, GIA
+        FROM (CTMK INNER JOIN MONKHAC ON CTMK.MAMK = MONKHAC.MAMK)
+    ) T
+WHERE
+    HOADON.MAHD = $P{MAHD} AND
+    T.MAVE = HOADON.MAVE AND
+    T.MAVE = HOADON.MAVE]]>
+	</queryString>
+	<field name="MAHD" class="java.lang.String"/>
+	<field name="MAKH" class="java.lang.String"/>
+	<field name="MANV" class="java.lang.String"/>
+	<field name="TONGTIEN" class="java.math.BigDecimal"/>
+	<field name="PHANTRAM" class="java.math.BigDecimal"/>
+	<field name="PHANTRAM2" class="java.math.BigDecimal"/>
+	<field name="MAVE" class="java.lang.String"/>
+	<field name="TENMONAN" class="java.lang.String"/>
+	<field name="GIA" class="java.math.BigDecimal"/>
+	<field name="SOLUONG" class="java.math.BigDecimal"/>
+	<variable name="Tong" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{TONGTIEN}.multiply($F{PHANTRAM2})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="147" splitType="Stretch">
+			<staticText>
+				<reportElement x="175" y="10" width="234" height="40" forecolor="#78A8FC" uuid="7ac1fd75-9645-4f02-be3e-0c92797b3c3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="20" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[ BuffetGO Receipt]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="90" width="100" height="20" forecolor="#78A8FC" uuid="b9e5e203-bc67-4d18-97e2-9108bdae4d3f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAHD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="90" width="22" height="20" forecolor="#78A8FC" uuid="68b55b97-bf6f-4407-9045-a04b94f60da4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="110" width="43" height="20" forecolor="#78A8FC" uuid="831719f4-e426-491a-9acc-34ea8a96e011"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CusID:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="75" y="110" width="100" height="20" forecolor="#78A8FC" uuid="2ce363ea-3ca7-4a31-99d0-30c337b054b2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAKH}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="70" width="89" height="20" forecolor="#78A8FC" uuid="f1ad77fb-223e-4816-bb12-bc5ec6c30775"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Created:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="449" y="70" width="95" height="20" forecolor="#78A8FC" uuid="c05d2f38-4bee-4ff4-8893-73a9132550fd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="35" uuid="9a33be14-9762-469e-853a-c2bfbb92e6c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Order]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="90" height="35" uuid="8f5c2fee-e75e-4d6d-bc93-cb19b2b015d5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantity]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="0" width="100" height="35" uuid="b9fcfabd-73ac-4217-966a-f029f0fa4cd3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Lucida Bright" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="039b4b03-4abb-4c3e-858f-08d22f231f6a"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="39">
+			<textField>
+				<reportElement x="0" y="11" width="90" height="20" uuid="4a19caf4-69a2-4edf-977e-20f9fd505218"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENMONAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="11" width="90" height="20" uuid="33310f58-de78-4863-8654-7af1999b2f86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SOLUONG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="11" width="100" height="20" uuid="d675ba49-434a-4897-a8a4-893f7d02849d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GIA}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="109" splitType="Stretch">
+			<line>
+				<reportElement x="349" y="72" width="206" height="1" uuid="86b25e63-7f1d-49c5-9be1-187d8a44b11f"/>
+			</line>
+			<staticText>
+				<reportElement x="359" y="41" width="74" height="20" uuid="c402eaf8-3a55-42f0-afce-bd8a00c1829e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="10" width="74" height="20" uuid="47b257e8-7a05-4096-b71d-4504a1104078"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="72" width="84" height="30" uuid="2b1ad857-ff45-4578-8116-9afd7d76235b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Final Price]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="434" y="10" width="100" height="20" uuid="a40e75c8-8308-44b2-8a4a-6654f63f1690"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TONGTIEN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0 %">
+				<reportElement x="434" y="41" width="100" height="20" uuid="6dad04d9-2978-4ae1-89a3-9df143231c50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PHANTRAM}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="7554cbf5-30a2-4094-b060-ecffb82a2363"/>
+			</line>
+			<textField pattern="###0">
+				<reportElement x="434" y="72" width="100" height="30" uuid="05e269df-c653-4d2d-bfee-f75805ef2c9b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{Tong}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

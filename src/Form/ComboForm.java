@@ -42,7 +42,7 @@ public class ComboForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            ComboController.update(getInfo(), RowID);
+            ComboController.update(getInfo());
             dispose();
         }
         else 

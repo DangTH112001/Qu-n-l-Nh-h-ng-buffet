@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class GiamGiaController {
     public static Connection connection;
     
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update GIAMGIA "
                         + "set TENGG = ?, PHANTRAM = ?, LOAIKH = ?, NGBD = ?, NGKT = ?, TINHTRANG = ?"

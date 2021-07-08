@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class CaController {  
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         DateFormat format = new SimpleDateFormat("HH:mm:ss");
         String query = "update CA "
                         + "set TGBD = ?, TGKT = ?, LOAICA = ?"

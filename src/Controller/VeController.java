@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class VeController {
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         DateFormat dformat = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat tformat = new SimpleDateFormat("HH:mm:ss");
         String query = "update VE "

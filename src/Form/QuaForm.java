@@ -41,7 +41,7 @@ private int TAG;
     
     private void update() {
         if (check()) {
-            QuaController.update(getInfo(), RowID);
+            QuaController.update(getInfo());
             dispose();
         }
         else 

@@ -49,7 +49,7 @@ public class KhachHangForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            KhachHangController.update(getInfo(), RowID);
+            KhachHangController.update(getInfo());
             dispose();
         }
         else 

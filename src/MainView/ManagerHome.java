@@ -29,9 +29,9 @@ import javax.swing.table.TableRowSorter;
  */
 public class ManagerHome extends javax.swing.JFrame {
     private static int TagID = 0;
-    private static String[] Table = {"", "NHANVIEN", "COMBO", "MONKHAC", "QUA", "VE", "GIAMGIA", "KHACHHANG", "CA", "HOADON"};
-    private static String[] Ma = {"", "MANV", "MACB", "MAMK", "MAQUA", "MAVE", "MAGG", "MAKH", "MACA", "MAHD"};
-    private static String[] Prefix = {"", "NV", "CB", "MK", "Q", "V", "GG", "KH", "C", "HD"};
+    private static String[] Table = {"", "NHANVIEN", "COMBO", "MONKHAC", "QUA", "VE", "GIAMGIA", "KHACHHANG", "CA", "HOADON", "BAN"};
+    private static String[] Ma = {"", "MANV", "MACB", "MAMK", "MAQUA", "MAVE", "MAGG", "MAKH", "MACA", "MAHD", "MABAN"};
+    private static String[] Prefix = {"", "NV", "CB", "MK", "Q", "V", "GG", "KH", "C", "HD", "B"};
     private int x = 0;
     public static String MaNV;
     
@@ -92,10 +92,11 @@ public class ManagerHome extends javax.swing.JFrame {
         Label_Gift = new javax.swing.JLabel();
         Label_Customer = new javax.swing.JLabel();
         Label_Ticket = new javax.swing.JLabel();
-        Label_Shift = new javax.swing.JLabel();
+        Label_Table = new javax.swing.JLabel();
         Label_Report = new javax.swing.JLabel();
         Label_CheckIn = new javax.swing.JLabel();
         lb_Icon = new javax.swing.JLabel();
+        Label_Ca = new javax.swing.JLabel();
         ScrollPane_Info = new javax.swing.JScrollPane();
         Table_Info = new javax.swing.JTable();
         Panel_Function = new javax.swing.JPanel();
@@ -190,14 +191,14 @@ public class ManagerHome extends javax.swing.JFrame {
             }
         });
 
-        Label_Shift.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        Label_Shift.setForeground(new java.awt.Color(255, 255, 255));
-        Label_Shift.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        Label_Shift.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_shift.png"))); // NOI18N
-        Label_Shift.setText("Shift Management");
-        Label_Shift.addMouseListener(new java.awt.event.MouseAdapter() {
+        Label_Table.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Table.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Table.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Table.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_table.png"))); // NOI18N
+        Label_Table.setText("Table Management");
+        Label_Table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Label_ShiftMouseClicked(evt);
+                Label_TableMouseClicked(evt);
             }
         });
 
@@ -228,6 +229,17 @@ public class ManagerHome extends javax.swing.JFrame {
         lb_Icon.setAlignmentX(0.5F);
         lb_Icon.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
+        Label_Ca.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        Label_Ca.setForeground(new java.awt.Color(255, 255, 255));
+        Label_Ca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        Label_Ca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/ic_shift.png"))); // NOI18N
+        Label_Ca.setText("Shift Management");
+        Label_Ca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_CaMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout Panel_TabsLayout = new javax.swing.GroupLayout(Panel_Tabs);
         Panel_Tabs.setLayout(Panel_TabsLayout);
         Panel_TabsLayout.setHorizontalGroup(
@@ -235,27 +247,30 @@ public class ManagerHome extends javax.swing.JFrame {
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                        .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_Ticket, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(Label_Shift, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_Customer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
-                    .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lb_Icon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Label_CheckIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Label_Ca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(Panel_TabsLayout.createSequentialGroup()
+                        .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Label_Combo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                .addComponent(Label_Food, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Label_Gift, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Ticket, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Discount, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Label_Employee, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lb_Icon, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Label_CheckIn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                            .addComponent(Label_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         Panel_TabsLayout.setVerticalGroup(
             Panel_TabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_TabsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lb_Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addComponent(lb_Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_CheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -273,10 +288,12 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(Label_Customer, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Label_Shift, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Label_Ca, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Label_Table, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Label_Report, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ScrollPane_Info.setPreferredSize(new java.awt.Dimension(1050, 670));
@@ -337,7 +354,7 @@ public class ManagerHome extends javax.swing.JFrame {
                 .addComponent(Button_Remove, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Button_Update, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(454, Short.MAX_VALUE))
         );
 
         Icon_Search.setBackground(new java.awt.Color(255, 255, 255));
@@ -376,7 +393,6 @@ public class ManagerHome extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Panel_Tabs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,9 +400,13 @@ public class ManagerHome extends javax.swing.JFrame {
                     .addComponent(Icon_Search, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ScrollPane_Info, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Panel_Function, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addComponent(Panel_Function, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(Panel_Tabs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ScrollPane_Info, javax.swing.GroupLayout.PREFERRED_SIZE, 740, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -413,7 +433,7 @@ public class ManagerHome extends javax.swing.JFrame {
                         case 6: {GiamGiaController.delete(ID); break;}
                         case 7: {KhachHangController.delete(ID); break;}
                         case 8: {CaController.delete(ID); break;}
-                        case 9: {HoaDonController.delete(ID); break;}
+                        case 10: {BanController.delete(ID); break;}
                     }
                     
                     DefaultTableModel model = (DefaultTableModel) Table_Info.getModel();
@@ -468,7 +488,7 @@ public class ManagerHome extends javax.swing.JFrame {
             case 6: {GiamGiaForm add = new GiamGiaForm(); add.setVisible(true); break;}
             case 7: {KhachHangForm add = new KhachHangForm(); add.setVisible(true); break;}
             case 8: {CaForm add = new CaForm(); add.setVisible(true); break;}
-            case 9: {HoaDonForm add = new HoaDonForm(); add.setVisible(true); break;}
+            case 10: {BanForm add = new BanForm(); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_AddMouseClicked
     private void Button_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Button_UpdateMouseClicked
@@ -491,7 +511,7 @@ public class ManagerHome extends javax.swing.JFrame {
             case 6: {GiamGiaForm add = new GiamGiaForm(result, RowID); add.setVisible(true); break;}
             case 7: {KhachHangForm add = new KhachHangForm(result, RowID); add.setVisible(true); break;}
             case 8: {CaForm add = new CaForm(result, RowID); add.setVisible(true); break;}
-            
+            case 10: {BanForm add = new BanForm(result, RowID); add.setVisible(true); break;}
         }
     }//GEN-LAST:event_Button_UpdateMouseClicked
     private void Label_CheckInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CheckInMouseClicked
@@ -515,11 +535,11 @@ public class ManagerHome extends javax.swing.JFrame {
             Logger.getLogger(ManagerHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Label_ReportMouseClicked
-    private void Label_ShiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_ShiftMouseClicked
-        TagID = 8;
+    private void Label_TableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_TableMouseClicked
+        TagID = 10;
         switchState(true);
-        set_Table("CA");
-    }//GEN-LAST:event_Label_ShiftMouseClicked
+        set_Table("BAN");
+    }//GEN-LAST:event_Label_TableMouseClicked
     private void Label_TicketMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_TicketMouseClicked
         TagID = 5;
         switchState(true);
@@ -556,6 +576,12 @@ public class ManagerHome extends javax.swing.JFrame {
         switchState(true);
         set_Table("GIAMGIA");
     }//GEN-LAST:event_Label_DiscountMouseClicked
+
+    private void Label_CaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_CaMouseClicked
+        TagID = 8;
+        switchState(true);
+        set_Table("CA");
+    }//GEN-LAST:event_Label_CaMouseClicked
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -596,6 +622,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private javax.swing.JButton Button_Remove;
     private javax.swing.JButton Button_Update;
     private javax.swing.JLabel Icon_Search;
+    private javax.swing.JLabel Label_Ca;
     private javax.swing.JLabel Label_CheckIn;
     private javax.swing.JLabel Label_Combo;
     private javax.swing.JLabel Label_Customer;
@@ -604,7 +631,7 @@ public class ManagerHome extends javax.swing.JFrame {
     private javax.swing.JLabel Label_Food;
     private javax.swing.JLabel Label_Gift;
     private javax.swing.JLabel Label_Report;
-    private javax.swing.JLabel Label_Shift;
+    private javax.swing.JLabel Label_Table;
     private javax.swing.JLabel Label_Ticket;
     private javax.swing.JPanel Panel_Function;
     private javax.swing.JPanel Panel_Tabs;

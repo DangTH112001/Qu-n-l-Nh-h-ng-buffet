@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class HoaDonController {
-     public static void update(Object[] data, int RowID) {
+     public static void update(Object[] data) {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         String query = "update HOADON "
                         + "set MANV = ?, MAKH = ?, MAVE = ?, MAGG = ?, TONGTIEN = ?, NGHD = ?"

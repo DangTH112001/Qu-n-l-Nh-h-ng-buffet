@@ -54,6 +54,7 @@ public class SQLTable {
             case "CA" : res = Ca.ColumnName.length; break;
             case "HOADON": res = HoaDon.ColumnName.length; break;
             case "DOI" : res = Doi.ColumnName.length; break;
+            case "BAN" : res = Ban.ColumnName.length; break;
             default: break;
         }
         
@@ -131,6 +132,11 @@ public class SQLTable {
                 res = d.get_Properties();
                 break;
             }
+            case "BAN" : {
+                Ban b = new Ban(rs);
+                res = b.get_Properties();
+                break;
+            }
             default: break;
         }
         
@@ -178,6 +184,10 @@ public class SQLTable {
             }
             case "DOI" : {
                 res = Doi.ColumnName;
+                break;
+            }
+            case "BAN" : {
+                res = Ban.ColumnName;
                 break;
             }
             default: break;

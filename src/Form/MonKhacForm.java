@@ -41,7 +41,7 @@ public class MonKhacForm extends javax.swing.JFrame {
     
     private void update() {
         if (check()) {
-            MonKhacController.update(getInfo(), RowID);
+            MonKhacController.update(getInfo());
             dispose();
         }
         else 

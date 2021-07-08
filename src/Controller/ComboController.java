@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author DangT
  */
 public class ComboController {
-    public static void update(Object[] data, int RowID) {
+    public static void update(Object[] data) {
         String query = "update COMBO "
                         + "set TENCB = ?, GIA = ?, SONGUOI = ?"
                         + "where MACB = ?";

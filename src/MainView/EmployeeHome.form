@@ -216,6 +216,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="Button_Remove" alignment="0" pref="190" max="32767" attributes="0"/>
                       <Component id="Button_Update" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Button_Print" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -227,6 +228,8 @@
                   <Component id="Button_Remove" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="Button_Update" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="Button_Print" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -253,6 +256,17 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_UpdateMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Button_Print">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Calibri" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Print"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Button_PrintMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
